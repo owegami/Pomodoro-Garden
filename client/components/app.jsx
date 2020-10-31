@@ -3,11 +3,15 @@ import TimerVisual from './timer.jsx';
 import Visualizer from './visualizer.jsx';
 
 const App = () => {
-  //declare state here when we want some
+  const [sessionTotal, setSession] = useState(60000 * 25);
+  const [direction, setDirection] = useState('backward')
 
   return (
     <div>
-      <TimerVisual />
+      <TimerVisual
+        sessionTotal={sessionTotal}
+        direction={direction}
+      />
       <Visualizer />
     </div>
   )

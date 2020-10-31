@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const LapsedVisual = () => {
+const Visualizer = () => {
   //declare state here when we want some
 
   return (
     <div>
-      <span>Lapsed Visual</span>
+      <span>Visualizer</span>
     </div>
   )
 }
 
-export default LapsedVisual;
+export default Visualizer;
