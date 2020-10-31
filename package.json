@@ -1,0 +1,47 @@
+{
+  "name": "pomodoro_garden",
+  "version": "1.0.0",
+  "description": "Productivity visualizer for routine and internal motivation building.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server/server.js",
+    "build": "webpack -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owegami/hrr48-mvp.git"
+  },
+  "keywords": [
+    "pomodoro",
+    "garden",
+    "plant",
+    "visualizer",
+    "visual",
+    "react",
+    "node",
+    "mongo"
+  ],
+  "author": "Susannah Marcus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owegami/hrr48-mvp/issues"
+  },
+  "homepage": "https://github.com/owegami/hrr48-mvp#readme",
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "axios": "^0.21.0",
+    "babel": "^6.23.0",
+    "express": "^4.17.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1",
+    "webpack": "^4.44.2 ",
+    "webpack-cli": "^3.3.12"
+  }
+}
