@@ -5,7 +5,14 @@ const UserSchema = new mongoose.Schema({
   name: String,
   password: String,
   totalTime: Number,
-  preferredSettings: Object
+  breakLength: Number,
+  sessionLength: Number,
+  timerStyle: String,
+  numberOfSessions: Number,
+  projects: Array, //currently unused
+  currentProject: String  //currently unused
 })
 
-exports.User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;
