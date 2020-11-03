@@ -1,6 +1,14 @@
-const mongooe = require('mongoose');
-const mongoURL = 'mongodb://localhost/pomodorotimer';
+const db = require('./../database/dbindex.js');
+const User = require('./../database/userSchema.js');
 
-mongoose.connect(mongoURL, {useNewUrlParser: true, useUnifiedTopology: true });
+exports.sendUserPrefs = () => {
 
-exports.db = mongoose.connect(mongoURL);
+}
+
+exports.sendUserTimes = () => {
+
+}
+
+exports.initializeUser = () => {
+
+}
