@@ -50,12 +50,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   const [customTime, setCustomTime] = useState();
   const [customNumberOfSessions, setCustomSessionCount] = useState();
 
-  // conditional rendering of the custom boxes line locations:
-  // line 59: isCustomSessions & isCustomNumberOfSessions
-  // line : isCustomSessions
-  // line : isCustomNumberOfSessions
-  // line : sans customization
-
   const renderCustomTimeInput = () => {
     if (isCustomSessions) {
       return (
