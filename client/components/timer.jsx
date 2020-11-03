@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Minutes from './minutes.jsx';
 import Seconds from './seconds.jsx';
+import sounds from './../../public/sounds.js'
 
 const TimerBox = styled.div`
   border: 10px dashed DarkSeaGreen;
@@ -51,6 +52,9 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   const [isSession, switchToSession] = useState(true);
   const [isBreak, switchToBreak] = useState(false);
   let interval;
+  let chimes1 = new sounds.chimes1();
+  let chimes2 = new sounds.chimes2();
+
 
   // console.log(directionHolder, sessionHolder, breakTotal, pomodoros);
 
@@ -98,6 +102,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
       if(counter === sessionTotal) {
         logTime(true);
+        chimes2.play();
         switchToSession(false);
         switchToBreak(true);
       }
@@ -120,6 +125,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
       if(counter === 0) {
         logTime(true);
+        chimes2.play();
         switchToSession(false);
         switchToBreak(true);
       }

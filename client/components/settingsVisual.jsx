@@ -5,7 +5,7 @@ const CurrentSettingsBox = styled.div`
   margin-top: 25px;
 `;
 
-const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn }) => {
+const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver }) => {
   return (
     <CurrentSettingsBox>
       <div>
@@ -23,6 +23,14 @@ const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, 
       <div>
         Pomodoros/Sessions:<br/>
         {pomodoros}<br/>
+      </div>
+      <div>
+        Minutes total today:<br/>
+        {Math.floor(totalTime / 60)}<br/>
+      </div>
+      <div>
+        Total time logged ever:<br/>
+        {totalTimeEver}<br/>
       </div>
     </CurrentSettingsBox>
   )

@@ -39,7 +39,7 @@ const TextInputBox = styled.input`
   font-family: charybdis;
   font-size: .8em;
   color: DarkOliveGreen;
-  margin: 5px;
+  margin: 5px -50px 5px 5px;
   border: 4px solid DarkSeaGreen;
   box-shadow: 2px 2px SlateGrey;
 `;
@@ -54,6 +54,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (isCustomSessions) {
       return (
         <>
+        <br/>
           <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
             setCustomTime(event.target.value);
           }}></TextInputBox>
@@ -65,7 +66,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
             setTimeout(() => {
               setCustomSessions(false);
             }, 1000);
-            setCustomTime();
+            setCustomTime(); //flushing
           }}>Set Time</Button>
         </>
       )
@@ -80,8 +81,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (isCustomNumberOfSessions) {
       return (
         <>
+        <br/>
           <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-              setCustomTime(event.target.value);
+              setCustomSessionCount(event.target.value);
             }}></TextInputBox>
             <br />
             <Button onClick={(e) => {
@@ -91,6 +93,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
               setTimeout(() => {
                 setCustomNumberOfSessions(false);
               }, 1000);
+              setCustomSessionCount(); //flushing
             }}>Set Number of Sessions</Button>
         </>
       )
@@ -102,7 +105,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   }
 
   return (
-    <CurrentSettingsForm>
+    <CurrentSettingsForm onSubmit={(e) => {
+      e.preventDefault();
+      setNewSettings(true);
+    }}>
       <SettingsQuestion>
         <label>
           Choose session length: <br/>
@@ -174,6 +180,8 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           {renderCustomSessionNumberInput()}
         </label>
       </SettingsQuestion>
+      <br/>
+      <Button>Set Timer Settings</Button>
     </CurrentSettingsForm>
   )
 }
