@@ -56,353 +56,132 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   // line : isCustomNumberOfSessions
   // line : sans customization
 
-  if (isCustomSessions && isCustomNumberOfSessions) {
-    return (
-      <CurrentSettingsForm>
-        <SettingsQuestion>
-          <label>
-            Choose session length: <br/>
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                console.log('number', value);
-                setSession(value * 60);
-              } else {
-                console.log('setting custom');
-                setCustomSessions(true);
-                console.log('set custom', isCustomSessions);
-              }
-              }}>
-              <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
-              <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-              <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-              <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
-            </DropDownMenus>
-            <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-              setCustomTime(event.target.value);
-            }}></TextInputBox>
-            <br />
-            <Button onClick={(e) => {
-              e.preventDefault();
-              setSession(customTime * 60);
-              setNewSettings(true);
-              setTimeout(() => {
-                setCustomSessions(false);
-              }, 1000);
-              setCustomTime();
-            }}>Set Time</Button>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose timer style:<br/>
-            <DropDownMenus onChange={() => {
-              setDirection(event.target.value);
-            }}>
-              <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
-              <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
-              <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br/>
-        <SettingsQuestion>
-          <label>
-            Choose break length(minutes):<br />
-            <DropDownMenus onChange={() => {
-              setBreaks(event.target.value);
-            }}>
-              <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-              <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
-              <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
-              <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
-              <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose number of sessions/pomodoros:<br />
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                setNumberOfSessions(event.target.value);
-              } else {
-                setCustomNumberOfSessions(true);
-              }
-            }}>
-              <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-              <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
-              <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
-              <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
-              <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
-            </DropDownMenus>
-            <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-              setCustomTime(event.target.value);
-            }}></TextInputBox>
-            <br />
-            <Button onClick={(e) => {
-              e.preventDefault();
-              setNumberOfSessions(customTime);
-              setNewSettings(true);
-              setTimeout(() => {
-                setCustomNumberOfSessions(false);
-              }, 1000);
-            }}>Set Number of Sessions</Button>
-          </label>
-        </SettingsQuestion>
-      </CurrentSettingsForm>
-    )
-  } else if (isCustomSessions && !isCustomNumberOfSessions) {
-    return (
-      <CurrentSettingsForm>
-        <SettingsQuestion>
-          <label>
-            Choose session length: <br/>
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                console.log('number', value);
-                setSession(value * 60);
-              } else {
-                console.log('setting custom');
-                setCustomSessions(true);
-                console.log('set custom', isCustomSessions);
-              }
-              }}>
-              <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
-              <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-              <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-              <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
-            </DropDownMenus>
-            <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-              setCustomTime(event.target.value);
-            }}></TextInputBox>
-            <br />
-            <Button onClick={(e) => {
-              e.preventDefault();
-              setSession(customTime * 60);
-              setNewSettings(true);
-              setTimeout(() => {
-                setCustomSessions(false);
-              }, 1000);
-              setCustomTime();
-            }}>Set Time</Button>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose timer style:<br/>
-            <DropDownMenus onChange={() => {
-              setDirection(event.target.value);
-            }}>
-              <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
-              <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
-              <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br/>
-        <SettingsQuestion>
-          <label>
-            Choose break length(minutes):<br />
-            <DropDownMenus onChange={() => {
-              setBreaks(event.target.value);
-            }}>
-              <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-              <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
-              <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
-              <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
-              <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose number of sessions/pomodoros:<br />
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                setNumberOfSessions(event.target.value);
-              } else {
-                setCustomNumberOfSessions(true);
-              }
-            }}>
-              <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-              <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
-              <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
-              <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
-              <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-      </CurrentSettingsForm>
-    )
-  } else if (!isCustomSessions && isCustomNumberOfSessions) {
-    return (
-      <CurrentSettingsForm>
-        <SettingsQuestion>
-          <label>
-            Choose session length: <br/>
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                console.log('number', value);
-                setSession(value * 60);
-              } else {
-                console.log('setting custom');
-                setCustomSessions(true);
-                console.log('set custom', isCustomSessions);
-              }
-              }}>
-              <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
-              <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-              <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-              <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose timer style:<br/>
-            <DropDownMenus onChange={() => {
-              setDirection(event.target.value);
-            }}>
-              <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
-              <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
-              <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br/>
-        <SettingsQuestion>
-          <label>
-            Choose break length(minutes):<br />
-            <DropDownMenus onChange={() => {
-              setBreaks(event.target.value);
-            }}>
-              <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-              <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
-              <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
-              <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
-              <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose number of sessions/pomodoros:<br />
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                setNumberOfSessions(event.target.value);
-              } else {
-                setCustomNumberOfSessions(true);
-              }
-            }}>
-              <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-              <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
-              <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
-              <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
-              <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
-            </DropDownMenus>
-            <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-              setCustomTime(event.target.value);
-            }}></TextInputBox>
-            <br />
-            <Button onClick={(e) => {
-              e.preventDefault();
-              setNumberOfSessions(customTime);
-              setNewSettings(true);
-              setTimeout(() => {
-                setCustomNumberOfSessions(false);
-              }, 1000);
-            }}>Set Number of Sessions</Button>
-          </label>
-        </SettingsQuestion>
-      </CurrentSettingsForm>
-    )
-  } else {
-    return (
-      <CurrentSettingsForm>
-        <SettingsQuestion>
-          <label>
-            Choose session length: <br/>
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                console.log('number', value);
-                setSession(value * 60);
-              } else {
-                console.log('setting custom');
-                setCustomSessions(true);
-                console.log('set custom', isCustomSessions);
-              }
-              }}>
-              <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
-              <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-              <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-              <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose timer style:<br/>
-            <DropDownMenus onChange={() => {
-              setDirection(event.target.value);
-            }}>
-              <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
-              <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
-              <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br/>
-        <SettingsQuestion>
-          <label>
-            Choose break length(minutes):<br />
-            <DropDownMenus onChange={() => {
-              setBreaks(event.target.value);
-            }}>
-              <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-              <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
-              <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
-              <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
-              <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-        <br />
-        <SettingsQuestion>
-          <label>
-            Choose number of sessions/pomodoros:<br />
-            <DropDownMenus onChange={() => {
-              let value = Number.parseInt(event.target.value);
-              if (Number.isNaN(value) === false) {
-                setNumberOfSessions(event.target.value);
-              } else {
-                setCustomNumberOfSessions(true);
-              }
-            }}>
-              <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-              <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
-              <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
-              <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
-              <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
-            </DropDownMenus>
-          </label>
-        </SettingsQuestion>
-      </CurrentSettingsForm>
-    )
+  const renderCustomTimeInput = () => {
+    if (isCustomSessions) {
+      return (
+        <>
+          <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
+            setCustomTime(event.target.value);
+          }}></TextInputBox>
+          <br />
+          <Button onClick={(e) => {
+            e.preventDefault();
+            setSession(customTime * 60);
+            setNewSettings(true);
+            setTimeout(() => {
+              setCustomSessions(false);
+            }, 1000);
+            setCustomTime();
+          }}>Set Time</Button>
+        </>
+      )
+    } else {
+      return (
+        <></>
+      )
+    }
   }
+
+  const renderCustomSessionNumberInput = () => {
+    if (isCustomNumberOfSessions) {
+      return (
+        <>
+          <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
+              setCustomTime(event.target.value);
+            }}></TextInputBox>
+            <br />
+            <Button onClick={(e) => {
+              e.preventDefault();
+              setNumberOfSessions(customTime);
+              setNewSettings(true);
+              setTimeout(() => {
+                setCustomNumberOfSessions(false);
+              }, 1000);
+            }}>Set Number of Sessions</Button>
+        </>
+      )
+    } else {
+      return (
+        <></>
+      )
+    }
+  }
+
+  return (
+    <CurrentSettingsForm>
+      <SettingsQuestion>
+        <label>
+          Choose session length: <br/>
+          <DropDownMenus onChange={() => {
+            let value = Number.parseInt(event.target.value);
+            if (Number.isNaN(value) === false) {
+              console.log('number', value);
+              setSession(value * 60);
+            } else {
+              console.log('setting custom');
+              setCustomSessions(true);
+              console.log('set custom', isCustomSessions);
+            }
+            }}>
+            <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
+            <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
+            <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
+            <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
+          </DropDownMenus>
+          {renderCustomTimeInput()}
+        </label>
+      </SettingsQuestion>
+      <br />
+      <SettingsQuestion>
+        <label>
+          Choose timer style:<br/>
+          <DropDownMenus onChange={() => {
+            setDirection(event.target.value);
+          }}>
+            <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
+            <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
+            <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
+          </DropDownMenus>
+        </label>
+      </SettingsQuestion>
+      <br/>
+      <SettingsQuestion>
+        <label>
+          Choose break length(minutes):<br />
+          <DropDownMenus onChange={() => {
+            setBreaks(event.target.value);
+          }}>
+            <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
+            <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
+            <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
+            <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
+            <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
+          </DropDownMenus>
+        </label>
+      </SettingsQuestion>
+      <br />
+      <SettingsQuestion>
+        <label>
+          Choose number of sessions/pomodoros:<br />
+          <DropDownMenus onChange={() => {
+            let value = Number.parseInt(event.target.value);
+            if (Number.isNaN(value) === false) {
+              setNumberOfSessions(event.target.value);
+            } else {
+              setCustomNumberOfSessions(true);
+            }
+          }}>
+            <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
+            <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
+            <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
+            <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
+            <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
+          </DropDownMenus>
+          {renderCustomSessionNumberInput()}
+        </label>
+      </SettingsQuestion>
+    </CurrentSettingsForm>
+  )
 }
 
 export default Settings;
