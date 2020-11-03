@@ -62,7 +62,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={(e) => {
             e.preventDefault();
             setSession(customTime * 60);
-            setNewSettings(true);
+            // setNewSettings(true);
             setTimeout(() => {
               setCustomSessions(false);
             }, 1000);
@@ -89,7 +89,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
             <Button onClick={(e) => {
               e.preventDefault();
               setNumberOfSessions(customTime);
-              setNewSettings(true);
+              // setNewSettings(true);
               setTimeout(() => {
                 setCustomNumberOfSessions(false);
               }, 1000);
