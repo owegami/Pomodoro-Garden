@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Minutes from './minutes.jsx';
-import Seconds from './seconds.jsx';
 import sounds from './../../public/sounds.js'
 
 const TimerBox = styled.div`
@@ -17,7 +15,7 @@ const PauseMessageBox = styled.div`
   position: absolute;
   background-color: white;
   color: RebeccaPurple;
-  font-size:1em;
+  font-size: 1em;
   right: 5%;
   top: 10%;
   width: 100px;
@@ -34,12 +32,15 @@ const PauseMessage = styled.span`
 `;
 
 const Button = styled.button`
+  position: relative;
   font-family: charybdis;
-  font-size: .8em;
+  font-size: 1.5em;
   color: DarkOliveGreen;
-  border: 4px dashed DarkSeaGreen;
+  border: 6px dashed DarkSeaGreen;
   background-color: white;
-  margin: 2px;
+  margin: 0px 10px;
+  right: 5%;
+  left: 2%;
 `;
 
 const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime }) => {

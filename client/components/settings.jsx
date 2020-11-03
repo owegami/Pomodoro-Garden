@@ -6,6 +6,7 @@ const CurrentSettingsForm = styled.form`
 `;
 
 const SettingsQuestion = styled.div`
+  margin: -10px 0px;
 `;
 
 const DropDownMenus = styled.select`
@@ -63,9 +64,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
             e.preventDefault();
             setSession(customTime * 60);
             // setNewSettings(true);
-            setTimeout(() => {
-              setCustomSessions(false);
-            }, 1000);
             setCustomTime(); //flushing
           }}>Set Time</Button>
         </>
@@ -90,9 +88,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
               e.preventDefault();
               setNumberOfSessions(customTime);
               // setNewSettings(true);
-              setTimeout(() => {
-                setCustomNumberOfSessions(false);
-              }, 1000);
               setCustomSessionCount(); //flushing
             }}>Set Number of Sessions</Button>
         </>

@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
-const Visualizer = () => {
-  //declare state here when we want some
+const VisualizerBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border: 11px dashed #4b692f;
+  border-radius: 1em;
+  padding: 10px;
+`;
+
+const PlantImg = styled.img`
+  align-self: flex-end;
+  margin-bottom: 30px;
+`;
+
+const Visualizer = ({totalTimeEver, plantChoice, growthRate, plantMaxImgNum }) => {
+  let imgNumber = Math.floor(((totalTimeEver / 60) / 2) / growthRate);
+  imgNumber = imgNumber > plantMaxImgNum ? plantMaxImgNum : imgNumber;
+  const plant = `/images/${plantChoice}_${imgNumber}.png`;
 
   return (
-    <div>
-      <span>Visualizer</span>
-    </div>
+    <VisualizerBox>
+      <PlantImg src={plant} />
+    </VisualizerBox>
   )
 }
 

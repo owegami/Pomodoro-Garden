@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import Login from './login.jsx';
 import TimerVisual from './timer.jsx';
 import Visualizer from './visualizer.jsx';
 import SettingsVisual from './settingsVisual.jsx';
@@ -71,6 +72,7 @@ const ServerResponseMessage = styled.div`
 `;
 
 const App = () => {
+  //timer states
   const [sessionTotal, setSession] = useState(1500);
   const [direction, setDirection] = useState('backward');
   const [totalTimeEver, addToTotalTimeEver] = useState(0);
@@ -80,10 +82,19 @@ const App = () => {
   const [isSet, setNewSettings] = useState(false);
   const [breakTotal, setBreaks] = useState(5);
   const [pomodoros, setNumberOfSessions] = useState(4);
+
+  //visualizer states
+  const [plantChoice, setPlantChoice] = useState('Tomato');
+  const [growthRate, setGrowthRate] = useState(1);
+  const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
+
+  //server states
   const [willLogTime, logTime] = useState(false);
   const [errorPresent, errorThrown] = useState(false);
   const [haveServerMessage, setHaveServerMessage] = useState(false);
   const [serverResponseMessage, setSeverResponseMessage] = useState();
+  const [user, setUser] = useState();
+  const [password, setPassword] = useState();
 
   useEffect(() => {
     if (willLogTime) {
@@ -147,7 +158,12 @@ const App = () => {
   return (
     <ComponentContainer>
       <ComponentColumnContainer>
-        <Visualizer />
+        <Visualizer
+        plantChoice={plantChoice}
+        totalTimeEver={totalTimeEver}
+        growthRate={growthRate}
+        plantMaxImgNum={plantMaxImgNum}
+        />
         <Settings
           setSession={setSession}
           setDirection={setDirection}
@@ -158,6 +174,10 @@ const App = () => {
         />
       </ComponentColumnContainer>
       <ComponentColumnContainer>
+      <Login
+        setUser={setUser}
+        setPassword={setPassword}
+      />
       <TimerVisual
         sessionTotal={sessionTotal}
         direction={direction}
