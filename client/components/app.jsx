@@ -35,7 +35,7 @@ const ErrorMessageBox = styled.div`
   box-shadow: 2px 2px SlateGrey;
 `;
 
-const ErrorMessage =  styled.span`
+const Message =  styled.span`
   position: absolute;
   margin-top: 21px;
   padding: 10px;
@@ -48,10 +48,26 @@ const XButton = styled.div`
   width: 25px;
   height: 30px;
   z-index: 3;
-  border: 4px solid darkred;
+  border: 4px solid;
   text-align: center;
   vertical-align: center;
   cursor: pointer;
+`;
+
+const ServerResponseMessage = styled.div`
+  position: absolute;
+  background-color: white;
+  color: DarkOliveGreen;
+  font-size:1em;
+  right: 5%;
+  top: 20%;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: 100px;
+  max-height: 200px;
+  z-index: 2;
+  border: 4px solid DarkOliveGreen;
+  box-shadow: 2px 2px SlateGrey;
 `;
 
 const App = () => {
@@ -66,6 +82,8 @@ const App = () => {
   const [pomodoros, setNumberOfSessions] = useState(4);
   const [willLogTime, logTime] = useState(false);
   const [errorPresent, errorThrown] = useState(false);
+  const [haveServerMessage, setHaveServerMessage] = useState(false);
+  const [serverResponseMessage, setSeverResponseMessage] = useState();
 
   useEffect(() => {
     if (willLogTime) {
@@ -73,12 +91,14 @@ const App = () => {
         total: sessionTotal
       }
       axios({
-        url: '/timelog',
-        method: 'POST',
+        url: '/timer/timelog',
+        method: 'PATCH',
         data: data
       })
-      .then((newTotalTime) => {
-        console.log(newTotalTime);
+      .then((response) => {
+        console.log(response);
+        setHaveServerMessage(true);
+        setSeverResponseMessage(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -86,6 +106,26 @@ const App = () => {
       })
     }
   }, [willLogTime])
+
+  const renderServerMessage = () => {
+    if (!haveServerMessage) {
+      return (
+        <></>
+      )
+    } else {
+      setTimeout(() => {
+        setHaveServerMessage(false);
+      }, 5000)
+      return (
+        <ServerResponseMessage>
+          <XButton onClick={() => {
+            setHaveServerMessage(false);
+          }}>X</XButton>
+          <Message>{serverResponseMessage}</Message>
+        </ServerResponseMessage>
+      )
+    }
+  }
 
   const renderError = () => {
     if (!errorPresent) {
@@ -98,7 +138,7 @@ const App = () => {
           <XButton onClick={() => {
             errorThrown(false);
           }}>X</XButton>
-          <ErrorMessage>Please excuse the inconvience. There seems to have been an error logging your total time. If this problem persists, please contact developer.</ErrorMessage>
+          <Message>Please excuse the inconvience. There seems to have been an error logging your total time. If this problem persists, please contact developer.</Message>
         </ErrorMessageBox>
       )
     }
@@ -136,6 +176,7 @@ const App = () => {
         logTime={logTime}
       />
       {renderError()}
+      {renderServerMessage()}
         <SettingsVisual
           sessionTotal={sessionTotal}
           direction={direction}
