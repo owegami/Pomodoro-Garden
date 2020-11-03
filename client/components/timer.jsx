@@ -61,7 +61,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
   useEffect(() => {
     if (isSet) {
-      console.log('made it in here!');
       setDirHolder(direction);
       setSessHolder(sessionTotal);
       setNewSettings(false);
@@ -71,7 +70,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
   useEffect(() => {
     if (isReset) {
-      console.log('checking issue')
       setSessHolder(sessionHolder);
     }
   }, [isReset, sessionHolder, directionHolder])

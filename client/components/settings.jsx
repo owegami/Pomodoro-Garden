@@ -45,7 +45,7 @@ const TextInputBox = styled.input`
   box-shadow: 2px 2px SlateGrey;
 `;
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions }) => {
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings }) => {
   const [isCustomSessions, setCustomSessions] = useState(false);
   const [isCustomNumberOfSessions, setCustomNumberOfSessions] = useState(false);
   const [customTime, setCustomTime] = useState();
@@ -95,6 +95,21 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     } else {
       return (
         <></>
+      )
+    }
+  }
+
+  const renderSaveSettingsButton = () => {
+    if (user.length > 0 && password.length > 0) {
+      return (
+        <Button onClick={() => {setToSaveSettings(true)}}>Save Settings</Button>
+      )
+    } else {
+      return (
+        <>
+        <br/>
+        <span>Login to save settings</span>
+        </>
       )
     }
   }
@@ -157,7 +172,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
       <br />
       <SettingsQuestion>
         <label>
-          Choose number of sessions/pomodoros:<br />
+          Choose number of sessions:<br />
           <DropDownMenus onChange={() => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
@@ -176,7 +191,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
         </label>
       </SettingsQuestion>
       <br/>
-      <Button>Set Timer Settings</Button>
+      <Button onClick={() => {setNewSettings(true)}}>Set Timer Settings</Button>
+      <br/>
+      {renderSaveSettingsButton()}
     </CurrentSettingsForm>
   )
 }

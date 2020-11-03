@@ -7,10 +7,16 @@ app.use(express.json());
 
 app.use('/',express.static(__dirname + '/../public'));
 
-app.get('/timer/user', (req, res) => {
-  connections.initializeUser(req.body)
+app.post('/timer/user/login', (req, res) => {
+  console.log(req.data, req.body);
+  connections.initializeUser(req.body.name, req.body.password)
     .then((result) => {
-      res.send(result);
+      console.log(result);
+      if (result.length === 0) {
+        res.send('There is no record of that user');
+      } else {
+        res.send(result);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -18,7 +24,7 @@ app.get('/timer/user', (req, res) => {
     })
 })
 
-app.post('/timer/user', (req, res) => {
+app.post('/timer/user/creation', (req, res) => {
   connections.createUser(req.body.name, req.body)
   .then((result) => {
     res.send(result);

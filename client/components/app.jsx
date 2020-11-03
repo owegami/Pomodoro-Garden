@@ -30,7 +30,7 @@ const ErrorMessageBox = styled.div`
   right: 5%;
   top: 20%;
   width: 500px;
-  height: 200px;
+  height: 220px;
   z-index: 2;
   border: 4px solid darkred;
   box-shadow: 2px 2px SlateGrey;
@@ -72,7 +72,7 @@ const ServerResponseMessage = styled.div`
 `;
 
 const App = () => {
-  //timer states
+  //setting and timer component states
   const [sessionTotal, setSession] = useState(1500);
   const [direction, setDirection] = useState('backward');
   const [totalTimeEver, addToTotalTimeEver] = useState(0);
@@ -82,6 +82,7 @@ const App = () => {
   const [isSet, setNewSettings] = useState(false);
   const [breakTotal, setBreaks] = useState(5);
   const [pomodoros, setNumberOfSessions] = useState(4);
+  const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
 
   //visualizer states
   const [plantChoice, setPlantChoice] = useState('Tomato');
@@ -93,30 +94,66 @@ const App = () => {
   const [errorPresent, errorThrown] = useState(false);
   const [haveServerMessage, setHaveServerMessage] = useState(false);
   const [serverResponseMessage, setSeverResponseMessage] = useState();
-  const [user, setUser] = useState();
-  const [password, setPassword] = useState();
+  const [willLogin, setToLogin] = useState(false);
+  const [willCreateLogin, setToCreateLogin] = useState(false);
+  const [willSaveSettings, setToSaveSettings] = useState(false);
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setToLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (willLogTime) {
-      let data = {
-        total: sessionTotal
+    let headers;
+    let data;
+    if (willLogin || willCreateLogin) {
+      data = {
+        name: user.toLowerCase(),
+        password: password.toLowerCase()
       }
-      axios({
+    }
+    if (willLogTime) {
+      headers = {
         url: '/timer/timelog',
         method: 'PATCH',
+        data: sessionTotal + totalTimeEver
+      }
+    } else if (willLogin) {
+      console.log('HEEEEERRRRREEE');
+      headers = {
+        url: '/timer/user/login',
+        method: 'POST',
+        data: data
+      }
+    } else if (willCreateLogin) {
+      headers = JSON.stringify({
+        url: '/timer/user/creation',
+        method: 'POST',
         data: data
       })
+    }
+
+    if (willLogin || willCreateLogin || willLogTime) {
+      console.log(willLogTime, willLogin);
+      axios.request(headers)
       .then((response) => {
         console.log(response);
-        setHaveServerMessage(true);
-        setSeverResponseMessage(response.data);
+        if (typeof response.data === 'string') {
+          setSeverResponseMessage(response.data);
+          setHaveServerMessage(true);
+        }
+        if (willLogin) {
+          setToLoggedIn(true);
+        }
       })
       .catch((err) => {
         console.log(err);
         errorThrown(true);
       })
+      setToCreateLogin(false);
+      setToLogin(false);
+      setToSaveSettings(false);
+      logTime(false);
     }
-  }, [willLogTime])
+  }, [willLogTime, willLogin])
 
   const renderServerMessage = () => {
     if (!haveServerMessage) {
@@ -149,7 +186,7 @@ const App = () => {
           <XButton onClick={() => {
             errorThrown(false);
           }}>X</XButton>
-          <Message>Please excuse the inconvience. There seems to have been an error logging your total time. If this problem persists, please contact developer.</Message>
+          <Message>Please excuse the inconvience. There seems to have been an error. Please refresh or try the operation again. If this problem persists, please contact developer.</Message>
         </ErrorMessageBox>
       )
     }
@@ -171,12 +208,22 @@ const App = () => {
           setNewSettings={setNewSettings}
           setBreaks={setBreaks}
           setNumberOfSessions={setNumberOfSessions}
+          user={user}
+          password={password}
+          setToSaveSettings={setToSaveSettings}
         />
       </ComponentColumnContainer>
       <ComponentColumnContainer>
       <Login
         setUser={setUser}
+        user={user}
         setPassword={setPassword}
+        password={password}
+        setToLogin={setToLogin}
+        willLogin={willLogin}
+        willCreateLogin={willCreateLogin}
+        setToCreateLogin={setToCreateLogin}
+        loggedIn={loggedIn}
       />
       <TimerVisual
         sessionTotal={sessionTotal}

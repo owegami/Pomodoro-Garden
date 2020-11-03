@@ -29,6 +29,7 @@ exports.initializeUser = (userName, userPassword) => {
   return new Promise ((resolve, reject) => {
     User.find({name: userName, password: userPassword})
       .then((result) => {
+        console.log(result);
         resolve(result);
       })
       .catch((err) => {
