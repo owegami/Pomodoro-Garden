@@ -17,8 +17,8 @@ const PlantImg = styled.img`
 `;
 
 const Visualizer = ({totalTimeEver, plantChoice, growthRate, plantMaxImgNum }) => {
-  let imgNumber = totalTimeEver === undefined ?  Math.floor(((0 / 60) / 2) / growthRate)
-  : Math.floor(((totalTimeEver / 60) / 2) / growthRate);
+  let imgNumber = totalTimeEver === undefined ?  Math.floor(((0 / 3600) / 2) / growthRate)
+  : Math.floor(((totalTimeEver / 3600) / 2) / growthRate);
   imgNumber = imgNumber > plantMaxImgNum ? plantMaxImgNum : imgNumber;
   const plant = `/images/${plantChoice}_${imgNumber}.png`;
 

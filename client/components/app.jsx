@@ -122,13 +122,16 @@ const App = () => {
           setHaveServerMessage(true);
           setUser('');
           setPassword('');
+          setToLoggedIn(false);
+        } else {
+          console.log(user, password);
+          setSession(response.data[0].sessionLength);
+          setDirection(response.data[0].timerStyle);
+          setBreaks(response.data[0].breakLength);
+          setNumberOfSessions(response.data[0].numberOfSessions);
+          addToTotalTimeEver(response.data[0].totalTime);
+          setToLoggedIn(true);
         }
-        setSession(response.data[0].sessionLength);
-        setDirection(response.data[0].timerStyle);
-        setBreaks(response.data[0].breakLength);
-        setNumberOfSessions(response.data[0].numberOfSessions);
-        addToTotalTimeEver(response.data[0].totalTime);
-        setToLoggedIn(false);
       })
       .catch((err) => {
         console.log(err);
@@ -149,10 +152,8 @@ const App = () => {
         console.log(response);
         if (typeof response.data === 'string') {
           setSeverResponseMessage(response.data);
+          addToTotalTimeEver(data.totalTime)
           setHaveServerMessage(true);
-        }
-        if (willLogin) {
-          setToLoggedIn(true);
         }
       })
       .catch((err) => {
@@ -170,9 +171,6 @@ const App = () => {
         if (typeof response.data === 'string') {
           setSeverResponseMessage(response.data);
           setHaveServerMessage(true);
-        }
-        if (willLogin) {
-          setToLoggedIn(true);
         }
       })
       .catch((err) => {
@@ -261,10 +259,6 @@ const App = () => {
       return (
         <span>Hello, {user}!</span>
       )
-    } else {
-      return (
-        <span>Hello!</span>
-      )
     }
   }
 
@@ -320,6 +314,8 @@ const App = () => {
         addToTotalTimeEver={addToTotalTimeEver}
         logTime={logTime}
         errorThrown={errorThrown}
+        user={user}
+        password={password}
       />
       {renderError()}
       {renderServerMessage()}

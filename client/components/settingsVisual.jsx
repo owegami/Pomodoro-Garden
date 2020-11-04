@@ -18,7 +18,7 @@ const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, 
     <CurrentSettingsBox>
       <div>
         Pomodoro/Session Length:<br/>
-        {Number.isNaN(sessionTotal / 60) === true ? 'Please input proper length of time' : Math.floor(sessionTotal / 60) + ' minutes'}<br/>
+        {Number.isNaN(sessionTotal / 60) === true ? 'Please input proper length of time' : sessionTotal / 60 + ' minutes'}<br/>
       </div>
       <div>
         Clock type:<br/>

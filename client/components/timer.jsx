@@ -67,7 +67,7 @@ const Button = styled.button`
   left: 2%;
 `;
 
-const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown }) => {
+const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password }) => {
   const [seconds, setSeconds] = useState('00');
   const [minutes, setMinutes] = useState('25');
   const [counter, setCounter] = useState(sessionTotal);
@@ -193,6 +193,8 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         console.log(isSession, isBreak, counts, pomodoros);
       }
       return () => clearInterval(interval);
+    } else if (counts < pomodoros) {
+      setTimerOn(false);
     }
   }, [seconds, minutes, counter, isOn, totalTime, isSession])
 
@@ -269,7 +271,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     <div>
       {renderPauseBox()}
       <TimerBox>
-        {renderTime()}:{counter}
+        {renderTime()}
       </TimerBox>
       <br />
       <div>
