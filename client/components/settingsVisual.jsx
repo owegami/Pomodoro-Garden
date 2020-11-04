@@ -14,12 +14,11 @@ const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, 
   const renderTotalTimeEver = () => {
     return Math.floor(totalTimeEver / 60);
   }
-
   return (
     <CurrentSettingsBox>
       <div>
         Pomodoro/Session Length:<br/>
-        {Number.isNaN(sessionTotal / 60) === true ? 'Please input proper length of time' : (sessionTotal / 60) + ' minutes'}<br/>
+        {Number.isNaN(sessionTotal / 60) === true ? 'Please input proper length of time' : Math.floor(sessionTotal / 60) + ' minutes'}<br/>
       </div>
       <div>
         Clock type:<br/>
@@ -27,7 +26,7 @@ const SettingsVisual = ({sessionTotal, direction, breakTotal, pomodoros, isSet, 
       </div>
       <div>
         Break Length:<br/>
-        {breakTotal / 60}<br/>
+        {Math.floor(breakTotal / 60)}<br/>
       </div>
       <div>
         Pomodoros/Sessions:<br/>

@@ -98,6 +98,8 @@ const Login = ({ willLogin, setToLogin, user, setUser, password, setPassword, wi
       return (
         <SpaceHolder>
           <XButton onClick={() => {
+            setToLogin(false);
+            setToCreateLogin(false);
             setLoginToShow(false);
           }}>X</XButton>
           <LoginInputs>
@@ -130,7 +132,10 @@ const Login = ({ willLogin, setToLogin, user, setUser, password, setPassword, wi
     <SpaceHolderFlex>
       {renderLoginWindow()}
       {/* <LoginButtonHolder> */}
-        <LoginButton onClick={setLoginToShow}>Login</LoginButton>
+        <LoginButton onClick={() => {
+          setButtonToLogin(true);
+          setLoginToShow(true);
+        }}>Login</LoginButton>
         <LoginButton onClick={() => {
           setButtonToLogin(false);
           setLoginToShow(true);

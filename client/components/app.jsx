@@ -36,8 +36,8 @@ const ErrorMessageBox = styled.div`
   box-shadow: 2px 2px SlateGrey;
 `;
 
-const Message =  styled.span`
-  position: absolute;
+const Message =  styled.div`
+  position: relative;
   margin-top: 21px;
   padding: 10px;
 `;
@@ -64,7 +64,7 @@ const ServerResponseMessage = styled.div`
   top: 10%;
   min-width: 250px;
   max-width: 500px;
-  min-height: 100px;
+  min-height: 75px;
   max-height: 200px;
   z-index: 2;
   border: 4px solid DarkOliveGreen;
@@ -102,7 +102,6 @@ const App = () => {
   const [loggedIn, setToLoggedIn] = useState(false);
 
   useEffect(() => {
-    let headers;
     let data;
     if (willLogin || willCreateLogin) {
       data = {
@@ -110,29 +109,42 @@ const App = () => {
         password: password.toLowerCase()
       }
     }
-    if (willLogTime) {
-      headers = {
-        url: '/timer/timelog',
-        method: 'PATCH',
-        data: sessionTotal + totalTimeEver
-      }
-    } else if (willLogin) {
-      headers = {
+    if (willLogin) {
+      axios.request({
         url: '/timer/user/login',
         method: 'POST',
         data: data
+      })
+      .then((response) => {
+        console.log(response);
+        if (typeof response.data === 'string') {
+          setSeverResponseMessage(response.data);
+          setHaveServerMessage(true);
+          setUser('');
+          setPassword('');
+        }
+        setSession(response.data[0].sessionLength);
+        setDirection(response.data[0].timerStyle);
+        setBreaks(response.data[0].breakLength);
+        setNumberOfSessions(response.data[0].numberOfSessions);
+        addToTotalTimeEver(response.data[0].totalTime);
+        setToLoggedIn(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        errorThrown(true);
+      })
+    } else if (willLogTime) {
+      data = {
+        name: user,
+        password: password,
+        totalTime: sessionTotal + totalTimeEver
       }
-    } else if (willCreateLogin) {
-      headers = JSON.stringify({
-        url: '/timer/user/creation',
-        method: 'POST',
+      axios.request({
+        url: '/timer/timelog',
+        method: 'PATCH',
         data: data
       })
-    }
-
-    if (willLogin || willCreateLogin || willLogTime) {
-      console.log(willLogTime, willLogin);
-      axios.request(headers)
       .then((response) => {
         console.log(response);
         if (typeof response.data === 'string') {
@@ -147,12 +159,65 @@ const App = () => {
         console.log(err);
         errorThrown(true);
       })
+    } else if (willCreateLogin) {
+      axios.request({
+        url: '/timer/user/creation',
+        method: 'POST',
+        data: data
+      })
+      .then((response) => {
+        console.log(response);
+        if (typeof response.data === 'string') {
+          setSeverResponseMessage(response.data);
+          setHaveServerMessage(true);
+        }
+        if (willLogin) {
+          setToLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        errorThrown(true);
+      })
+    } else if (willSaveSettings) {
+      data = {
+        name: user.toLowerCase(),
+        password: password.toLowerCase(),
+        totalTime: totalTime,
+        breakLength: breakTotal,
+        sessionLength: sessionTotal,
+        timerStyle: direction,
+        numberOfSessions: pomodoros,
+      }
+      axios.request({
+        url: '/timer/preferences',
+        method: 'PUT',
+        data: data
+      })
+      .then((response) => {
+        console.log(response);
+        if (typeof response.data === 'string') {
+          setSeverResponseMessage(response.data);
+          setHaveServerMessage(true);
+        }
+        if (willLogin) {
+          setToLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        errorThrown(true);
+      })
+    }
+
+    if (willLogin || willCreateLogin || willLogTime ||willSaveSettings ) {
+
       setToCreateLogin(false);
       setToLogin(false);
       setToSaveSettings(false);
       logTime(false);
     }
-  }, [willLogTime, willLogin])
+  }, [willLogTime, willLogin, willSaveSettings, willCreateLogin])
 
   const renderServerMessage = () => {
     if (!haveServerMessage) {

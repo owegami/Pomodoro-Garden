@@ -6,8 +6,17 @@ exports.createUser = (userName, userObj) => {
   return new Promise((resolve, reject) => {
     User.countDocuments({ name: userName })
     .then((results) => {
+      let userData = {
+        name: userObj.name,
+        password: userObj.password,
+        breakLength: userObj.breakLength === undefined ? (5 * 60) : userObj.breakLength,
+        sessionLength: userObj.sessionLength === undefined ? 1500 : userObj.sessionLength,
+        timerStyle: userObj.timerStyle === undefined ?  'backward' : userObj.sessionLength,
+        numberOfSessions: userObj.numberOfSessions === undefined ? 4 : userObj.sessionLength,
+        totalTime: userObj.totalTime === undefined ? 0 : userObj.totalTime
+      };
       if (results === 0) {
-        User.create({ name: userObj.name, password: userObj.password, breakLength: userObj.breakLength, sessionLength: userObj.sessionLength, timerStyle: userObj.timerStyle, numberOfSessions: userObj.numberOfSessions}, (err, result) => {
+        User.create(userData, (err, result) => {
           if (err) {
             reject(err);
           } else {
