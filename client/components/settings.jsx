@@ -63,7 +63,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={(e) => {
             e.preventDefault();
             setSession(customTime * 60);
-            // setNewSettings(true);
+            setTimeout(() => {
+              setCustomSessions(false);
+            }, 500)
             setCustomTime(); //flushing
           }}>Set Time</Button>
         </>
@@ -80,14 +82,16 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
       return (
         <>
         <br/>
-          <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
+          <TextInputBox type='text' value={customNumberOfSessions === undefined ? '' : customNumberOfSessions} onChange={() => {
               setCustomSessionCount(event.target.value);
             }}></TextInputBox>
             <br />
             <Button onClick={(e) => {
               e.preventDefault();
-              setNumberOfSessions(customTime);
-              // setNewSettings(true);
+              setNumberOfSessions(customNumberOfSessions);
+              setTimeout(() => {
+                setCustomNumberOfSessions(false);
+              }, 500)
               setCustomSessionCount(); //flushing
             }}>Set Number of Sessions</Button>
         </>
@@ -162,10 +166,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
             setBreaks(event.target.value);
           }}>
             <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-            <DropDownOptions value='5' name='breakTime'>5</DropDownOptions>
-            <DropDownOptions value='10' name='breakTime'>10</DropDownOptions>
-            <DropDownOptions value='15' name='breakTime'>15</DropDownOptions>
-            <DropDownOptions value='20' name='breakTime'>20</DropDownOptions>
+            <DropDownOptions value={5 * 60} name='breakTime'>5</DropDownOptions>
+            <DropDownOptions value={10 * 60} name='breakTime'>10</DropDownOptions>
+            <DropDownOptions value={15 * 60} name='breakTime'>15</DropDownOptions>
+            <DropDownOptions value={20 * 60} name='breakTime'>20</DropDownOptions>
           </DropDownMenus>
         </label>
       </SettingsQuestion>
@@ -182,9 +186,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
             }
           }}>
             <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-            <DropDownOptions value='2' name='pomodoros'>2</DropDownOptions>
-            <DropDownOptions value='4' name='pomodoros'>4</DropDownOptions>
-            <DropDownOptions value='6' name='pomodoros'>6</DropDownOptions>
+            <DropDownOptions value={2} name='pomodoros'>2</DropDownOptions>
+            <DropDownOptions value={4} name='pomodoros'>4</DropDownOptions>
+            <DropDownOptions value={6} name='pomodoros'>6</DropDownOptions>
             <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
           </DropDownMenus>
           {renderCustomSessionNumberInput()}

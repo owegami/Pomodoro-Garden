@@ -61,7 +61,7 @@ const ServerResponseMessage = styled.div`
   color: DarkOliveGreen;
   font-size:1em;
   right: 5%;
-  top: 20%;
+  top: 10%;
   min-width: 250px;
   max-width: 500px;
   min-height: 100px;
@@ -80,7 +80,7 @@ const App = () => {
   const [isOn, setTimerOn] = useState(false);
   const [isReset, resetTimer] = useState(false);
   const [isSet, setNewSettings] = useState(false);
-  const [breakTotal, setBreaks] = useState(5);
+  const [breakTotal, setBreaks] = useState(5 * 60);
   const [pomodoros, setNumberOfSessions] = useState(4);
   const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
 
@@ -117,7 +117,6 @@ const App = () => {
         data: sessionTotal + totalTimeEver
       }
     } else if (willLogin) {
-      console.log('HEEEEERRRRREEE');
       headers = {
         url: '/timer/user/login',
         method: 'POST',
@@ -192,6 +191,18 @@ const App = () => {
     }
   }
 
+  const renderHello = () => {
+    if (user.length > 0 && loggedIn) {
+      return (
+        <span>Hello, {user}!</span>
+      )
+    } else {
+      return (
+        <span>Hello!</span>
+      )
+    }
+  }
+
   return (
     <ComponentContainer>
       <ComponentColumnContainer>
@@ -201,6 +212,8 @@ const App = () => {
         growthRate={growthRate}
         plantMaxImgNum={plantMaxImgNum}
         />
+        <br/>
+        {renderHello()}
         <Settings
           setSession={setSession}
           setDirection={setDirection}
@@ -241,6 +254,7 @@ const App = () => {
         totalTimeEver={totalTimeEver}
         addToTotalTimeEver={addToTotalTimeEver}
         logTime={logTime}
+        errorThrown={errorThrown}
       />
       {renderError()}
       {renderServerMessage()}

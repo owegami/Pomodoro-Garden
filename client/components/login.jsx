@@ -124,23 +124,12 @@ const Login = ({ willLogin, setToLogin, user, setUser, password, setPassword, wi
     }
   }
 
-  const renderHello = () => {
-    if (user.length > 0 && loggedIn) {
-      return (
-        <span>Hello, {user}</span>
-      )
-    } else {
-      return (
-        <> </>
-      )
-    }
-  }
+
 
   return (
     <SpaceHolderFlex>
       {renderLoginWindow()}
       {/* <LoginButtonHolder> */}
-        {renderHello()}
         <LoginButton onClick={setLoginToShow}>Login</LoginButton>
         <LoginButton onClick={() => {
           setButtonToLogin(false);

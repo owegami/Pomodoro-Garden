@@ -31,6 +31,30 @@ const PauseMessage = styled.span`
   padding: 10px;
 `;
 
+const MessageSess = styled.div`
+  background-color: white;
+  color: RebeccaPurple;
+  font-size: 1.5em;
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  margin: 15px;
+  text-align: center;
+  border: 8px dashed RebeccaPurple;
+`;
+
+const MessageBreak = styled.div`
+  background-color: white;
+  color: cornflowerBlue;
+  font-size: 1.5em;
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  margin: 15px;
+  text-align: center;
+  border: 8px dashed cornflowerBlue;
+`;
+
 const Button = styled.button`
   position: relative;
   font-family: charybdis;
@@ -43,25 +67,50 @@ const Button = styled.button`
   left: 2%;
 `;
 
-const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime }) => {
+const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown }) => {
   const [seconds, setSeconds] = useState('00');
-  const [minutes, setMinutes] = useState('0');
+  const [minutes, setMinutes] = useState('25');
   const [counter, setCounter] = useState(sessionTotal);
   const [directionHolder, setDirHolder] = useState(direction);
   const [sessionHolder, setSessHolder] = useState(sessionTotal);
   const [isPaused, pauseThisSucker] = useState(false);
   const [isSession, switchToSession] = useState(true);
   const [isBreak, switchToBreak] = useState(false);
+  const [counts, setCounts] = useState(0);
   let interval;
   let chimes1 = new sounds.chimes1();
   let chimes2 = new sounds.chimes2();
 
+  const setMinutesAndSeconds = (counter) => {
 
-  // console.log(directionHolder, sessionHolder, breakTotal, pomodoros);
+    let minutesCounted = Math.floor(counter / 60);
+    let secondsCounted  = Math.floor(counter % 60);
+
+    let min = minutesCounted.toString();
+    let sec = secondsCounted < 10 ? '0' + secondsCounted.toString() : secondsCounted.toString();
+
+    console.log(counter, minutesCounted, secondsCounted, min, sec)
+
+    setMinutes(min);
+    setSeconds(sec);
+  }
+
+  const resetMinutesAndSeconds = () => {
+    let startingPoint;
+    if (isSession) {
+      startingPoint = direction === 'backward' ? sessionHolder : 0;
+    } else if (isBreak) {
+      startingPoint = direction === 'backward' ? breakTotal : 0;
+    } else {
+      errorThrown(true);
+    }
+    setMinutesAndSeconds(startingPoint);
+  }
 
   useEffect(() => {
     if (isSet) {
       setDirHolder(direction);
+      resetMinutesAndSeconds();
       setSessHolder(sessionTotal);
       setNewSettings(false);
       hardSet();
@@ -70,13 +119,18 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
   useEffect(() => {
     if (isReset) {
+      resetMinutesAndSeconds();
       setSessHolder(sessionHolder);
     }
   }, [isReset, sessionHolder, directionHolder])
 
   useEffect(() => {
     if (directionHolder === 'backward' && ((!isOn || !isPaused) && isReset)) {
-      setCounter(sessionHolder);
+      if (isSession) {
+        setCounter(sessionHolder);
+      } else {
+        setCounter(breakTotal);
+      }
       resetTimer(false);
     } else if (directionHolder === 'forwards' && ((!isOn || !isPaused) && isReset)) {
       setCounter(0);
@@ -85,50 +139,59 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   }, [sessionHolder, directionHolder, isOn, isReset])
 
   useEffect(() => {
-    if ((isOn && directionHolder !== 'backward' && counter <= sessionTotal) && isSession) {
+    if ((isOn && directionHolder !== 'backward' && counts < pomodoros)) {
       interval = setInterval(() => {
         setCounter(counter => counter + 1);
-        let secondsCounted = counter % 60;
-        let minutesCounted = Math.floor(counter / 60);
-
-        let secondsCountedStr = secondsCounted < 10 ? '0' + secondsCounted.toString() : secondsCounted.toString();
-        let minutesCountedStr = minutesCounted.toString();
-
-        addToTotalTime(totalTime => totalTime + 1);
-        setSeconds(secondsCountedStr);
-        setMinutes(minutesCountedStr);
+        if(isSession) {
+          addToTotalTime(totalTime => totalTime + 1);
+        }
+        setMinutesAndSeconds(counter);
       }, 1000)
 
-      if(counter === sessionTotal) {
-        logTime(true);
+      if(counter === sessionTotal + 1 && isSession) {
+        if (user !== '') {
+          logTime(true);
+        }
         chimes2.play();
         switchToSession(false);
         switchToBreak(true);
+        setCounter(0);
+        setCounts(counts => counts + 1);
+        console.log(isSession, isBreak, counts, pomodoros);
+      } else if (counter === breakTotal + 1 && isBreak) {
+        chimes1.play();
+        switchToSession(true);
+        switchToBreak(false);
+        setCounter(0);
+        console.log(isSession, isBreak, counts, pomodoros);
       }
-
       return () => clearInterval(interval);
-    } else if ((isOn && directionHolder === 'backward' && counter >= 0) && isSession) {
+
+    } else if (isOn && directionHolder === 'backward' && counts < pomodoros) {
       interval = setInterval(() => {
         setCounter(counter => counter - 1);
-        let secondsCounted = counter % 60;
-        let minutesCounted = Math.floor(counter / 60);
-        console.log(Math.floor(sessionTotal - counter))
-
-        let secondsCountedStr = secondsCounted < 10 ? '0' + secondsCounted.toString() : secondsCounted.toString();
-        let minutesCountedStr = minutesCounted.toString();
-
-        addToTotalTime(totalTime => totalTime + 1);
-        setSeconds(secondsCountedStr);
-        setMinutes(minutesCountedStr);
+        if(isSession) {
+          addToTotalTime(totalTime => totalTime + 1);
+        }
+        setMinutesAndSeconds(counter);
       }, 1000)
-
-      if(counter === 0) {
-        logTime(true);
+      if(counter === -1 && isSession) {
+        if (user !== '') {
+          logTime(true);
+        }
         chimes2.play();
         switchToSession(false);
         switchToBreak(true);
+        setCounts(counts => counts + 1);
+        setCounter(breakTotal);
+        console.log(isSession, isBreak, counts, pomodoros);
+      } else if (counter === -1 && isBreak) {
+        chimes1.play();
+        switchToSession(true);
+        switchToBreak(false);
+        setCounter(sessionHolder);
+        console.log(isSession, isBreak, counts, pomodoros);
       }
-
       return () => clearInterval(interval);
     }
   }, [seconds, minutes, counter, isOn, totalTime, isSession])
@@ -171,32 +234,49 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     }
   }
 
+  const renderTime = () => {
+    return (
+      <>
+        {minutes}:{seconds}
+      </>
+    )
+  }
+
+  const renderSessionOrBreakMessage = () => {
+    if (isSession) {
+      return (
+        <MessageSess>In Session</MessageSess>
+      )
+    } else if (isBreak) {
+      return (
+        <MessageBreak>On Break</MessageBreak>
+      )
+    }
+  }
+
   const hardSet = () => {
     setTimerOn(false);
     resetTimer(true);
-    setMinutes('0');
-    setSeconds('00');
   }
 
   const hardRestart = () => {
     setTimerOn(false);
     pauseThisSucker(true);
     resetTimer(true);
-    setMinutes('RE');
-    setSeconds('SET');
   }
 
   return (
     <div>
       {renderPauseBox()}
       <TimerBox>
-        {minutes}:{seconds}:{counter}
+        {renderTime()}:{counter}
       </TimerBox>
       <br />
       <div>
         {renderButton()}
         <Button onClick={hardRestart}>Reset</Button>
       </div>
+      {renderSessionOrBreakMessage()}
     </div>
   )
 }
