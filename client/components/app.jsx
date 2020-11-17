@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
+
 import Login from './login.jsx';
 import TimerVisual from './timer.jsx';
 import Visualizer from './visualizer.jsx';
@@ -100,23 +102,12 @@ const App = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setToLoggedIn] = useState(false);
+  const [saveToDatabase, setToSaveToDatabase] = useState(false);
 
   useEffect(() => {
-    let data;
-    if (willLogin || willCreateLogin) {
-      data = {
-        name: user,
-        password: password
-      }
-    }
     if (willLogin) {
-      axios.request({
-        url: '/timer/user/login',
-        method: 'POST',
-        data: data
-      })
+      loginUser(prepareData(user, password, undefined, undefined, undefined, undefined, undefined))
       .then((response) => {
-        console.log(response);
         if (typeof response.data === 'string') {
           setServerResponseMessage(response.data);
           setHaveServerMessage(true);
@@ -124,7 +115,6 @@ const App = () => {
           setPassword('');
           setToLoggedIn(false);
         } else {
-          console.log(user, password);
           setSession(response.data[0].sessionLength);
           setDirection(response.data[0].timerStyle);
           setBreaks(response.data[0].breakLength);
@@ -137,24 +127,16 @@ const App = () => {
         console.log(err);
         errorThrown(true);
       })
-    } else if (willLogTime) {
-      let newTime = (sessionTotal + totalTimeEver).toString();
-      console.log(newTime);
-      data = {
-        name: user,
-        password: password,
-        totalTime: newTime
-      }
-      axios.request({
-        url: '/timer/timelog',
-        method: 'PATCH',
-        data: data
-      })
+    }
+  }, [willLogin])
+
+  useEffect(() => {
+    if (willLogTime && loggedIn) {
+      logTimeToDatabase(prepareData(user, password, totalTimeEver, undefined, sessionTotal, undefined, undefined))
       .then((response) => {
-        console.log(response);
         if (typeof response.data === 'string') {
           setServerResponseMessage(response.data);
-          addToTotalTimeEver(data.totalTime)
+          addToTotalTimeEver(totalTimeEver + sessionTotal)
           setHaveServerMessage(true);
         }
       })
@@ -162,40 +144,34 @@ const App = () => {
         console.log(err);
         errorThrown(true);
       })
-    } else if (willCreateLogin) {
-      axios.request({
-        url: '/timer/user/creation',
-        method: 'POST',
-        data: data
-      })
+    }
+  }, [willLogTime])
+
+  useEffect(() => {
+    if (willCreateLogin) {
+      createLogin(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
       .then((response) => {
-        console.log(response);
         if (typeof response.data === 'string') {
           setServerResponseMessage(response.data);
           setHaveServerMessage(true);
+          setUser('');
+          setPassword('');
+          setToLoggedIn(false);
+        } else {
+          setToLoggedIn(true);
         }
       })
       .catch((err) => {
         console.log(err);
         errorThrown(true);
       })
-    } else if (willSaveSettings) {
-      data = {
-        name: user.toLowerCase(),
-        password: password.toLowerCase(),
-        totalTime: totalTime,
-        breakLength: breakTotal,
-        sessionLength: sessionTotal,
-        timerStyle: direction,
-        numberOfSessions: pomodoros,
-      }
-      axios.request({
-        url: '/timer/preferences',
-        method: 'PUT',
-        data: data
-      })
+    }
+  }, [willCreateLogin])
+
+  useEffect(() => {
+    if (willSaveSettings) {
+      saveSettings(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
       .then((response) => {
-        console.log(response);
         if (typeof response.data === 'string') {
           setServerResponseMessage(response.data);
           setHaveServerMessage(true);
@@ -209,15 +185,7 @@ const App = () => {
         errorThrown(true);
       })
     }
-
-    if (willLogin || willCreateLogin || willLogTime ||willSaveSettings ) {
-
-      setToCreateLogin(false);
-      setToLogin(false);
-      setToSaveSettings(false);
-      logTime(false);
-    }
-  }, [willLogTime, willLogin, willSaveSettings, willCreateLogin])
+  }, [willSaveSettings])
 
   const renderServerMessage = () => {
     if (!haveServerMessage) {
@@ -338,4 +306,3 @@ const App = () => {
 }
 
 export default App;
-
