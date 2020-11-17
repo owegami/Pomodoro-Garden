@@ -129,12 +129,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <DropDownMenus onChange={() => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
-              console.log('number', value);
               setSession(value * 60);
             } else {
-              console.log('setting custom');
               setCustomSessions(true);
-              console.log('set custom', isCustomSessions);
             }
             }}>
             <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>

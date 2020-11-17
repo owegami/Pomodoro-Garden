@@ -89,8 +89,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     let min = minutesCounted.toString();
     let sec = secondsCounted < 10 ? '0' + secondsCounted.toString() : secondsCounted.toString();
 
-    console.log(counter, minutesCounted, secondsCounted, min, sec)
-
     setMinutes(min);
     setSeconds(sec);
   }
@@ -147,7 +145,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         }
         setMinutesAndSeconds(counter);
       }, 1000)
-
       if(counter === sessionTotal + 1 && isSession) {
         if (user !== '') {
           logTime(true);
@@ -157,13 +154,11 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         switchToBreak(true);
         setCounter(0);
         setCounts(counts => counts + 1);
-        console.log(isSession, isBreak, counts, pomodoros);
       } else if (counter === breakTotal + 1 && isBreak) {
         chimes1.play();
         switchToSession(true);
         switchToBreak(false);
         setCounter(0);
-        console.log(isSession, isBreak, counts, pomodoros);
       }
       return () => clearInterval(interval);
 
@@ -184,13 +179,11 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         switchToBreak(true);
         setCounts(counts => counts + 1);
         setCounter(breakTotal);
-        console.log(isSession, isBreak, counts, pomodoros);
       } else if (counter === -1 && isBreak) {
         chimes1.play();
         switchToSession(true);
         switchToBreak(false);
         setCounter(sessionHolder);
-        console.log(isSession, isBreak, counts, pomodoros);
       }
       return () => clearInterval(interval);
     } else if (counts < pomodoros) {
@@ -203,7 +196,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       return (
       <Button onClick={() => {
         let state = !isOn;
-        console.log(state);
         setTimerOn(state);
         pauseThisSucker(true);
       }}>Pause</Button>
@@ -213,7 +205,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         <>
           <Button onClick={() => {
             let state = !isOn;
-            console.log(state);
             setTimerOn(state);
             pauseThisSucker(false);
           }}>Start</Button>

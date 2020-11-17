@@ -4,7 +4,7 @@ const outputSource = path.join(__dirname, '/public');
 
 module.exports = {
   entry: `${source}/index.jsx`,
-  mode: "developement",
+  mode: "development",
   resolve: {
     extensions: ["*", ".js", ".jsx"]
   },
@@ -23,7 +23,7 @@ module.exports = {
             presets: [
                 "@babel/preset-react",
                 "@babel/preset-env"
-            ],
+            ]
           }
         }
     }]

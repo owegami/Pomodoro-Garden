@@ -106,7 +106,7 @@ const Login = ({ willLogin, setToLogin, user, setUser, password, setPassword, wi
             <label>
               Username:
               <TextInputBox value={user} onChange={(e) => {
-                setUser(e.target.value);
+                setUser(e.target.value.toLowerCase());
               }} />
             </label><br />
             <label>

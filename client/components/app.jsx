@@ -93,7 +93,7 @@ const App = () => {
   const [willLogTime, logTime] = useState(false);
   const [errorPresent, errorThrown] = useState(false);
   const [haveServerMessage, setHaveServerMessage] = useState(false);
-  const [serverResponseMessage, setSeverResponseMessage] = useState();
+  const [serverResponseMessage, setServerResponseMessage] = useState();
   const [willLogin, setToLogin] = useState(false);
   const [willCreateLogin, setToCreateLogin] = useState(false);
   const [willSaveSettings, setToSaveSettings] = useState(false);
@@ -105,8 +105,8 @@ const App = () => {
     let data;
     if (willLogin || willCreateLogin) {
       data = {
-        name: user.toLowerCase(),
-        password: password.toLowerCase()
+        name: user,
+        password: password
       }
     }
     if (willLogin) {
@@ -118,7 +118,7 @@ const App = () => {
       .then((response) => {
         console.log(response);
         if (typeof response.data === 'string') {
-          setSeverResponseMessage(response.data);
+          setServerResponseMessage(response.data);
           setHaveServerMessage(true);
           setUser('');
           setPassword('');
@@ -138,10 +138,12 @@ const App = () => {
         errorThrown(true);
       })
     } else if (willLogTime) {
+      let newTime = (sessionTotal + totalTimeEver).toString();
+      console.log(newTime);
       data = {
         name: user,
         password: password,
-        totalTime: sessionTotal + totalTimeEver
+        totalTime: newTime
       }
       axios.request({
         url: '/timer/timelog',
@@ -151,7 +153,7 @@ const App = () => {
       .then((response) => {
         console.log(response);
         if (typeof response.data === 'string') {
-          setSeverResponseMessage(response.data);
+          setServerResponseMessage(response.data);
           addToTotalTimeEver(data.totalTime)
           setHaveServerMessage(true);
         }
@@ -169,7 +171,7 @@ const App = () => {
       .then((response) => {
         console.log(response);
         if (typeof response.data === 'string') {
-          setSeverResponseMessage(response.data);
+          setServerResponseMessage(response.data);
           setHaveServerMessage(true);
         }
       })
@@ -195,7 +197,7 @@ const App = () => {
       .then((response) => {
         console.log(response);
         if (typeof response.data === 'string') {
-          setSeverResponseMessage(response.data);
+          setServerResponseMessage(response.data);
           setHaveServerMessage(true);
         }
         if (willLogin) {
