@@ -37,3 +37,6 @@ bower_components/
 # Too big bits
 bundle.js
 package-lock.json
+
+# Pictures
+public/images
