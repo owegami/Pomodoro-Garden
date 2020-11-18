@@ -7,7 +7,6 @@ const VisualizerBox = styled.div`
   width: 300px;
   height: 300px;
   border: 11px dashed #4b692f;
-  border-radius: 1em;
   padding: 10px;
 `;
 
