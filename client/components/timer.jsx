@@ -146,9 +146,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         setMinutesAndSeconds(counter);
       }, 1000)
       if(counter === sessionTotal + 1 && isSession) {
-        if (user !== '') {
-          logTime(true);
-        }
+        logTime(true);
         chimes2.play();
         switchToSession(false);
         switchToBreak(true);
@@ -171,9 +169,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         setMinutesAndSeconds(counter);
       }, 1000)
       if(counter === -1 && isSession) {
-        if (user !== '') {
-          logTime(true);
-        }
+        logTime(true);
         chimes2.play();
         switchToSession(false);
         switchToBreak(true);

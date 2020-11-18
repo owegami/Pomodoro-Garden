@@ -96,7 +96,7 @@ const App = () => {
   const [errorPresent, errorThrown] = useState(false);
   const [haveServerMessage, setHaveServerMessage] = useState(false);
   const [serverResponseMessage, setServerResponseMessage] = useState();
-  const [willLogin, setToLogin] = useState(false);
+  const [willLogin, setToLogin] = useState(true);
   const [willCreateLogin, setToCreateLogin] = useState(false);
   const [willSaveSettings, setToSaveSettings] = useState(false);
   const [user, setUser] = useState('');
@@ -105,7 +105,8 @@ const App = () => {
   const [saveToDatabase, setToSaveToDatabase] = useState(false);
 
   useEffect(() => {
-    if (willLogin) {
+    let loginObj;
+    if (willLogin && saveToDatabase) {
       loginUser(prepareData(user, password, undefined, undefined, undefined, undefined, undefined))
       .then((response) => {
         if (typeof response.data === 'string') {
@@ -115,23 +116,32 @@ const App = () => {
           setPassword('');
           setToLoggedIn(false);
         } else {
-          setSession(response.data[0].sessionLength);
-          setDirection(response.data[0].timerStyle);
-          setBreaks(response.data[0].breakLength);
-          setNumberOfSessions(response.data[0].numberOfSessions);
-          addToTotalTimeEver(response.data[0].totalTime);
-          setToLoggedIn(true);
+          loginObj = response.data[0];
         }
       })
       .catch((err) => {
         console.log(err);
         errorThrown(true);
       })
+    } else if (willLogin && !saveToDatabase) {
+      loginObj = JSON.parse(localStorage.getItem('userSettings'));
+      setUser(loginObj.name);
     }
+    if (loginObj !== undefined) {
+      setSession(loginObj.sessionLength);
+      setDirection(loginObj.timerStyle);
+      setBreaks(loginObj.breakLength);
+      setNumberOfSessions(loginObj.numberOfSessions);
+      addToTotalTimeEver(loginObj.totalTime);
+      setToLoggedIn(true);
+      setNewSettings(true);
+    }
+    setToLogin(false);
   }, [willLogin])
 
   useEffect(() => {
-    if (willLogTime && loggedIn) {
+    console.log('got here to log the time');
+    if (willLogTime && loggedIn && saveToDatabase) {
       logTimeToDatabase(prepareData(user, password, totalTimeEver, undefined, sessionTotal, undefined, undefined))
       .then((response) => {
         if (typeof response.data === 'string') {
@@ -144,11 +154,15 @@ const App = () => {
         console.log(err);
         errorThrown(true);
       })
+    } else if (willLogTime && !saveToDatabase) {
+      let newTime = totalTimeEver + sessionTotal;
+      setToLocalStorage(prepareData(user, undefined, newTime, breakTotal, sessionTotal, direction, pomodoros));
+      console.log('Did i log the time?');
     }
   }, [willLogTime])
 
   useEffect(() => {
-    if (willCreateLogin) {
+    if (willCreateLogin && saveToDatabase) {
       createLogin(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
       .then((response) => {
         if (typeof response.data === 'string') {
@@ -169,7 +183,7 @@ const App = () => {
   }, [willCreateLogin])
 
   useEffect(() => {
-    if (willSaveSettings) {
+    if (willSaveSettings && saveToDatabase) {
       saveSettings(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
       .then((response) => {
         if (typeof response.data === 'string') {
@@ -184,8 +198,10 @@ const App = () => {
         console.log(err);
         errorThrown(true);
       })
+    } else if (isSet && !saveToDatabase) {
+      setToLocalStorage(prepareData(user, undefined, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros));
     }
-  }, [willSaveSettings])
+  }, [isSet])
 
   const renderServerMessage = () => {
     if (!haveServerMessage) {
@@ -303,6 +319,12 @@ const App = () => {
       </ComponentColumnContainer>
     </ComponentContainer>
   )
+}
+
+const setToLocalStorage = (userSettingsObj) => {
+  let userSettings = JSON.stringify(userSettingsObj);
+  console.log('JSON.stringify(', userSettings);
+  localStorage.setItem('userSettings', userSettings);
 }
 
 export default App;
