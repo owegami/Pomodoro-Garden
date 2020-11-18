@@ -13,9 +13,16 @@ import Settings from './settings.jsx';
 const ComponentContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-flow: column wrap;
   font-family: charybdis;
   font-size: 2em;
   color: DarkOliveGreen;
+`;
+
+const ComponentRowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
 `;
 
 const ComponentColumnContainer = styled.div`
@@ -73,6 +80,23 @@ const ServerResponseMessage = styled.div`
   box-shadow: 2px 2px SlateGrey;
 `;
 
+const Button = styled.button`
+  position: relative;
+  font-family: charybdis;
+  font-size: 1.5em;
+  color: DarkOliveGreen;
+  border: 6px dashed DarkSeaGreen;
+  background-color: white;
+  margin: 0px 10px 10px 10px;
+  right: 5%;
+  left: 2%;
+`;
+
+const HelloMessage = styled.h3`
+  position: relative;
+  left: 20px;
+`;
+
 const App = () => {
   //setting and timer component states
   const [sessionTotal, setSession] = useState(1500);
@@ -85,13 +109,15 @@ const App = () => {
   const [breakTotal, setBreaks] = useState(5 * 60);
   const [pomodoros, setNumberOfSessions] = useState(4);
   const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
+  const [showSettings, setToShowSettings] = useState(false);
+  const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
 
   //visualizer states
   const [plantChoice, setPlantChoice] = useState('Tomato');
   const [growthRate, setGrowthRate] = useState(1);
   const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
 
-  //server states
+  //Data persisting states
   const [willLogTime, logTime] = useState(false);
   const [errorPresent, errorThrown] = useState(false);
   const [haveServerMessage, setHaveServerMessage] = useState(false);
@@ -243,79 +269,125 @@ const App = () => {
   const renderHello = () => {
     if (user.length > 0 && loggedIn) {
       return (
-        <span>Hello, {user}!</span>
+        <HelloMessage>Hello, {user}!</HelloMessage>
+      )
+    } else {
+      return (
+        <HelloMessage>Hello!</HelloMessage>
       )
     }
   }
 
+  const renderSettings = () => {
+    if (showSettings) {
+      return (
+        <>
+          <Button onClick={() => {
+            setToShowSettings(false)
+          }}>Hide Settings</Button>
+          <Settings
+            setSession={setSession}
+            setDirection={setDirection}
+            setTimer={setTimerOn}
+            setNewSettings={setNewSettings}
+            setBreaks={setBreaks}
+            setNumberOfSessions={setNumberOfSessions}
+            user={user}
+            password={password}
+            setToSaveSettings={setToSaveSettings}
+          />
+        </>
+      )
+    } else {
+      return (
+        <Button onClick={() => {
+          setToShowSettings(true)
+        }}>Change Settings</Button>
+      )
+    }
+  }
+
+  const renderSettingsInformationVisual = () => {
+    if (showSettingsVisual) {
+      return (
+        <>
+          <Button onClick={() => {
+            setToShowSettingsVisual(false)
+          }}>Hide Current Settings Information</Button>
+          <SettingsVisual
+            sessionTotal={sessionTotal}
+            direction={direction}
+            breakTotal={breakTotal}
+            pomodoros={pomodoros}
+            isSet={isSet}
+            isReset={isReset}
+            isOn={isOn}
+            totalTime={totalTime}
+            totalTimeEver={totalTimeEver}
+          />
+        </>
+      )
+    } else {
+      return (
+        <Button onClick={() => {
+          setToShowSettingsVisual(true)
+        }}>Show Current Settings Information</Button>
+      )
+    }
+  }
+
+
   return (
     <ComponentContainer>
-      <ComponentColumnContainer>
-        <Visualizer
-        plantChoice={plantChoice}
-        totalTimeEver={totalTimeEver}
-        growthRate={growthRate}
-        plantMaxImgNum={plantMaxImgNum}
-        />
-        <br/>
-        {renderHello()}
-        <Settings
-          setSession={setSession}
-          setDirection={setDirection}
-          setTimer={setTimerOn}
-          setNewSettings={setNewSettings}
-          setBreaks={setBreaks}
-          setNumberOfSessions={setNumberOfSessions}
+      <ComponentRowContainer>
+        <ComponentColumnContainer>
+          <Visualizer
+          plantChoice={plantChoice}
+          totalTimeEver={totalTimeEver}
+          growthRate={growthRate}
+          plantMaxImgNum={plantMaxImgNum}
+          />
+          {renderHello()}
+        </ComponentColumnContainer>
+        <ComponentColumnContainer>
+        <Login
+          setUser={setUser}
           user={user}
+          setPassword={setPassword}
           password={password}
-          setToSaveSettings={setToSaveSettings}
+          setToLogin={setToLogin}
+          willLogin={willLogin}
+          willCreateLogin={willCreateLogin}
+          setToCreateLogin={setToCreateLogin}
+          loggedIn={loggedIn}
         />
-      </ComponentColumnContainer>
-      <ComponentColumnContainer>
-      <Login
-        setUser={setUser}
-        user={user}
-        setPassword={setPassword}
-        password={password}
-        setToLogin={setToLogin}
-        willLogin={willLogin}
-        willCreateLogin={willCreateLogin}
-        setToCreateLogin={setToCreateLogin}
-        loggedIn={loggedIn}
-      />
-      <TimerVisual
-        sessionTotal={sessionTotal}
-        direction={direction}
-        totalTime={totalTime}
-        addToTotalTime={addToTotalTime}
-        isOn={isOn}
-        setTimerOn={setTimerOn}
-        isReset={isReset}
-        resetTimer={resetTimer}
-        isSet={isSet}
-        setNewSettings={setNewSettings}
-        breakTotal={breakTotal}
-        pomodoros={pomodoros}
-        totalTimeEver={totalTimeEver}
-        addToTotalTimeEver={addToTotalTimeEver}
-        logTime={logTime}
-        errorThrown={errorThrown}
-        user={user}
-        password={password}
-      />
-      {renderError()}
-      {renderServerMessage()}
-        <SettingsVisual
+        <TimerVisual
           sessionTotal={sessionTotal}
           direction={direction}
+          totalTime={totalTime}
+          addToTotalTime={addToTotalTime}
+          isOn={isOn}
+          setTimerOn={setTimerOn}
+          isReset={isReset}
+          resetTimer={resetTimer}
+          isSet={isSet}
+          setNewSettings={setNewSettings}
           breakTotal={breakTotal}
           pomodoros={pomodoros}
-          isSet={isSet}
-          isReset={isReset}
-          isOn={isOn}
-          totalTime={totalTime}
           totalTimeEver={totalTimeEver}
+          addToTotalTimeEver={addToTotalTimeEver}
+          logTime={logTime}
+          errorThrown={errorThrown}
+          user={user}
+          password={password}
         />
+        {renderError()}
+        {renderServerMessage()}
+        </ComponentColumnContainer>
+      </ComponentRowContainer>
+      <ComponentColumnContainer>
+        {renderSettingsInformationVisual()}
+        {renderSettings()}
       </ComponentColumnContainer>
     </ComponentContainer>
   )

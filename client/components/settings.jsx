@@ -77,6 +77,11 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     }
   }
 
+  useEffect(() => {
+    renderCustomSessionNumberInput();
+    renderCustomTimeInput();
+  }, [isCustomNumberOfSessions, isCustomSessions])
+
   const renderCustomSessionNumberInput = () => {
     if (isCustomNumberOfSessions) {
       return (
