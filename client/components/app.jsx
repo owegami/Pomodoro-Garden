@@ -17,6 +17,7 @@ const ComponentContainer = styled.div`
   font-family: charybdis;
   font-size: 2em;
   color: DarkOliveGreen;
+  width: 750px;
 `;
 
 const ComponentRowContainer = styled.div`

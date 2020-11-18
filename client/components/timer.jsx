@@ -5,7 +5,6 @@ import sounds from './../../public/sounds.js'
 
 const TimerBox = styled.div`
   border: 10px dashed DarkSeaGreen;
-  border-radius: .5em;
   padding: 15px;
   text-align: center;
   font-size: 2em;
