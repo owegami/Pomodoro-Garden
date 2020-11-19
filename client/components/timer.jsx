@@ -2,69 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import sounds from './../../public/sounds.js'
-
-const TimerBox = styled.div`
-  border: 10px dashed DarkSeaGreen;
-  padding: 15px;
-  text-align: center;
-  font-size: 2em;
-`;
-
-const PauseMessageBox = styled.div`
-  position: absolute;
-  background-color: white;
-  color: RebeccaPurple;
-  font-size: 1em;
-  right: 5%;
-  top: 10%;
-  width: 100px;
-  height: 50px;
-  z-index: 2;
-  border: 4px solid darkred;
-  box-shadow: 2px 2px SlateGrey;
-`;
-
-const PauseMessage = styled.span`
-  color: RebeccaPurple;
-  position: absolute;
-  padding: 10px;
-`;
-
-const MessageSess = styled.div`
-  background-color: white;
-  color: RebeccaPurple;
-  font-size: 1.5em;
-  width: 250px;
-  height: 50px;
-  padding: 10px;
-  margin: 15px;
-  text-align: center;
-  border: 8px dashed RebeccaPurple;
-`;
-
-const MessageBreak = styled.div`
-  background-color: white;
-  color: cornflowerBlue;
-  font-size: 1.5em;
-  width: 250px;
-  height: 50px;
-  padding: 10px;
-  margin: 15px;
-  text-align: center;
-  border: 8px dashed cornflowerBlue;
-`;
-
-const Button = styled.button`
-  position: relative;
-  font-family: charybdis;
-  font-size: 1.5em;
-  color: DarkOliveGreen;
-  border: 6px dashed DarkSeaGreen;
-  background-color: white;
-  margin: 0px 10px;
-  right: 5%;
-  left: 2%;
-`;
+import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
 
 const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password }) => {
   const [seconds, setSeconds] = useState('00');
