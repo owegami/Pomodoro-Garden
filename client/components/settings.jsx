@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 import TimerSettings from './../components/settings/timerSettings.jsx';
 import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
+import SoundSettings from './../components/settings/soundSettings.jsx';
 import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
+SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
 const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver }) => {
@@ -15,7 +17,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
-      let settingsObj = {sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver}
+      let settingsObj = {sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver};
       return (
         <ComponentRowContainer>
           <ComponentColumnContainer>
@@ -47,7 +49,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderGraphicsSettings = () => {
     if (viewGraphicsSettings) {
-      let settingsObj = {sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver}
+      let settingsObj = {};
       return (
         <ComponentRowContainer>
           <ComponentColumnContainer>
@@ -69,7 +71,26 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   }
 
   const renderSoundSettings = () => {
-
+    if (viewSoundSettings) {
+      let settingsObj = {};
+      return (
+        <ComponentRowContainer>
+          <ComponentColumnContainer>
+            <Button onClick={() => {
+              setToViewSoundSettings(false);
+            }}>Hide Sound Settings</Button>
+            <SoundSettings />
+            <SettingsVisual settingsObj={settingsObj} />
+          </ComponentColumnContainer>
+        </ComponentRowContainer>
+      )
+    } else {
+      return (
+        <Button onClick={() => {
+          setToViewSoundSettings(true);
+        }}>Show Sound Settings</Button>
+      )
+    }
   }
 
   const renderDataSettings = () => {
