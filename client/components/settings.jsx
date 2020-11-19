@@ -58,7 +58,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderGraphicsSettings = () => {
     if (viewGraphicsSettings) {
-      setSettingsSectionToVisualize('graphics');
+      if (settingsSectionToVisualize !== 'graphics') {
+        setSettingsSectionToVisualize('graphics');
+      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
@@ -85,7 +87,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderSoundSettings = () => {
     if (viewSoundSettings) {
-      setSettingsSectionToVisualize('sound');
+      if (settingsSectionToVisualize !== 'sound') {
+        setSettingsSectionToVisualize('sound');
+      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
@@ -112,7 +116,9 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderDataSettings = () => {
     if (viewDataSettings) {
-      setSettingsSectionToVisualize('data');
+      if (settingsSectionToVisualize !== 'data') {
+        setSettingsSectionToVisualize('data');
+      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
