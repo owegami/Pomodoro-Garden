@@ -15,10 +15,15 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);
   const [viewDataSettings, setToViewDataSettings] = useState(false);
+  const [settingsSectionToVisualize, setSettingsSectionToVisualize] = useState('');
 
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
-      let settingsObj = {sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver};
+      if (settingsSectionToVisualize !== 'timer') {
+        setSettingsSectionToVisualize('timer');
+      }
+      console.log('settingsSectionToVisualize', settingsSectionToVisualize);
+      let settingsObj = [sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver];
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
@@ -35,7 +40,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
                 password={password}
                 setToSaveSettings={setToSaveSettings}
                 />
-              <SettingsVisual settingsObj={settingsObj} />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
           </ComponentRowContainer>
         </ComponentColumnContainer>
       )
@@ -50,7 +58,8 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderGraphicsSettings = () => {
     if (viewGraphicsSettings) {
-      let settingsObj = {};
+      setSettingsSectionToVisualize('graphics');
+      let settingsObj = [];
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
@@ -58,7 +67,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           }}>Hide Graphics Settings</Button>
           <ComponentRowContainer>
               <GraphicsSettings />
-              <SettingsVisual settingsObj={settingsObj} />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
           </ComponentRowContainer>
         </ComponentColumnContainer>
       )
@@ -73,7 +85,8 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderSoundSettings = () => {
     if (viewSoundSettings) {
-      let settingsObj = {};
+      setSettingsSectionToVisualize('sound');
+      let settingsObj = [];
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
@@ -81,7 +94,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           }}>Hide Sound Settings</Button>
           <ComponentRowContainer>
               <SoundSettings />
-              <SettingsVisual settingsObj={settingsObj} />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
           </ComponentRowContainer>
         </ComponentColumnContainer>
       )
@@ -96,7 +112,8 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderDataSettings = () => {
     if (viewDataSettings) {
-      let settingsObj = {};
+      setSettingsSectionToVisualize('data');
+      let settingsObj = [];
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
@@ -104,7 +121,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           }}>Hide Data Saving Settings</Button>
           <ComponentRowContainer>
               <DataSavingSettings />
-              <SettingsVisual settingsObj={settingsObj} />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
           </ComponentRowContainer>
         </ComponentColumnContainer>
       )
