@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import {SpaceHolderFlex, LoginButton, SpaceHolder, SubmitButton, TextInputBox, XButton, LoginInputs} from './../view/styledComponents.jsx';
+import {SpaceHolderFlex, LoginButton, SpaceHolder, SubmitButton, TextInputBox, XButton, LoginInputs} from './../../view/styledComponents.jsx';
 
 const Login = ({ willLogin, setToLogin, user, setUser, password, setPassword, willCreateLogin, setToCreateLogin, loggedIn }) => {
   const [loginShown, setLoginToShow] = useState(false);

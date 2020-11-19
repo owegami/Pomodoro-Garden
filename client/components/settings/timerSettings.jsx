@@ -71,13 +71,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       return (
         <Button onClick={() => {setToSaveSettings(true)}}>Save Settings</Button>
       )
-    } else {
-      return (
-        <>
-        <br/>
-        <span>Login to save settings</span>
-        </>
-      )
     }
   }
 

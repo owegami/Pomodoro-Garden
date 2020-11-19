@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 
-import Login from './login.jsx';
 import TimerVisual from './timer.jsx';
 import Visualizer from './visualizer.jsx';
 import Settings from './settings.jsx';
@@ -218,6 +217,17 @@ const App = () => {
             isOn={isOn}
             totalTime={totalTime}
             totalTimeEver={totalTimeEver}
+            setUser={setUser}
+            user={user}
+            setPassword={setPassword}
+            password={password}
+            setToLogin={setToLogin}
+            willLogin={willLogin}
+            willCreateLogin={willCreateLogin}
+            setToCreateLogin={setToCreateLogin}
+            loggedIn={loggedIn}
+            saveToDatabase={saveToDatabase}
+            setToSaveToDatabase={setToSaveToDatabase}
           />
         </>
       )
@@ -243,17 +253,6 @@ const App = () => {
           {renderHello()}
         </ComponentColumnContainer>
         <ComponentColumnContainer>
-        <Login
-          setUser={setUser}
-          user={user}
-          setPassword={setPassword}
-          password={password}
-          setToLogin={setToLogin}
-          willLogin={willLogin}
-          willCreateLogin={willCreateLogin}
-          setToCreateLogin={setToCreateLogin}
-          loggedIn={loggedIn}
-        />
         <TimerVisual
           sessionTotal={sessionTotal}
           direction={direction}

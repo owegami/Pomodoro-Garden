@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const DataSavingSettings = () => {
 
   return (
-    <h2>Dat Saving Settings Form will go here!</h2>
+    <h2>Data Saving Settings Form will go here!</h2>
   )
 }
 

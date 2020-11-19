@@ -20,24 +20,24 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (viewTimerSettings) {
       let settingsObj = {sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver};
       return (
-        <ComponentRowContainer>
-          <ComponentColumnContainer>
-            <Button onClick={() => {
-              setToViewTimerSettings(false);
-            }}>Hide Timer Settings</Button>
-            <TimerSettings
-              setSession={setSession}
-              setDirection={setDirection}
-              setNewSettings={setNewSettings}
-              setBreaks={setBreaks}
-              setNumberOfSessions={setNumberOfSessions}
-              user={user}
-              password={password}
-              setToSaveSettings={setToSaveSettings}
-              />
-            <SettingsVisual settingsObj={settingsObj} />
-          </ComponentColumnContainer>
-        </ComponentRowContainer>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewTimerSettings(false);
+          }}>Hide Timer Settings</Button>
+          <ComponentRowContainer>
+              <TimerSettings
+                setSession={setSession}
+                setDirection={setDirection}
+                setNewSettings={setNewSettings}
+                setBreaks={setBreaks}
+                setNumberOfSessions={setNumberOfSessions}
+                user={user}
+                password={password}
+                setToSaveSettings={setToSaveSettings}
+                />
+              <SettingsVisual settingsObj={settingsObj} />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
@@ -52,15 +52,15 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (viewGraphicsSettings) {
       let settingsObj = {};
       return (
-        <ComponentRowContainer>
-          <ComponentColumnContainer>
-            <Button onClick={() => {
-              setToViewGraphicsSettings(false);
-            }}>Hide Graphics Settings</Button>
-            <GraphicsSettings />
-            <SettingsVisual settingsObj={settingsObj} />
-          </ComponentColumnContainer>
-        </ComponentRowContainer>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewGraphicsSettings(false);
+          }}>Hide Graphics Settings</Button>
+          <ComponentRowContainer>
+              <GraphicsSettings />
+              <SettingsVisual settingsObj={settingsObj} />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
@@ -75,15 +75,15 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (viewSoundSettings) {
       let settingsObj = {};
       return (
-        <ComponentRowContainer>
-          <ComponentColumnContainer>
-            <Button onClick={() => {
-              setToViewSoundSettings(false);
-            }}>Hide Sound Settings</Button>
-            <SoundSettings />
-            <SettingsVisual settingsObj={settingsObj} />
-          </ComponentColumnContainer>
-        </ComponentRowContainer>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewSoundSettings(false);
+          }}>Hide Sound Settings</Button>
+          <ComponentRowContainer>
+              <SoundSettings />
+              <SettingsVisual settingsObj={settingsObj} />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
@@ -98,15 +98,15 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
     if (viewDataSettings) {
       let settingsObj = {};
       return (
-        <ComponentRowContainer>
-          <ComponentColumnContainer>
-            <Button onClick={() => {
-              setToViewDataSettings(false);
-            }}>Hide Data Saving Settings</Button>
-            <DataSavingSettings />
-            <SettingsVisual settingsObj={settingsObj} />
-          </ComponentColumnContainer>
-        </ComponentRowContainer>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewDataSettings(false);
+          }}>Hide Data Saving Settings</Button>
+          <ComponentRowContainer>
+              <DataSavingSettings />
+              <SettingsVisual settingsObj={settingsObj} />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
