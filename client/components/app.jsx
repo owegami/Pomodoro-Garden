@@ -4,99 +4,11 @@ import styled from 'styled-components';
 
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 
-import Login from './login.jsx';
 import TimerVisual from './timer.jsx';
 import Visualizer from './visualizer.jsx';
-import SettingsVisual from './settingsVisual.jsx';
 import Settings from './settings.jsx';
 
-const ComponentContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-flow: column wrap;
-  font-family: charybdis;
-  font-size: 2em;
-  color: DarkOliveGreen;
-  width: 750px;
-`;
-
-const ComponentRowContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-flow: row nowrap;
-`;
-
-const ComponentColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 30px;
-`;
-
-const ErrorMessageBox = styled.div`
-  position: absolute;
-  background-color: white;
-  color: darkred;
-  font-size:1em;
-  right: 5%;
-  top: 20%;
-  width: 500px;
-  height: 220px;
-  z-index: 2;
-  border: 4px solid darkred;
-  box-shadow: 2px 2px SlateGrey;
-`;
-
-const Message =  styled.div`
-  position: relative;
-  margin-top: 21px;
-  padding: 10px;
-`;
-
-const XButton = styled.div`
-  position: absolute;
-  right: -4px;
-  top:-4px;
-  width: 25px;
-  height: 30px;
-  z-index: 3;
-  border: 4px solid;
-  text-align: center;
-  vertical-align: center;
-  cursor: pointer;
-`;
-
-const ServerResponseMessage = styled.div`
-  position: absolute;
-  background-color: white;
-  color: DarkOliveGreen;
-  font-size:1em;
-  right: 5%;
-  top: 10%;
-  min-width: 250px;
-  max-width: 500px;
-  min-height: 75px;
-  max-height: 200px;
-  z-index: 2;
-  border: 4px solid DarkOliveGreen;
-  box-shadow: 2px 2px SlateGrey;
-`;
-
-const Button = styled.button`
-  position: relative;
-  font-family: charybdis;
-  font-size: 1.5em;
-  color: DarkOliveGreen;
-  border: 6px dashed DarkSeaGreen;
-  background-color: white;
-  margin: 0px 10px 10px 10px;
-  right: 5%;
-  left: 2%;
-`;
-
-const HelloMessage = styled.h3`
-  position: relative;
-  left: 20px;
-`;
+import {ComponentContainer, ComponentRowContainer, ComponentColumnContainer, ErrorMessageBox, Message, XButton, ServerResponseMessage, Button, HelloMessage} from './../view/styledComponents.jsx';
 
 const App = () => {
   //setting and timer component states
@@ -296,6 +208,26 @@ const App = () => {
             user={user}
             password={password}
             setToSaveSettings={setToSaveSettings}
+            sessionTotal={sessionTotal}
+            direction={direction}
+            breakTotal={breakTotal}
+            pomodoros={pomodoros}
+            isSet={isSet}
+            isReset={isReset}
+            isOn={isOn}
+            totalTime={totalTime}
+            totalTimeEver={totalTimeEver}
+            setUser={setUser}
+            user={user}
+            setPassword={setPassword}
+            password={password}
+            setToLogin={setToLogin}
+            willLogin={willLogin}
+            willCreateLogin={willCreateLogin}
+            setToCreateLogin={setToCreateLogin}
+            loggedIn={loggedIn}
+            saveToDatabase={saveToDatabase}
+            setToSaveToDatabase={setToSaveToDatabase}
           />
         </>
       )
@@ -307,36 +239,6 @@ const App = () => {
       )
     }
   }
-
-  const renderSettingsInformationVisual = () => {
-    if (showSettingsVisual) {
-      return (
-        <>
-          <Button onClick={() => {
-            setToShowSettingsVisual(false)
-          }}>Hide Current Settings Information</Button>
-          <SettingsVisual
-            sessionTotal={sessionTotal}
-            direction={direction}
-            breakTotal={breakTotal}
-            pomodoros={pomodoros}
-            isSet={isSet}
-            isReset={isReset}
-            isOn={isOn}
-            totalTime={totalTime}
-            totalTimeEver={totalTimeEver}
-          />
-        </>
-      )
-    } else {
-      return (
-        <Button onClick={() => {
-          setToShowSettingsVisual(true)
-        }}>Show Current Settings Information</Button>
-      )
-    }
-  }
-
 
   return (
     <ComponentContainer>
@@ -351,17 +253,6 @@ const App = () => {
           {renderHello()}
         </ComponentColumnContainer>
         <ComponentColumnContainer>
-        <Login
-          setUser={setUser}
-          user={user}
-          setPassword={setPassword}
-          password={password}
-          setToLogin={setToLogin}
-          willLogin={willLogin}
-          willCreateLogin={willCreateLogin}
-          setToCreateLogin={setToCreateLogin}
-          loggedIn={loggedIn}
-        />
         <TimerVisual
           sessionTotal={sessionTotal}
           direction={direction}
@@ -387,7 +278,6 @@ const App = () => {
         </ComponentColumnContainer>
       </ComponentRowContainer>
       <ComponentColumnContainer>
-        {renderSettingsInformationVisual()}
         {renderSettings()}
       </ComponentColumnContainer>
     </ComponentContainer>

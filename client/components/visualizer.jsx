@@ -1,19 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const VisualizerBox = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 300px;
-  height: 300px;
-  border: 11px dashed #4b692f;
-  padding: 10px;
-`;
-
-const PlantImg = styled.img`
-  align-self: flex-end;
-  margin-bottom: 30px;
-`;
+import {VisualizerBox, PlantImg} from './../view/styledComponents.jsx';
 
 const Visualizer = ({totalTimeEver, plantChoice, growthRate, plantMaxImgNum }) => {
   let imgNumber = totalTimeEver === undefined ?  Math.floor(((0 / 3600) / 2) / growthRate)

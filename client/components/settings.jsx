@@ -1,206 +1,155 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const CurrentSettingsForm = styled.form`
-  margin-top: 25px;
-`;
+import TimerSettings from './../components/settings/timerSettings.jsx';
+import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
+import SoundSettings from './../components/settings/soundSettings.jsx';
+import DataSavingSettings from './../components/settings/dataSettings.jsx';
+import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
-const SettingsQuestion = styled.div`
-  margin: -10px 0px;
-`;
+SoundSettings
+import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const DropDownMenus = styled.select`
-  font-family: charybdis;
-  font-size: .8em;
-  color: DarkOliveGreen;
-  border: 4px dashed DarkSeaGreen;
-  background-color: white;
-`;
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver }) => {
+  const [viewTimerSettings, setToViewTimerSettings] = useState(false);
+  const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
+  const [viewSoundSettings, setToViewSoundSettings] = useState(false);
+  const [viewDataSettings, setToViewDataSettings] = useState(false);
+  const [settingsSectionToVisualize, setSettingsSectionToVisualize] = useState('');
 
-const DropDownOptions = styled.option`
-  font-family: charybdis;
-  font-size: .8em;
-  color: DarkOliveGreen;
-  border: 4px dashed DarkSeaGreen;
-  background-color: white;
-`;
-
-const Button = styled.button`
-  font-family: charybdis;
-  font-size: .8em;
-  color: DarkOliveGreen;
-  border: 4px dashed DarkSeaGreen;
-  background-color: white;
-  margin: 2px;
-`;
-
-const TextInputBox = styled.input`
-  width: 300px;
-  padding: 5px;
-  font-family: charybdis;
-  font-size: .8em;
-  color: DarkOliveGreen;
-  margin: 5px -50px 5px 5px;
-  border: 4px solid DarkSeaGreen;
-  box-shadow: 2px 2px SlateGrey;
-`;
-
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings }) => {
-  const [isCustomSessions, setCustomSessions] = useState(false);
-  const [isCustomNumberOfSessions, setCustomNumberOfSessions] = useState(false);
-  const [customTime, setCustomTime] = useState();
-  const [customNumberOfSessions, setCustomSessionCount] = useState();
-
-  const renderCustomTimeInput = () => {
-    if (isCustomSessions) {
+  const renderTimerSettings = () => {
+    if (viewTimerSettings) {
+      if (settingsSectionToVisualize !== 'timer') {
+        setSettingsSectionToVisualize('timer');
+      }
+      console.log('settingsSectionToVisualize', settingsSectionToVisualize);
+      let settingsObj = [sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver];
       return (
-        <>
-        <br/>
-          <TextInputBox type='text' value={customTime === undefined ? '' : customTime} onChange={() => {
-            setCustomTime(event.target.value);
-          }}></TextInputBox>
-          <br />
-          <Button onClick={(e) => {
-            e.preventDefault();
-            setSession(customTime * 60);
-            setTimeout(() => {
-              setCustomSessions(false);
-            }, 500)
-            setCustomTime(); //flushing
-          }}>Set Time</Button>
-        </>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewTimerSettings(false);
+          }}>Hide Timer Settings</Button>
+          <ComponentRowContainer>
+              <TimerSettings
+                setSession={setSession}
+                setDirection={setDirection}
+                setNewSettings={setNewSettings}
+                setBreaks={setBreaks}
+                setNumberOfSessions={setNumberOfSessions}
+                user={user}
+                password={password}
+                setToSaveSettings={setToSaveSettings}
+                />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
-        <></>
+        <Button onClick={() => {
+          setToViewTimerSettings(true);
+        }}>Show Timer Settings</Button>
       )
     }
   }
 
-  useEffect(() => {
-    renderCustomSessionNumberInput();
-    renderCustomTimeInput();
-  }, [isCustomNumberOfSessions, isCustomSessions])
-
-  const renderCustomSessionNumberInput = () => {
-    if (isCustomNumberOfSessions) {
+  const renderGraphicsSettings = () => {
+    if (viewGraphicsSettings) {
+      if (settingsSectionToVisualize !== 'graphics') {
+        setSettingsSectionToVisualize('graphics');
+      }
+      let settingsObj = [];
       return (
-        <>
-        <br/>
-          <TextInputBox type='text' value={customNumberOfSessions === undefined ? '' : customNumberOfSessions} onChange={() => {
-              setCustomSessionCount(event.target.value);
-            }}></TextInputBox>
-            <br />
-            <Button onClick={(e) => {
-              e.preventDefault();
-              setNumberOfSessions(customNumberOfSessions);
-              setTimeout(() => {
-                setCustomNumberOfSessions(false);
-              }, 500)
-              setCustomSessionCount(); //flushing
-            }}>Set Number of Sessions</Button>
-        </>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewGraphicsSettings(false);
+          }}>Hide Graphics Settings</Button>
+          <ComponentRowContainer>
+              <GraphicsSettings />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
-        <></>
+        <Button onClick={() => {
+          setToViewGraphicsSettings(true);
+        }}>Show Graphics Settings</Button>
       )
     }
   }
 
-  const renderSaveSettingsButton = () => {
-    if (user.length > 0 && password.length > 0) {
+  const renderSoundSettings = () => {
+    if (viewSoundSettings) {
+      if (settingsSectionToVisualize !== 'sound') {
+        setSettingsSectionToVisualize('sound');
+      }
+      let settingsObj = [];
       return (
-        <Button onClick={() => {setToSaveSettings(true)}}>Save Settings</Button>
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewSoundSettings(false);
+          }}>Hide Sound Settings</Button>
+          <ComponentRowContainer>
+              <SoundSettings />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
       )
     } else {
       return (
-        <>
-        <br/>
-        <span>Login to save settings</span>
-        </>
+        <Button onClick={() => {
+          setToViewSoundSettings(true);
+        }}>Show Sound Settings</Button>
+      )
+    }
+  }
+
+  const renderDataSettings = () => {
+    if (viewDataSettings) {
+      if (settingsSectionToVisualize !== 'data') {
+        setSettingsSectionToVisualize('data');
+      }
+      let settingsObj = [];
+      return (
+        <ComponentColumnContainer>
+          <Button onClick={() => {
+            setToViewDataSettings(false);
+          }}>Hide Data Saving Settings</Button>
+          <ComponentRowContainer>
+              <DataSavingSettings />
+              <SettingsVisual
+              settingsSectionToVisualize={settingsSectionToVisualize}
+              settingsObj={settingsObj}
+              />
+          </ComponentRowContainer>
+        </ComponentColumnContainer>
+      )
+    } else {
+      return (
+        <Button onClick={() => {
+          setToViewDataSettings(true);
+        }}>Show Data Saving Settings</Button>
       )
     }
   }
 
   return (
-    <CurrentSettingsForm onSubmit={(e) => {
-      e.preventDefault();
-      setNewSettings(true);
-    }}>
-      <SettingsQuestion>
-        <label>
-          Choose session length: <br/>
-          <DropDownMenus onChange={() => {
-            let value = Number.parseInt(event.target.value);
-            if (Number.isNaN(value) === false) {
-              setSession(value * 60);
-            } else {
-              setCustomSessions(true);
-            }
-            }}>
-            <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
-            <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-            <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-            <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
-          </DropDownMenus>
-          {renderCustomTimeInput()}
-        </label>
-      </SettingsQuestion>
-      <br />
-      <SettingsQuestion>
-        <label>
-          Choose timer style:<br/>
-          <DropDownMenus onChange={() => {
-            setDirection(event.target.value);
-          }}>
-            <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
-            <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
-            <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
-          </DropDownMenus>
-        </label>
-      </SettingsQuestion>
-      <br/>
-      <SettingsQuestion>
-        <label>
-          Choose break length(minutes):<br />
-          <DropDownMenus onChange={() => {
-            setBreaks(event.target.value);
-          }}>
-            <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
-            <DropDownOptions value={5 * 60} name='breakTime'>5</DropDownOptions>
-            <DropDownOptions value={10 * 60} name='breakTime'>10</DropDownOptions>
-            <DropDownOptions value={15 * 60} name='breakTime'>15</DropDownOptions>
-            <DropDownOptions value={20 * 60} name='breakTime'>20</DropDownOptions>
-          </DropDownMenus>
-        </label>
-      </SettingsQuestion>
-      <br />
-      <SettingsQuestion>
-        <label>
-          Choose number of sessions:<br />
-          <DropDownMenus onChange={() => {
-            let value = Number.parseInt(event.target.value);
-            if (Number.isNaN(value) === false) {
-              setNumberOfSessions(event.target.value);
-            } else {
-              setCustomNumberOfSessions(true);
-            }
-          }}>
-            <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
-            <DropDownOptions value={2} name='pomodoros'>2</DropDownOptions>
-            <DropDownOptions value={4} name='pomodoros'>4</DropDownOptions>
-            <DropDownOptions value={6} name='pomodoros'>6</DropDownOptions>
-            <DropDownOptions value='Custom' name='pomodoros'>Custom</DropDownOptions>
-          </DropDownMenus>
-          {renderCustomSessionNumberInput()}
-        </label>
-      </SettingsQuestion>
-      <br/>
-      <Button onClick={() => {setNewSettings(true)}}>Set Timer Settings</Button>
-      <br/>
-      {renderSaveSettingsButton()}
-    </CurrentSettingsForm>
+    <>
+      {renderTimerSettings()}
+      {renderGraphicsSettings()}
+      {renderSoundSettings()}
+      {renderDataSettings()}
+    </>
   )
 }
 
