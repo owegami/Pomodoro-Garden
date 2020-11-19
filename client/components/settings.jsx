@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import TimerSettings from './../components/settings/timerSettings.jsx';
 import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
 import SoundSettings from './../components/settings/soundSettings.jsx';
+import DataSavingSettings from './../components/settings/dataSettings.jsx';
 import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
 SoundSettings
@@ -94,7 +95,26 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   }
 
   const renderDataSettings = () => {
-
+    if (viewDataSettings) {
+      let settingsObj = {};
+      return (
+        <ComponentRowContainer>
+          <ComponentColumnContainer>
+            <Button onClick={() => {
+              setToViewDataSettings(false);
+            }}>Hide Data Saving Settings</Button>
+            <DataSavingSettings />
+            <SettingsVisual settingsObj={settingsObj} />
+          </ComponentColumnContainer>
+        </ComponentRowContainer>
+      )
+    } else {
+      return (
+        <Button onClick={() => {
+          setToViewDataSettings(true);
+        }}>Show Data Saving Settings</Button>
+      )
+    }
   }
 
   return (
