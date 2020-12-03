@@ -64,9 +64,9 @@ const App = () => {
       })
     } else if (willLogin && !saveToDatabase) {
       loginObj = JSON.parse(localStorage.getItem('userSettings'));
-      setUser(loginObj.name);
     }
-    if (loginObj !== undefined) {
+    if (loginObj !== undefined && loginObj !== null) {
+      setUser(loginObj);
       setSession(loginObj.sessionLength);
       setDirection(loginObj.timerStyle);
       setBreaks(loginObj.breakLength);
@@ -79,7 +79,6 @@ const App = () => {
   }, [willLogin])
 
   useEffect(() => {
-    console.log('got here to log the time');
     if (willLogTime && loggedIn && saveToDatabase) {
       logTimeToDatabase(prepareData(user, password, totalTimeEver, undefined, sessionTotal, undefined, undefined))
       .then((response) => {
