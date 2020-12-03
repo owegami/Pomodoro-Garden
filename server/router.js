@@ -68,5 +68,4 @@ app.put('/timer/preferences', (req, res) => {
     })
 })
 
-
 module.exports = app;

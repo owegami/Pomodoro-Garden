@@ -36,6 +36,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
                 user={user}
                 password={password}
                 setToSaveSettings={setToSaveSettings}
+                sessionTotal={sessionTotal}
+                direction={direction}
+                breakTotal={breakTotal}
+                pomodoros={pomodoros}
                 />
         </ComponentColumnContainer>
       )

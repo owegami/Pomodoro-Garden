@@ -3,11 +3,20 @@ import styled from 'styled-components';
 
 import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, Button, TextInputBox} from './../../view/styledComponents.jsx';
 
-const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings }) => {
+const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros }) => {
+
+  let dropDownDirectionStatement = direction === 'backwards' ? 'Timer view' : 'Stopwatch view';
+
   const [isCustomSessions, setCustomSessions] = useState(false);
   const [isCustomNumberOfSessions, setCustomNumberOfSessions] = useState(false);
   const [customTime, setCustomTime] = useState();
   const [customNumberOfSessions, setCustomSessionCount] = useState();
+  const [sesstionTotalTime, setSessionTotalTime] = useState(sessionTotal / 60);
+  const [directionStatement, setDirectionStatement] = useState(dropDownDirectionStatement);
+  const [breakTotalTime, setBreakTotalTime] = useState(breakTotal / 60);
+  const [pomodorosNumber, setPomodorosNumber] = useState(pomodoros);
+
+
 
   const renderCustomTimeInput = () => {
     if (isCustomSessions) {
@@ -78,6 +87,10 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
     <CurrentSettingsForm onSubmit={(e) => {
       e.preventDefault();
       setNewSettings(true);
+      setSessionTotalTime(sessionTotal / 60);
+      setDirectionStatement(dropDownDirectionStatement);
+      setBreakTotalTime(breakTotal / 60);
+      setPomodorosNumber(pomodoros)
     }}>
       <SettingsQuestion>
         <label>
@@ -90,7 +103,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomSessions(true);
             }
             }}>
-            <DropDownOptions value='0' name='sessionTotal'>Number of session minutes?</DropDownOptions>
+            <DropDownOptions value='0' name='sessionTotal'>{sesstionTotalTime} minutes</DropDownOptions>
             <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
             <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
             <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
@@ -105,7 +118,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
           <DropDownMenus onChange={() => {
             setDirection(event.target.value);
           }}>
-            <DropDownOptions value='null' name='direction'>Ascending/Descending timer?</DropDownOptions>
+            <DropDownOptions value='null' name='direction'>{directionStatement}</DropDownOptions>
             <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
             <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
           </DropDownMenus>
@@ -118,7 +131,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
           <DropDownMenus onChange={() => {
             setBreaks(event.target.value);
           }}>
-            <DropDownOptions value='null'>Number of break minutes?</DropDownOptions>
+            <DropDownOptions value='null'>{breakTotalTime} minutes</DropDownOptions>
             <DropDownOptions value={5 * 60} name='breakTime'>5</DropDownOptions>
             <DropDownOptions value={10 * 60} name='breakTime'>10</DropDownOptions>
             <DropDownOptions value={15 * 60} name='breakTime'>15</DropDownOptions>
@@ -138,7 +151,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomNumberOfSessions(true);
             }
           }}>
-            <DropDownOptions value='null'>Number of sessions/pomodoros?</DropDownOptions>
+            <DropDownOptions value='null'>{pomodorosNumber} sessions</DropDownOptions>
             <DropDownOptions value={2} name='pomodoros'>2</DropDownOptions>
             <DropDownOptions value={4} name='pomodoros'>4</DropDownOptions>
             <DropDownOptions value={6} name='pomodoros'>6</DropDownOptions>
