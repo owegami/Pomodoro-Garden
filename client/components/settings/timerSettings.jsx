@@ -90,7 +90,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       setSessionTotalTime(sessionTotal / 60);
       setDirectionStatement(dropDownDirectionStatement);
       setBreakTotalTime(breakTotal / 60);
-      setPomodorosNumber(pomodoros)
+      setPomodorosNumber(pomodoros);
     }}>
       <SettingsQuestion>
         <label>
