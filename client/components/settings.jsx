@@ -10,12 +10,14 @@ import DataSavingSettings from './../components/settings/dataSettings.jsx';
 SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver }) => {
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast }) => {
   const [viewTimerSettings, setToViewTimerSettings] = useState(false);
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);
   const [viewDataSettings, setToViewDataSettings] = useState(false);
   const [settingsSectionToVisualize, setSettingsSectionToVisualize] = useState('');
+
+  console.log('selectHighContrast, setSelectHighContrast', selectHighContrast, setSelectHighContrast)
 
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
@@ -63,7 +65,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewGraphicsSettings(false);
           }}>Hide Graphics Settings</Button>
-              <GraphicsSettings />
+              <GraphicsSettings
+              selectHighContrast={selectHighContrast}
+              setSelectHighContrast={setSelectHighContrast}
+              />
         </ComponentColumnContainer>
       )
     } else {

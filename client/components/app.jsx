@@ -67,7 +67,7 @@ const App = () => {
       loginObj = JSON.parse(localStorage.getItem('userSettings'));
     }
     if (loginObj !== undefined && loginObj !== null) {
-      setUser(loginObj);
+      setUser(loginObj.name);
       setSession(loginObj.sessionLength);
       setDirection(loginObj.timerStyle);
       setBreaks(loginObj.breakLength);
@@ -289,8 +289,12 @@ const App = () => {
 
 const setToLocalStorage = (userSettingsObj) => {
   let userSettings = JSON.stringify(userSettingsObj);
-  console.log('JSON.stringify(', userSettings);
+  if (localStorage.getItem('userSettings') !== undefined) {
+    localStorage.removeItem('userSettings');
+    console.log('REMOVED IT')
+  }
   localStorage.setItem('userSettings', userSettings);
+  console.log('JSON.stringify(', userSettings);
 }
 
 export default App;
