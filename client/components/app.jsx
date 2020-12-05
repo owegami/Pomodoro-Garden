@@ -291,10 +291,8 @@ const setToLocalStorage = (userSettingsObj) => {
   let userSettings = JSON.stringify(userSettingsObj);
   if (localStorage.getItem('userSettings') !== undefined) {
     localStorage.removeItem('userSettings');
-    console.log('REMOVED IT')
   }
   localStorage.setItem('userSettings', userSettings);
-  console.log('JSON.stringify(', userSettings);
 }
 
 export default App;

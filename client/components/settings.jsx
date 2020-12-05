@@ -17,8 +17,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
   const [viewDataSettings, setToViewDataSettings] = useState(false);
   const [settingsSectionToVisualize, setSettingsSectionToVisualize] = useState('');
 
-  console.log('selectHighContrast, setSelectHighContrast', selectHighContrast, setSelectHighContrast)
-
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
       if (settingsSectionToVisualize !== 'timer') {
