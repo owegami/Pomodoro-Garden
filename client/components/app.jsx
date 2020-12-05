@@ -29,6 +29,7 @@ const App = () => {
   const [plantChoice, setPlantChoice] = useState('Tomato');
   const [growthRate, setGrowthRate] = useState(1);
   const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
+  const [selectHighContrast, setSelectHighContrast] = useState('');
 
   //Data persisting states
   const [willLogTime, logTime] = useState(false);
@@ -64,9 +65,9 @@ const App = () => {
       })
     } else if (willLogin && !saveToDatabase) {
       loginObj = JSON.parse(localStorage.getItem('userSettings'));
-      setUser(loginObj.name);
     }
-    if (loginObj !== undefined) {
+    if (loginObj !== undefined && loginObj !== null) {
+      setUser(loginObj.name);
       setSession(loginObj.sessionLength);
       setDirection(loginObj.timerStyle);
       setBreaks(loginObj.breakLength);
@@ -79,7 +80,6 @@ const App = () => {
   }, [willLogin])
 
   useEffect(() => {
-    console.log('got here to log the time');
     if (willLogTime && loggedIn && saveToDatabase) {
       logTimeToDatabase(prepareData(user, password, totalTimeEver, undefined, sessionTotal, undefined, undefined))
       .then((response) => {
@@ -228,6 +228,8 @@ const App = () => {
             loggedIn={loggedIn}
             saveToDatabase={saveToDatabase}
             setToSaveToDatabase={setToSaveToDatabase}
+            selectHighContrast={selectHighContrast}
+            setSelectHighContrast={setSelectHighContrast}
           />
         </>
       )
@@ -249,6 +251,7 @@ const App = () => {
           totalTimeEver={totalTimeEver}
           growthRate={growthRate}
           plantMaxImgNum={plantMaxImgNum}
+          selectHighContrast={selectHighContrast}
           />
           {renderHello()}
         </ComponentColumnContainer>
@@ -286,8 +289,12 @@ const App = () => {
 
 const setToLocalStorage = (userSettingsObj) => {
   let userSettings = JSON.stringify(userSettingsObj);
-  console.log('JSON.stringify(', userSettings);
+  if (localStorage.getItem('userSettings') !== undefined) {
+    localStorage.removeItem('userSettings');
+    console.log('REMOVED IT')
+  }
   localStorage.setItem('userSettings', userSettings);
+  console.log('JSON.stringify(', userSettings);
 }
 
 export default App;

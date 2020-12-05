@@ -5,31 +5,30 @@ import TimerSettings from './../components/settings/timerSettings.jsx';
 import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
 import SoundSettings from './../components/settings/soundSettings.jsx';
 import DataSavingSettings from './../components/settings/dataSettings.jsx';
-import SettingsVisual from './../components/settings/settingsVisual.jsx';
+// import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
 SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver }) => {
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast }) => {
   const [viewTimerSettings, setToViewTimerSettings] = useState(false);
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);
   const [viewDataSettings, setToViewDataSettings] = useState(false);
   const [settingsSectionToVisualize, setSettingsSectionToVisualize] = useState('');
 
+  console.log('selectHighContrast, setSelectHighContrast', selectHighContrast, setSelectHighContrast)
+
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
       if (settingsSectionToVisualize !== 'timer') {
         setSettingsSectionToVisualize('timer');
       }
-      console.log('settingsSectionToVisualize', settingsSectionToVisualize);
-      let settingsObj = [sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver];
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
             setToViewTimerSettings(false);
           }}>Hide Timer Settings</Button>
-          <ComponentRowContainer>
               <TimerSettings
                 setSession={setSession}
                 setDirection={setDirection}
@@ -39,12 +38,11 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
                 user={user}
                 password={password}
                 setToSaveSettings={setToSaveSettings}
+                sessionTotal={sessionTotal}
+                direction={direction}
+                breakTotal={breakTotal}
+                pomodoros={pomodoros}
                 />
-              <SettingsVisual
-              settingsSectionToVisualize={settingsSectionToVisualize}
-              settingsObj={settingsObj}
-              />
-          </ComponentRowContainer>
         </ComponentColumnContainer>
       )
     } else {
@@ -67,13 +65,10 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewGraphicsSettings(false);
           }}>Hide Graphics Settings</Button>
-          <ComponentRowContainer>
-              <GraphicsSettings />
-              <SettingsVisual
-              settingsSectionToVisualize={settingsSectionToVisualize}
-              settingsObj={settingsObj}
+              <GraphicsSettings
+              selectHighContrast={selectHighContrast}
+              setSelectHighContrast={setSelectHighContrast}
               />
-          </ComponentRowContainer>
         </ComponentColumnContainer>
       )
     } else {
@@ -96,13 +91,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewSoundSettings(false);
           }}>Hide Sound Settings</Button>
-          <ComponentRowContainer>
               <SoundSettings />
-              <SettingsVisual
-              settingsSectionToVisualize={settingsSectionToVisualize}
-              settingsObj={settingsObj}
-              />
-          </ComponentRowContainer>
         </ComponentColumnContainer>
       )
     } else {
@@ -125,13 +114,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewDataSettings(false);
           }}>Hide Data Saving Settings</Button>
-          <ComponentRowContainer>
               <DataSavingSettings />
-              <SettingsVisual
-              settingsSectionToVisualize={settingsSectionToVisualize}
-              settingsObj={settingsObj}
-              />
-          </ComponentRowContainer>
         </ComponentColumnContainer>
       )
     } else {

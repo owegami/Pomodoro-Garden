@@ -6,7 +6,7 @@ import {CurrentSettingsBox} from './../../view/styledComponents.jsx';
 const SettingsVisual = ({ settingsSectionToVisualize, settingsObj }) => {
 
   if (settingsSectionToVisualize === 'timer') {
-    let [ sessionTotal, direction, breakTotal, pomodoros, isSet, isReset, isOn, totalTime, totalTimeEver ] = settingsObj;
+    let [ sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver ] = settingsObj;
     const renderTotalTime = () => {
       return Math.floor(totalTime / 60);
     }
@@ -43,11 +43,17 @@ const SettingsVisual = ({ settingsSectionToVisualize, settingsObj }) => {
       </CurrentSettingsBox>
     )
   } else if (settingsSectionToVisualize === 'graphics') {
-
+    return (
+      <h2>Not built yet...</h2>
+    )
   } else if (settingsSectionToVisualize === 'sound') {
-
+    return (
+      <h2>Not built yet...</h2>
+    )
   } else if (settingsSectionToVisualize === 'data') {
-
+    return (
+      <h2>Not built yet...</h2>
+    )
   }
 
 }
