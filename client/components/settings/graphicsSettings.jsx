@@ -5,7 +5,6 @@ import {CurrentSettingsForm, SettingsQuestion, Button} from './../../view/styled
 
 const GraphicsSettings = ({selectHighContrast, setSelectHighContrast}) => {
 
-  console.log(selectHighContrast)
   return (
     <CurrentSettingsForm onSubmit={(event) => {
       event.preventDefault();
