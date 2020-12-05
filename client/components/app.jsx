@@ -24,6 +24,8 @@ const App = () => {
   const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
   const [showSettings, setToShowSettings] = useState(false);
   const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
+  const [isTicking, setIsTicking] = useState(false);
+  const [clockTickSound, setClockTickSound] = useState('Clock Tick 1')
 
   //visualizer states
   const [plantChoice, setPlantChoice] = useState('Tomato');
@@ -230,6 +232,10 @@ const App = () => {
             setToSaveToDatabase={setToSaveToDatabase}
             selectHighContrast={selectHighContrast}
             setSelectHighContrast={setSelectHighContrast}
+            isTicking={isTicking}
+            setIsTicking={setIsTicking}
+            clockTickSound={clockTickSound}
+            setClockTickSound={setClockTickSound}
           />
         </>
       )

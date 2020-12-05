@@ -103,7 +103,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomSessions(true);
             }
             }}>
-            <DropDownOptions value='0' name='sessionTotal'>{sesstionTotalTime} minutes</DropDownOptions>
+            <DropDownOptions value={sesstionTotalTime} name='sessionTotal'>{sesstionTotalTime} minutes</DropDownOptions>
             <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
             <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
             <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
@@ -118,7 +118,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
           <DropDownMenus onChange={() => {
             setDirection(event.target.value);
           }}>
-            <DropDownOptions value='null' name='direction'>{directionStatement}</DropDownOptions>
+            <DropDownOptions value={directionStatement} name='direction'>{directionStatement}</DropDownOptions>
             <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
             <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
           </DropDownMenus>
@@ -131,7 +131,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
           <DropDownMenus onChange={() => {
             setBreaks(event.target.value);
           }}>
-            <DropDownOptions value='null'>{breakTotalTime} minutes</DropDownOptions>
+            <DropDownOptions value={breakTotalTime}>{breakTotalTime} minutes</DropDownOptions>
             <DropDownOptions value={5 * 60} name='breakTime'>5</DropDownOptions>
             <DropDownOptions value={10 * 60} name='breakTime'>10</DropDownOptions>
             <DropDownOptions value={15 * 60} name='breakTime'>15</DropDownOptions>
@@ -151,7 +151,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomNumberOfSessions(true);
             }
           }}>
-            <DropDownOptions value='null'>{pomodorosNumber} sessions</DropDownOptions>
+            <DropDownOptions value={pomodorosNumber}>{pomodorosNumber} sessions</DropDownOptions>
             <DropDownOptions value={2} name='pomodoros'>2</DropDownOptions>
             <DropDownOptions value={4} name='pomodoros'>4</DropDownOptions>
             <DropDownOptions value={6} name='pomodoros'>6</DropDownOptions>

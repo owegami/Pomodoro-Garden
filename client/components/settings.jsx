@@ -10,7 +10,7 @@ import DataSavingSettings from './../components/settings/dataSettings.jsx';
 SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast }) => {
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound }) => {
   const [viewTimerSettings, setToViewTimerSettings] = useState(false);
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);
@@ -80,7 +80,12 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewSoundSettings(false);
           }}>Hide Sound Settings</Button>
-              <SoundSettings />
+              <SoundSettings
+              isTicking={isTicking}
+              setIsTicking={setIsTicking}
+              clockTickSound={clockTickSound}
+              setClockTickSound={setClockTickSound}
+              />
         </ComponentColumnContainer>
       )
     } else {
