@@ -19,9 +19,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderTimerSettings = () => {
     if (viewTimerSettings) {
-      if (settingsSectionToVisualize !== 'timer') {
-        setSettingsSectionToVisualize('timer');
-      }
       return (
         <ComponentColumnContainer>
           <Button onClick={() => {
@@ -54,9 +51,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderGraphicsSettings = () => {
     if (viewGraphicsSettings) {
-      if (settingsSectionToVisualize !== 'graphics') {
-        setSettingsSectionToVisualize('graphics');
-      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
@@ -80,9 +74,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderSoundSettings = () => {
     if (viewSoundSettings) {
-      if (settingsSectionToVisualize !== 'sound') {
-        setSettingsSectionToVisualize('sound');
-      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
@@ -103,9 +94,6 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
 
   const renderDataSettings = () => {
     if (viewDataSettings) {
-      if (settingsSectionToVisualize !== 'data') {
-        setSettingsSectionToVisualize('data');
-      }
       let settingsObj = [];
       return (
         <ComponentColumnContainer>
