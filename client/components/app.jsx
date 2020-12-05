@@ -29,6 +29,7 @@ const App = () => {
   const [plantChoice, setPlantChoice] = useState('Tomato');
   const [growthRate, setGrowthRate] = useState(1);
   const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
+  const [selectHighContrast, setSelectHighContrast] = useState('');
 
   //Data persisting states
   const [willLogTime, logTime] = useState(false);
@@ -227,6 +228,8 @@ const App = () => {
             loggedIn={loggedIn}
             saveToDatabase={saveToDatabase}
             setToSaveToDatabase={setToSaveToDatabase}
+            selectHighContrast={selectHighContrast}
+            setSelectHighContrast={setSelectHighContrast}
           />
         </>
       )
@@ -248,6 +251,7 @@ const App = () => {
           totalTimeEver={totalTimeEver}
           growthRate={growthRate}
           plantMaxImgNum={plantMaxImgNum}
+          selectHighContrast={selectHighContrast}
           />
           {renderHello()}
         </ComponentColumnContainer>

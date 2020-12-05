@@ -14,6 +14,17 @@ module.exports = {
   },
   module: {
     rules: [{
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+      {
         test: /\.jsx?/,
         include: source,
         exclude: /(node_modules|bower_components)/,

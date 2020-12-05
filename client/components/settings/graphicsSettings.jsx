@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const GraphicsSettings = () => {
+import {CurrentSettingsForm, SettingsQuestion, Button} from './../../view/styledComponents.jsx';
+
+import regularimage from './../../../public/images/Tomato_5.png';
+
+const GraphicsSettings = (selectHighContrast, setSelectHighContrast) => {
 
   return (
-    <h2>Graphics Settings Form will go here!</h2>
+    <CurrentSettingsForm>
+      <SettingsQuestion>
+          Select which image you prefer: <br/>
+        <label>
+          <img src='/images/Tomato_5.png' alt='Low contrast picture of tomato plant'/>
+          <input type="radio" value={regularimage}></input>
+        </label>
+      </SettingsQuestion>
+    </CurrentSettingsForm>
   )
 }
 
