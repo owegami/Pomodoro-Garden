@@ -243,7 +243,7 @@ const App = () => {
       return (
         <Button onClick={() => {
           setToShowSettings(true)
-        }}>Change Settings</Button>
+        }}>Settings</Button>
       )
     }
   }

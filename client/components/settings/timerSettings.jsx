@@ -68,7 +68,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       )
     }
   }
-console.log(sessionTotal /60);
   const renderSaveSettingsButton = () => {
     if (user.length > 0 && password.length > 0) {
       return (
