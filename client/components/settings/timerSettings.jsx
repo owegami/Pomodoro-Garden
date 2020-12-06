@@ -11,12 +11,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
   const [isCustomNumberOfSessions, setCustomNumberOfSessions] = useState(false);
   const [customTime, setCustomTime] = useState();
   const [customNumberOfSessions, setCustomSessionCount] = useState();
-  const [sesstionTotalTime, setSessionTotalTime] = useState(sessionTotal / 60);
-  const [directionStatement, setDirectionStatement] = useState(dropDownDirectionStatement);
-  const [breakTotalTime, setBreakTotalTime] = useState(breakTotal / 60);
-  const [pomodorosNumber, setPomodorosNumber] = useState(pomodoros);
-
-
 
   const renderCustomTimeInput = () => {
     if (isCustomSessions) {
@@ -74,7 +68,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       )
     }
   }
-
   const renderSaveSettingsButton = () => {
     if (user.length > 0 && password.length > 0) {
       return (
@@ -87,26 +80,21 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
     <CurrentSettingsForm onSubmit={(e) => {
       e.preventDefault();
       setNewSettings(true);
-      setSessionTotalTime(sessionTotal / 60);
-      setDirectionStatement(dropDownDirectionStatement);
-      setBreakTotalTime(breakTotal / 60);
-      setPomodorosNumber(pomodoros);
     }}>
       <SettingsQuestion>
         <label>
-          Choose session length: <br/>
-          <DropDownMenus onChange={() => {
+          Session length: {(sessionTotal / 60) !== 25 && (sessionTotal / 60) !== 50 ? (sessionTotal / 60) + ' minutes' : ''}<br/>
+          <DropDownMenus onChange={(event) => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
               setSession(value * 60);
             } else {
               setCustomSessions(true);
             }
-            }}>
-            <DropDownOptions value='0' name='sessionTotal'>{sesstionTotalTime} minutes</DropDownOptions>
-            <DropDownOptions value='25' name='sessionTotal'>25</DropDownOptions>
-            <DropDownOptions value='50' name='sessionTotal'>50</DropDownOptions>
-            <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
+            }} value={sessionTotal/60 !== 25 && sessionTotal/60 !== 50 ? 'Custom' : sessionTotal/60}>
+            <DropDownOptions value='25' name='sessionTotal'>25 minutes</DropDownOptions>
+            <DropDownOptions value='50' name='sessionTotal'>50 minutes</DropDownOptions>
+          <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>
           </DropDownMenus>
           {renderCustomTimeInput()}
         </label>
@@ -114,11 +102,10 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br />
       <SettingsQuestion>
         <label>
-          Choose timer style:<br/>
-          <DropDownMenus onChange={() => {
+          Timer style:<br/>
+          <DropDownMenus value={direction} onChange={() => {
             setDirection(event.target.value);
           }}>
-            <DropDownOptions value='null' name='direction'>{directionStatement}</DropDownOptions>
             <DropDownOptions value='backward' name='direction'>Timer (count down)</DropDownOptions>
             <DropDownOptions value='forwards' name='direction'>Stopwatch (count up)</DropDownOptions>
           </DropDownMenus>
@@ -127,11 +114,10 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br/>
       <SettingsQuestion>
         <label>
-          Choose break length(minutes):<br />
-          <DropDownMenus onChange={() => {
+          Break length(minutes):<br />
+          <DropDownMenus value={breakTotal} onChange={() => {
             setBreaks(event.target.value);
           }}>
-            <DropDownOptions value='null'>{breakTotalTime} minutes</DropDownOptions>
             <DropDownOptions value={5 * 60} name='breakTime'>5</DropDownOptions>
             <DropDownOptions value={10 * 60} name='breakTime'>10</DropDownOptions>
             <DropDownOptions value={15 * 60} name='breakTime'>15</DropDownOptions>
@@ -142,8 +128,8 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br />
       <SettingsQuestion>
         <label>
-          Choose number of sessions:<br />
-          <DropDownMenus onChange={() => {
+          Number of sessions: {pomodoros != 2 && pomodoros != 4 && pomodoros != 6 ? pomodoros + ' pomodoros/sessions' : ''}<br />
+          <DropDownMenus value={pomodoros != 2 && pomodoros != 4 && pomodoros != 6 || isCustomNumberOfSessions ? 'Custom' : pomodoros} onChange={() => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
               setNumberOfSessions(event.target.value);
@@ -151,7 +137,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomNumberOfSessions(true);
             }
           }}>
-            <DropDownOptions value='null'>{pomodorosNumber} sessions</DropDownOptions>
             <DropDownOptions value={2} name='pomodoros'>2</DropDownOptions>
             <DropDownOptions value={4} name='pomodoros'>4</DropDownOptions>
             <DropDownOptions value={6} name='pomodoros'>6</DropDownOptions>
