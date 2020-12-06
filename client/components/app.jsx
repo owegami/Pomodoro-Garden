@@ -25,7 +25,8 @@ const App = () => {
   const [showSettings, setToShowSettings] = useState(false);
   const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
   const [isTicking, setIsTicking] = useState(false);
-  const [clockTickSound, setClockTickSound] = useState('1')
+  const [clockTickSound, setClockTickSound] = useState('1');
+  const [hasThreeMinWarning, setThreeMinWarning] = useState(false);
 
   //visualizer states
   const [plantChoice, setPlantChoice] = useState('Tomato');
@@ -236,6 +237,8 @@ const App = () => {
             setIsTicking={setIsTicking}
             clockTickSound={clockTickSound}
             setClockTickSound={setClockTickSound}
+            hasThreeMinWarning={hasThreeMinWarning}
+            setThreeMinWarning={setThreeMinWarning}
           />
         </>
       )

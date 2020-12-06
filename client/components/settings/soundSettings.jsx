@@ -4,11 +4,19 @@ import styled from 'styled-components';
 import sounds from './../../../public/sounds.js';
 import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, Button, TextInputBox} from './../../view/styledComponents.jsx';
 
-const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound}) => {
+const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
 
   return (
     <CurrentSettingsForm>
       <SettingsQuestion>
+        <label>
+          Enable three minute warning for timer?
+          <Button onClick={(event) => {
+            event.preventDefault();
+            let newSetting = !hasThreeMinWarning;
+            setThreeMinWarning(newSetting);
+          }}>{hasThreeMinWarning ? 'On' : 'Off'}</Button>
+        </label>
         <label>
           Currently selected:
           <DropDownMenus value={isTicking ? clockTickSound : 'off'} onChange={(event) => {
