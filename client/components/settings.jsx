@@ -10,7 +10,7 @@ import DataSavingSettings from './../components/settings/dataSettings.jsx';
 SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound }) => {
+const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
   const [viewTimerSettings, setToViewTimerSettings] = useState(false);
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);
@@ -85,6 +85,8 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
               setIsTicking={setIsTicking}
               clockTickSound={clockTickSound}
               setClockTickSound={setClockTickSound}
+              hasThreeMinWarning={hasThreeMinWarning}
+              setThreeMinWarning={setThreeMinWarning}
               />
         </ComponentColumnContainer>
       )
