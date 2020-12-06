@@ -163,7 +163,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   const renderTime = () => {
     return (
       <>
-        {minutes}:{seconds}:{counter}
+        {minutes}:{seconds}
       </>
     )
   }
