@@ -6,39 +6,21 @@ import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, D
 
 const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound}) => {
 
-  const [tickingSound, setTickingSound] = useState(clockTickSound);
-
-  const renderButton = () => {
-    if (isTicking) {
-      return (
-        <Button onClick={(e) => {
-          e.preventDefault();
-          setIsTicking(false);
-        }}>On</Button>
-      )
-    } else {
-      return (
-        <Button onClick={(e) => {
-          e.preventDefault();
-          setIsTicking(true);
-        }}>Off</Button>
-      )
-    }
-  }
-
   return (
     <CurrentSettingsForm>
-      <label>
-        Ticking clock sound:  {renderButton()}
-      </label>
       <SettingsQuestion>
         <label>
-          Select preferred clock ticking sound:
-          <DropDownMenus onChange={(event) => {
-            playClockTickingExample(event.target.value);
-            setClockTickSound(event.target.value);
+          Currently selected:
+          <DropDownMenus value={isTicking ? clockTickSound : 'off'} onChange={(event) => {
+            if (event.target.value === 'off') {
+              setIsTicking(false);
+            } else {
+              setIsTicking(true);
+              playClockTickingExample(event.target.value);
+              setClockTickSound(event.target.value);
+            }
           }}>
-            <DropDownOptions value={tickingSound} name='clockSounds'>Clock tick {tickingSound}</DropDownOptions>
+            <DropDownOptions value='off' name='clockSounds'>Off</DropDownOptions>
             <DropDownOptions value='1' name='clockSounds'>Clock Tick 1</DropDownOptions>
             <DropDownOptions value='2' name='clockSounds'>Clock Tick 2</DropDownOptions>
             <DropDownOptions value='3' name='clockSounds'>Clock Tick 3</DropDownOptions>
