@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import sounds from './../../public/sounds.js'
+import sounds from './../../public/sounds.js';
 import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
 
 const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password }) => {

@@ -25,7 +25,7 @@ const App = () => {
   const [showSettings, setToShowSettings] = useState(false);
   const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
   const [isTicking, setIsTicking] = useState(false);
-  const [clockTickSound, setClockTickSound] = useState('Clock Tick 1')
+  const [clockTickSound, setClockTickSound] = useState('1')
 
   //visualizer states
   const [plantChoice, setPlantChoice] = useState('Tomato');

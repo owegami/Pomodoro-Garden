@@ -94,7 +94,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
     }}>
       <SettingsQuestion>
         <label>
-          Choose session length: <br/>
+          Session length: <br/>
           <DropDownMenus onChange={() => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
@@ -114,7 +114,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br />
       <SettingsQuestion>
         <label>
-          Choose timer style:<br/>
+          Timer style:<br/>
           <DropDownMenus onChange={() => {
             setDirection(event.target.value);
           }}>
@@ -127,7 +127,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br/>
       <SettingsQuestion>
         <label>
-          Choose break length(minutes):<br />
+          Break length(minutes):<br />
           <DropDownMenus onChange={() => {
             setBreaks(event.target.value);
           }}>
@@ -142,7 +142,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br />
       <SettingsQuestion>
         <label>
-          Choose number of sessions:<br />
+          Number of sessions:<br />
           <DropDownMenus onChange={() => {
             let value = Number.parseInt(event.target.value);
             if (Number.isNaN(value) === false) {
