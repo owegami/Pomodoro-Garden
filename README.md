@@ -1,6 +1,6 @@
 # Pomodoro Garden
 
-![image](https://i.imgur.com/EzyBz0A.png)
+![image](https://i.imgur.com/SqLsKiD.png)
 
 ## Purpose of Pomodoro Garden:
 Users visualize their efforts and growth by watching a plant grow as they study. This was created in an effort to help motivate individuals without food or material gain. The hope is that, as users watch the plant(s) grow through their efforts, they will be able to see the intrinsic value of their efforts.
