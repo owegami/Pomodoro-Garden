@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   timeLogState: timeLogReducer,
   soundSettingsState: soundSettingsReducer,
   visualizerState: visualizerReducer,
-  dataState: dataReducer
+  dataPersistingState: dataReducer
 });
 
 export default rootReducer;

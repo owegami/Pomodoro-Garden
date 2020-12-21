@@ -7,8 +7,9 @@ import store from './../store/store.js';
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 
 import TimerVisual from './timer.jsx';
-import Visualizer from './visualizer.jsx';
 import Settings from './settings.jsx';
+
+import VisualizerContainer from './containers/visualizerContainer.js';
 
 import {ComponentContainer, ComponentRowContainer, ComponentColumnContainer, ErrorMessageBox, Message, XButton, ServerResponseMessage, Button, HelloMessage} from './../view/styledComponents.jsx';
 
@@ -29,12 +30,6 @@ const App = () => {
   const [isTicking, setIsTicking] = useState(false);
   const [clockTickSound, setClockTickSound] = useState('1');
   const [hasThreeMinWarning, setThreeMinWarning] = useState(false);
-
-  //visualizer states
-  const [plantChoice, setPlantChoice] = useState('Tomato');
-  const [growthRate, setGrowthRate] = useState(1);
-  const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
-  const [selectHighContrast, setSelectHighContrast] = useState('');
 
   //Data persisting states
   const [willLogTime, logTime] = useState(false);
@@ -259,13 +254,7 @@ const App = () => {
     <ComponentContainer>
       <ComponentRowContainer>
         <ComponentColumnContainer>
-          <Visualizer
-          plantChoice={plantChoice}
-          totalTimeEver={totalTimeEver}
-          growthRate={growthRate}
-          plantMaxImgNum={plantMaxImgNum}
-          selectHighContrast={selectHighContrast}
-          />
+          <VisualizerContainer />
           {renderHello()}
         </ComponentColumnContainer>
         <ComponentColumnContainer>
