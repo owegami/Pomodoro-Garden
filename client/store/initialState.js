@@ -12,8 +12,8 @@ let timerState = {
 }
 
 let timelog = {
-  totalTimeEver: 0,
-  totalTime: 0,
+  totalTimeEver: 60,
+  totalTime: 20,
 }
 
 let sound  = {
@@ -47,7 +47,7 @@ const initialState = {
   timerSettingsState: timerSettings,
   timerState: timerState,
   timeLogState: timelog,
-  soundState: sound,
+  soundSettingsState: sound,
   visualizerState: visualizer,
   dataPersistingState: data
 }
