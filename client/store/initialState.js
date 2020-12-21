@@ -1,15 +1,22 @@
-let timer = {
+let timerSettings = {
   sessionTotal: 1500,
   direction: 'backward',
-  totalTimeEver: 0,
-  totalTime: 0,
+  breakTotal: 300,
+  pomodoros: 4,
+}
+
+let timerState = {
   isOn: false,
   isReset: false,
   isSet: false,
-  breakTotal: 300,
-  pomodoros: 4,
-  showSettings: false,
-  showSettingsVisual: false,
+}
+
+let timelog = {
+  totalTimeEver: 0,
+  totalTime: 0,
+}
+
+let sound  = {
   isTicking: true,
   clockTickSound: '1',
   hasThreeMinWarning: true,
@@ -37,7 +44,10 @@ let data = {
 };
 
 const initialState = {
-  timerState: timer,
+  timerSettingsState: timerSettings,
+  timerState: timerState,
+  timeLogState: timelog,
+  soundState: sound,
   visualizerState: visualizer,
   dataPersistingState: data
 }
