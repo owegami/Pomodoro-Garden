@@ -21,7 +21,6 @@ const App = () => {
   const [isSet, setNewSettings] = useState(false);
   const [breakTotal, setBreaks] = useState(5 * 60);
   const [pomodoros, setNumberOfSessions] = useState(4);
-  const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
   const [showSettings, setToShowSettings] = useState(false);
   const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
   const [isTicking, setIsTicking] = useState(false);
@@ -284,6 +283,9 @@ const App = () => {
           errorThrown={errorThrown}
           user={user}
           password={password}
+          isTicking={isTicking}
+          clockTickSound={clockTickSound}
+          hasThreeMinWarning={hasThreeMinWarning}
         />
         {renderError()}
         {renderServerMessage()}
