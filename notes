@@ -1,0 +1,26 @@
+state changes:
+
+- login data changes on intiailization
+- log time
+- save to database
+- change settings
+  -- timer settings
+  -- graphics settings
+  -- sound settings
+  -- data settings
+- plant changes
+#-- when garden changes
+#-- garden view changes
+
+data persisting changes:
+- auto shutoff save to database when initially saved to database
+
+order of operations:
+
+- think actions out
+-  define action creators
+- plan state
+- plan reducers
+- create store
+- connect app to store with Provider
+- create containers with connect()()
