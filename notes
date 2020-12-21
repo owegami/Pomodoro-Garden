@@ -18,7 +18,7 @@ data persisting changes:
 order of operations:
 
 - think actions out
--  define action creators
+- define action creators
 - plan state
 - plan reducers
 - create store
