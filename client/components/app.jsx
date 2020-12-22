@@ -9,6 +9,7 @@ import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } 
 import TimerVisual from './timer.jsx';
 import Settings from './settings.jsx';
 
+import TimerVisualContainer from './containers/timerContainer.js';
 import VisualizerContainer from './containers/visualizerContainer.js';
 
 import {ComponentContainer, ComponentRowContainer, ComponentColumnContainer, ErrorMessageBox, Message, XButton, ServerResponseMessage, Button, HelloMessage} from './../view/styledComponents.jsx';
@@ -258,29 +259,7 @@ const App = () => {
           {renderHello()}
         </ComponentColumnContainer>
         <ComponentColumnContainer>
-        <TimerVisual
-          sessionTotal={sessionTotal}
-          direction={direction}
-          totalTime={totalTime}
-          addToTotalTime={addToTotalTime}
-          isOn={isOn}
-          setTimerOn={setTimerOn}
-          isReset={isReset}
-          resetTimer={resetTimer}
-          isSet={isSet}
-          setNewSettings={setNewSettings}
-          breakTotal={breakTotal}
-          pomodoros={pomodoros}
-          totalTimeEver={totalTimeEver}
-          addToTotalTimeEver={addToTotalTimeEver}
-          logTime={logTime}
-          errorThrown={errorThrown}
-          user={user}
-          password={password}
-          isTicking={isTicking}
-          clockTickSound={clockTickSound}
-          hasThreeMinWarning={hasThreeMinWarning}
-        />
+        <TimerVisualContainer />
         {renderError()}
         {renderServerMessage()}
         </ComponentColumnContainer>
