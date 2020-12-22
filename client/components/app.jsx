@@ -2,15 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import store from './../store/store.js';
+
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 
 import TimerVisual from './timer.jsx';
-import Visualizer from './visualizer.jsx';
 import Settings from './settings.jsx';
+
+import TimerVisualContainer from './containers/timerContainer.js';
+import VisualizerContainer from './containers/visualizerContainer.js';
 
 import {ComponentContainer, ComponentRowContainer, ComponentColumnContainer, ErrorMessageBox, Message, XButton, ServerResponseMessage, Button, HelloMessage} from './../view/styledComponents.jsx';
 
 const App = () => {
+  //KEEP THIS ONE BECAUSE IT'S LOCAL
+  const [showSettings, setToShowSettings] = useState(false);
+
   //setting and timer component states
   const [sessionTotal, setSession] = useState(1500);
   const [direction, setDirection] = useState('backward');
@@ -21,18 +28,9 @@ const App = () => {
   const [isSet, setNewSettings] = useState(false);
   const [breakTotal, setBreaks] = useState(5 * 60);
   const [pomodoros, setNumberOfSessions] = useState(4);
-  const [runningSettings, setRunningSettings] = useState([sessionTotal, direction, breakTotal, pomodoros]);
-  const [showSettings, setToShowSettings] = useState(false);
-  const [showSettingsVisual, setToShowSettingsVisual] = useState(false);
   const [isTicking, setIsTicking] = useState(false);
   const [clockTickSound, setClockTickSound] = useState('1');
   const [hasThreeMinWarning, setThreeMinWarning] = useState(false);
-
-  //visualizer states
-  const [plantChoice, setPlantChoice] = useState('Tomato');
-  const [growthRate, setGrowthRate] = useState(1);
-  const [plantMaxImgNum, setplantMaxImgNum] = useState(5);
-  const [selectHighContrast, setSelectHighContrast] = useState('');
 
   //Data persisting states
   const [willLogTime, logTime] = useState(false);
@@ -46,6 +44,8 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [loggedIn, setToLoggedIn] = useState(false);
   const [saveToDatabase, setToSaveToDatabase] = useState(false);
+
+  console.log('initialState:', store.getState());
 
   useEffect(() => {
     let loginObj;
@@ -255,36 +255,11 @@ const App = () => {
     <ComponentContainer>
       <ComponentRowContainer>
         <ComponentColumnContainer>
-          <Visualizer
-          plantChoice={plantChoice}
-          totalTimeEver={totalTimeEver}
-          growthRate={growthRate}
-          plantMaxImgNum={plantMaxImgNum}
-          selectHighContrast={selectHighContrast}
-          />
+          <VisualizerContainer />
           {renderHello()}
         </ComponentColumnContainer>
         <ComponentColumnContainer>
-        <TimerVisual
-          sessionTotal={sessionTotal}
-          direction={direction}
-          totalTime={totalTime}
-          addToTotalTime={addToTotalTime}
-          isOn={isOn}
-          setTimerOn={setTimerOn}
-          isReset={isReset}
-          resetTimer={resetTimer}
-          isSet={isSet}
-          setNewSettings={setNewSettings}
-          breakTotal={breakTotal}
-          pomodoros={pomodoros}
-          totalTimeEver={totalTimeEver}
-          addToTotalTimeEver={addToTotalTimeEver}
-          logTime={logTime}
-          errorThrown={errorThrown}
-          user={user}
-          password={password}
-        />
+        <TimerVisualContainer />
         {renderError()}
         {renderServerMessage()}
         </ComponentColumnContainer>

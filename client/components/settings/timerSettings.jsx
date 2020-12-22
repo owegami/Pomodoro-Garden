@@ -84,14 +84,17 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <SettingsQuestion>
         <label>
           Session length: {(sessionTotal / 60) !== 25 && (sessionTotal / 60) !== 50 ? (sessionTotal / 60) + ' minutes' : ''}<br/>
-          <DropDownMenus onChange={(event) => {
-            let value = Number.parseInt(event.target.value);
-            if (Number.isNaN(value) === false) {
-              setSession(value * 60);
-            } else {
-              setCustomSessions(true);
-            }
-            }} value={sessionTotal/60 !== 25 && sessionTotal/60 !== 50 ? 'Custom' : sessionTotal/60}>
+          <DropDownMenus
+            onChange={(event) => {
+              let value = Number.parseInt(event.target.value);
+              if (Number.isNaN(value) === false) {
+                setSession(value * 60);
+              } else {
+                setCustomSessions(true);
+              }
+            }}
+            value={sessionTotal/60 !== 25 && sessionTotal/60 !== 50 ? 'Custom' : sessionTotal/60}
+            >
             <DropDownOptions value='25' name='sessionTotal'>25 minutes</DropDownOptions>
             <DropDownOptions value='50' name='sessionTotal'>50 minutes</DropDownOptions>
           <DropDownOptions value='Custom' name='sessionTotal'>Custom</DropDownOptions>

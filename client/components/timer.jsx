@@ -4,19 +4,22 @@ import styled from 'styled-components';
 import sounds from './../../public/sounds.js';
 import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
 
-const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password }) => {
+const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
+
   const [seconds, setSeconds] = useState('00');
   const [minutes, setMinutes] = useState('25');
   const [counter, setCounter] = useState(sessionTotal);
   const [directionHolder, setDirHolder] = useState(direction);
   const [sessionHolder, setSessHolder] = useState(sessionTotal);
-  const [isPaused, pauseThisSucker] = useState(false);
+  const [isPaused, pauseTimer] = useState(false);
   const [isSession, switchToSession] = useState(true);
   const [isBreak, switchToBreak] = useState(false);
   const [counts, setCounts] = useState(0);
   let interval;
   let chimes1 = new sounds.chimes1();
   let chimes2 = new sounds.chimes2();
+
+  console.log
 
   const setMinutesAndSeconds = (counter) => {
 
@@ -130,18 +133,18 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       <Button onClick={() => {
         let state = !isOn;
         setTimerOn(state);
-        pauseThisSucker(true);
+        pauseTimer(true);
       }}>Pause</Button>
       )
     } else {
       return (
-        <>
+        <div>
           <Button onClick={() => {
             let state = !isOn;
             setTimerOn(state);
-            pauseThisSucker(false);
+            pauseTimer(false);
           }}>Start</Button>
-        </>
+        </div>
       )
     }
   }
@@ -155,16 +158,16 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       )
     } else {
       return (
-        <></>
+        <div></div>
       )
     }
   }
 
   const renderTime = () => {
     return (
-      <>
+      <div>
         {minutes}:{seconds}:{counter}
-      </>
+      </div>
     )
   }
 
@@ -187,7 +190,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
 
   const hardRestart = () => {
     setTimerOn(false);
-    pauseThisSucker(true);
+    pauseTimer(true);
     resetTimer(true);
   }
 

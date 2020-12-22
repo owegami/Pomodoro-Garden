@@ -11,7 +11,7 @@ const Visualizer = ({totalTimeEver, plantChoice, growthRate, plantMaxImgNum, sel
 
   return (
     <VisualizerBox>
-      <PlantImg src={plant} />
+      <PlantImg src={plant} alt="Picture of plant"/>
     </VisualizerBox>
   )
 }
