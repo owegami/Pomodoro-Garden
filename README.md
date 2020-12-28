@@ -8,7 +8,7 @@ Users visualize their efforts and growth by watching a plant grow as they study.
 ## Build Status:
 <em>11/9/20: This is still under construction and this information/screenshot could be out of date.</em>
 
-##Current Tech Frameworks:
+## Current Tech Frameworks:
 - React (react hooks)
 - Node.js
 - Express
