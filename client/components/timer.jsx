@@ -19,8 +19,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   let chimes1 = new sounds.chimes1();
   let chimes2 = new sounds.chimes2();
 
-  console.log
-
   const setMinutesAndSeconds = (counter) => {
 
     let minutesCounted = Math.floor(counter / 60);

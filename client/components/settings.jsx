@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import TimerSettings from './../components/settings/timerSettings.jsx';
-import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
-import SoundSettings from './../components/settings/soundSettings.jsx';
+import TimerSettingsContainer from './containers/timerSettingsContainer.js';
+import GraphicsSettingsContainer from './containers/graphicsSettingsContainer.js';
+import SoundSettingsContainer from './containers/soundSettingsContainer.js';
 import DataSavingSettings from './../components/settings/dataSettings.jsx';
-// import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
-SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
 const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
@@ -24,20 +22,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewTimerSettings(false);
           }}>Hide Timer Settings</Button>
-              <TimerSettings
-                setSession={setSession}
-                setDirection={setDirection}
-                setNewSettings={setNewSettings}
-                setBreaks={setBreaks}
-                setNumberOfSessions={setNumberOfSessions}
-                user={user}
-                password={password}
-                setToSaveSettings={setToSaveSettings}
-                sessionTotal={sessionTotal}
-                direction={direction}
-                breakTotal={breakTotal}
-                pomodoros={pomodoros}
-                />
+              <TimerSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {
@@ -57,10 +42,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewGraphicsSettings(false);
           }}>Hide Graphics Settings</Button>
-              <GraphicsSettings
-              selectHighContrast={selectHighContrast}
-              setSelectHighContrast={setSelectHighContrast}
-              />
+              <GraphicsSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {
@@ -80,14 +62,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewSoundSettings(false);
           }}>Hide Sound Settings</Button>
-              <SoundSettings
-              isTicking={isTicking}
-              setIsTicking={setIsTicking}
-              clockTickSound={clockTickSound}
-              setClockTickSound={setClockTickSound}
-              hasThreeMinWarning={hasThreeMinWarning}
-              setThreeMinWarning={setThreeMinWarning}
-              />
+              <SoundSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {

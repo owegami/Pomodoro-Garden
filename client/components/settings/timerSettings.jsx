@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, Button, TextInputBox} from './../../view/styledComponents.jsx';
+import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
 
 const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros }) => {
 
@@ -21,14 +21,14 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
             setCustomTime(event.target.value);
           }}></TextInputBox>
           <br />
-          <Button onClick={(e) => {
+          <SmallerButton onClick={(e) => {
             e.preventDefault();
             setSession(customTime * 60);
             setTimeout(() => {
               setCustomSessions(false);
             }, 500)
             setCustomTime(); //flushing
-          }}>Set Time</Button>
+          }}>Set Time</SmallerButton>
         </>
       )
     } else {
@@ -52,14 +52,14 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
               setCustomSessionCount(event.target.value);
             }}></TextInputBox>
             <br />
-            <Button onClick={(e) => {
+            <SmallerButton onClick={(e) => {
               e.preventDefault();
               setNumberOfSessions(customNumberOfSessions);
               setTimeout(() => {
                 setCustomNumberOfSessions(false);
               }, 500)
               setCustomSessionCount(); //flushing
-            }}>Set Number of Sessions</Button>
+            }}>Set Number of Sessions</SmallerButton>
         </>
       )
     } else {
@@ -69,11 +69,9 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
     }
   }
   const renderSaveSettingsButton = () => {
-    if (user.length > 0 && password.length > 0) {
-      return (
-        <Button onClick={() => {setToSaveSettings(true)}}>Save Settings</Button>
-      )
-    }
+    return (
+      <SmallerButton onClick={() => {setToSaveSettings(true)}}>Save Settings</SmallerButton>
+    )
   }
 
   return (
@@ -149,7 +147,7 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
         </label>
       </SettingsQuestion>
       <br/>
-      <Button onClick={() => {setNewSettings(true)}}>Set Timer Settings</Button>
+      <SmallerButton onClick={() => {setNewSettings(true)}}>Set Timer Settings</SmallerButton>
       <br/>
       {renderSaveSettingsButton()}
     </CurrentSettingsForm>

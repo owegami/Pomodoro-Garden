@@ -38,7 +38,6 @@ exports.initializeUser = (userName, userPassword) => {
   return new Promise ((resolve, reject) => {
     User.find({name: userName, password: userPassword})
       .then((result) => {
-        console.log(result);
         resolve(result);
       })
       .catch((err) => {
@@ -57,7 +56,6 @@ exports.sendUserPrefs = (userObj) => {
         } else {
           User.updateOne({ name: userObj.name }, { breakLength: userObj.breakLength, sessionLength: userObj.sessionLength, timerStyle: userObj.timerStyle, numberOfSessions: userObj.numberOfSessions})
             .then((result) => {
-              console.log(result);
               resolve(`${userObj.name}'s preferences have been updated`);
             })
             .catch((err) => {
@@ -73,7 +71,6 @@ exports.sendUserTimes = (userName, userPassword, newTime) => {
   return new Promise ((resolve, reject) => {
     User.updateOne({ name: userName, password: userPassword }, { totalTime: newTime})
       .then((results) => {
-        console.log(results);
         resolve('Time has been logged');
       })
       .catch((err) => {
@@ -92,7 +89,6 @@ exports.deleteUser = (userName, userPassword) => {
       } else {
         User.deleteOne({ name: userName, password: userPassword })
           .then((result) => {
-            console.log(result);
             resolve(`${userName} data has been deleted. Thank you for using Pomodoro Garden.`);
           })
           .catch((err) => {

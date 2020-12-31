@@ -99,7 +99,6 @@ const App = () => {
     } else if (willLogTime && !saveToDatabase) {
       let newTime = totalTimeEver + sessionTotal;
       setToLocalStorage(prepareData(user, undefined, newTime, breakTotal, sessionTotal, direction, pomodoros));
-      console.log('Did i log the time?');
     }
   }, [willLogTime])
 
@@ -201,45 +200,7 @@ const App = () => {
           <Button onClick={() => {
             setToShowSettings(false)
           }}>Hide Settings</Button>
-          <Settings
-            setSession={setSession}
-            setDirection={setDirection}
-            setTimer={setTimerOn}
-            setNewSettings={setNewSettings}
-            setBreaks={setBreaks}
-            setNumberOfSessions={setNumberOfSessions}
-            user={user}
-            password={password}
-            setToSaveSettings={setToSaveSettings}
-            sessionTotal={sessionTotal}
-            direction={direction}
-            breakTotal={breakTotal}
-            pomodoros={pomodoros}
-            isSet={isSet}
-            isReset={isReset}
-            isOn={isOn}
-            totalTime={totalTime}
-            totalTimeEver={totalTimeEver}
-            setUser={setUser}
-            user={user}
-            setPassword={setPassword}
-            password={password}
-            setToLogin={setToLogin}
-            willLogin={willLogin}
-            willCreateLogin={willCreateLogin}
-            setToCreateLogin={setToCreateLogin}
-            loggedIn={loggedIn}
-            saveToDatabase={saveToDatabase}
-            setToSaveToDatabase={setToSaveToDatabase}
-            selectHighContrast={selectHighContrast}
-            setSelectHighContrast={setSelectHighContrast}
-            isTicking={isTicking}
-            setIsTicking={setIsTicking}
-            clockTickSound={clockTickSound}
-            setClockTickSound={setClockTickSound}
-            hasThreeMinWarning={hasThreeMinWarning}
-            setThreeMinWarning={setThreeMinWarning}
-          />
+          <Settings />
         </>
       )
     } else {
