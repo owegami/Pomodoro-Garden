@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import TimerSettingsContainer from './containers/timerSettingsContainer.js';
-import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
+import GraphicsSettingsContainer from './containers/graphicsSettingsContainer.js';
 import SoundSettings from './../components/settings/soundSettings.jsx';
 import DataSavingSettings from './../components/settings/dataSettings.jsx';
 // import SettingsVisual from './../components/settings/settingsVisual.jsx';
@@ -44,10 +44,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewGraphicsSettings(false);
           }}>Hide Graphics Settings</Button>
-              <GraphicsSettings
-              selectHighContrast={selectHighContrast}
-              setSelectHighContrast={setSelectHighContrast}
-              />
+              <GraphicsSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {
