@@ -3,11 +3,9 @@ import styled from 'styled-components';
 
 import TimerSettingsContainer from './containers/timerSettingsContainer.js';
 import GraphicsSettingsContainer from './containers/graphicsSettingsContainer.js';
-import SoundSettings from './../components/settings/soundSettings.jsx';
+import SoundSettingsContainer from './containers/soundSettingsContainer.js';
 import DataSavingSettings from './../components/settings/dataSettings.jsx';
-// import SettingsVisual from './../components/settings/settingsVisual.jsx';
 
-SoundSettings
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
 const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
@@ -64,14 +62,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewSoundSettings(false);
           }}>Hide Sound Settings</Button>
-              <SoundSettings
-              isTicking={isTicking}
-              setIsTicking={setIsTicking}
-              clockTickSound={clockTickSound}
-              setClockTickSound={setClockTickSound}
-              hasThreeMinWarning={hasThreeMinWarning}
-              setThreeMinWarning={setThreeMinWarning}
-              />
+              <SoundSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {
