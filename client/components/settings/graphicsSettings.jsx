@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import {CurrentSettingsForm, SettingsQuestion, Button} from './../../view/styledComponents.jsx';
+import {CurrentSettingsForm, SettingsQuestion} from './../../view/styledComponents.jsx';
 
 const GraphicsSettings = ({selectHighContrast, setSelectHighContrast}) => {
 

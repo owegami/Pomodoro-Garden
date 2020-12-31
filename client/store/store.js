@@ -3,6 +3,8 @@ import initialState from './initialState.js';
 import rootReducer from './../reducers/rootReducer.js';
 import thunk from 'redux-thunk';
 
+import { setToLocalStorage } from './../controllers/setToLocalStorage.js';
+
 const store = createStore(
   rootReducer,
   initialState,
@@ -13,7 +15,9 @@ const store = createStore(
   );
 
 const unsubscribe = store.subscribe(() => {
-  console.log('Store has dispatched:', store.getState());
+  let state = store.getState();
+  setToLocalStorage(state)
+  console.log('Store has dispatched and stored to local storage:', state);
 });
 
 export default store;

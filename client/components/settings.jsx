@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import TimerSettingsContainer from './containers/timerSettingsContainer.js';
 import GraphicsSettingsContainer from './containers/graphicsSettingsContainer.js';
 import SoundSettingsContainer from './containers/soundSettingsContainer.js';
-import DataSavingSettings from './../components/settings/dataSettings.jsx';
+import DataSavingSettingsContainer from './containers/dataSettingsContainer.js';
 
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
@@ -82,7 +82,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewDataSettings(false);
           }}>Hide Data Saving Settings</Button>
-              <DataSavingSettings />
+              <DataSavingSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {

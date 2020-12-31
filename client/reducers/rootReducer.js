@@ -25,7 +25,6 @@ import userReducer from './individualStateReducers/userReducer.js';
 import willCreateLoginReducer from './individualStateReducers/willCreateLoginReducer.js';
 import willLoginReducer from './individualStateReducers/willLoginReducer.js';
 import willLogTimeReducer from './individualStateReducers/willLogTimeReducer.js';
-import willSaveSettingsReducer from './individualStateReducers/willSaveSettingsReducer.js';
 
 const rootReducer = combineReducers({
   breakTotal: breakTotalReducer,
@@ -54,7 +53,6 @@ const rootReducer = combineReducers({
   willCreateLogin: willCreateLoginReducer,
   willLogin: willLoginReducer,
   willLogTime: willLogTimeReducer,
-  willSaveSettings: willSaveSettingsReducer,
 });
 
 export default rootReducer;

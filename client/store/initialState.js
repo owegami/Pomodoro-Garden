@@ -25,7 +25,6 @@ let initialState = {
   loggedIn: false,
   saveToDatabase: false,
   willLogTime: false,
-  willSaveSettings: false,
 }
 
 export default initialState;

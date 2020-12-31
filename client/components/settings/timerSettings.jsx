@@ -68,11 +68,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       )
     }
   }
-  const renderSaveSettingsButton = () => {
-    return (
-      <SmallerButton onClick={() => {setToSaveSettings(true)}}>Save Settings</SmallerButton>
-    )
-  }
 
   return (
     <CurrentSettingsForm onSubmit={(e) => {
@@ -149,7 +144,6 @@ const TimerSettings = ({ setSession, setDirection, setNewSettings, setBreaks, se
       <br/>
       <SmallerButton onClick={() => {setNewSettings(true)}}>Set Timer Settings</SmallerButton>
       <br/>
-      {renderSaveSettingsButton()}
     </CurrentSettingsForm>
   )
 }
