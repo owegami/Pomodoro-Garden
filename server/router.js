@@ -10,7 +10,6 @@ app.use('/',express.static(__dirname + '/../public'));
 app.post('/timer/user/login', (req, res) => {
   connections.initializeUser(req.body.name, req.body.password)
     .then((result) => {
-      // console.log(result);
       if (result.length === 0) {
         res.send('There is no record of that user');
       } else {
@@ -46,7 +45,6 @@ app.delete('/timer/user', (req, res) => {
 })
 
 app.patch('/timer/timelog', (req, res) => {
-  console.log(req.body.name, req.body.password, req.body.totalTime);
   connections.sendUserTimes(req.body.name, req.body.password, req.body.totalTime)
     .then((result) => {
       res.send(result);

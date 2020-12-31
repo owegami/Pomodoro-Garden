@@ -84,6 +84,18 @@ export const Button = styled.button`
   left: 2%;
 `;
 
+export const SmallerButton = styled.button`
+  position: relative;
+  font-family: charybdis;
+  font-size: 1.2em;
+  color: DarkOliveGreen;
+  border: 6px dashed DarkSeaGreen;
+  background-color: white;
+  margin: 0px 10px 10px 10px;
+  right: 5%;
+  left: 2%;
+`;
+
 export const HelloMessage = styled.h3`
   position: relative;
   left: 20px;

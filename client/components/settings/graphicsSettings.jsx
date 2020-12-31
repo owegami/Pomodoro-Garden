@@ -8,7 +8,6 @@ const GraphicsSettings = ({selectHighContrast, setSelectHighContrast}) => {
   return (
     <CurrentSettingsForm onSubmit={(event) => {
       event.preventDefault();
-      console.log('event.target.value', event.target.value);
       setSelectHighContrast(event.target.value);
       }}>
 

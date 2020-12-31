@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import TimerSettings from './../components/settings/timerSettings.jsx';
+import TimerSettingsContainer from './containers/timerSettingsContainer.js';
 import GraphicsSettings from './../components/settings/graphicsSettings.jsx';
 import SoundSettings from './../components/settings/soundSettings.jsx';
 import DataSavingSettings from './../components/settings/dataSettings.jsx';
@@ -24,20 +24,7 @@ const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumb
           <Button onClick={() => {
             setToViewTimerSettings(false);
           }}>Hide Timer Settings</Button>
-              <TimerSettings
-                setSession={setSession}
-                setDirection={setDirection}
-                setNewSettings={setNewSettings}
-                setBreaks={setBreaks}
-                setNumberOfSessions={setNumberOfSessions}
-                user={user}
-                password={password}
-                setToSaveSettings={setToSaveSettings}
-                sessionTotal={sessionTotal}
-                direction={direction}
-                breakTotal={breakTotal}
-                pomodoros={pomodoros}
-                />
+              <TimerSettingsContainer />
         </ComponentColumnContainer>
       )
     } else {
