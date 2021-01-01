@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import store from './../store/store.js';
-import totalTimeTodayAction from './../actions/totalTimeTodayAction.js';
-
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 import { setToLocalStorage } from './../controllers/setToLocalStorage.js';
+
+import store from './../store/store.js';
+import totalTimeTodayAction from './../actions/totalTimeTodayAction.js';
+import dateAction from './../actions/dateAction.js';
+import isOnAction from './../actions/isOnAction.js';
 
 import TimerVisual from './timer.jsx';
 import Settings from './settings.jsx';
@@ -19,11 +21,7 @@ const App = () => {
   //KEEP THIS ONE BECAUSE IT'S LOCAL
   const [showSettings, setToShowSettings] = useState(false);
 
-  if (store.getState().date !== (new Date().getMonth())+1 + '/' + (new Date().getDate())) {
-    store.dispatch(totalTimeTodayAction(0));
-    store.dispatch(dateAction((new Date().getMonth())+1 + '/' + (new Date().getDate())));
-  }
-
+  initializeAppState();
   // useEffect(() => {
   //   let loginObj;
   //   if (willLogin && saveToDatabase) {
@@ -207,6 +205,14 @@ const App = () => {
       </ComponentColumnContainer>
     </ComponentContainer>
   )
+}
+
+const initializeAppState = () => {
+  if (store.getState().date !== (new Date().getMonth())+1 + '/' + (new Date().getDate())) {
+    store.dispatch(totalTimeTodayAction(0));
+    store.dispatch(dateAction((new Date().getMonth())+1 + '/' + (new Date().getDate())));
+  }
+  store.dispatch(isOnAction(false));
 }
 
 export default App;

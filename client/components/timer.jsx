@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import sounds from './../../public/sounds.js';
 import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
 
-const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTimeToday, addToTotalTimeToday, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
+const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTimeToday, addToTotalTimeToday, totalTimeEver, addToTotalTimeEver, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
   const [seconds, setSeconds] = useState('00');
   const [minutes, setMinutes] = useState((sessionTotal / 60).toString());
   const [counter, setCounter] = useState(sessionTotal);
@@ -77,6 +77,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         if(isSession && Number.isInteger(counter/60) && counter !== 0) {
           console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
+          addToTotalTimeEver(totalTimeEver + 1);
         }
         setMinutesAndSeconds(counter);
       }, 1000)
@@ -101,6 +102,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
         if(isSession && Number.isInteger(counter/60) && counter !== sessionTotal) {
           console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
+          addToTotalTimeEver(totalTimeEver + 1);
         }
         setMinutesAndSeconds(counter);
       }, 1000)
