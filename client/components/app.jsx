@@ -22,102 +22,6 @@ const App = () => {
   const [showSettings, setToShowSettings] = useState(false);
 
   initializeAppState();
-  // useEffect(() => {
-  //   let loginObj;
-  //   if (willLogin && saveToDatabase) {
-  //     loginUser(prepareData(user, password, undefined, undefined, undefined, undefined, undefined))
-  //     .then((response) => {
-  //       if (typeof response.data === 'string') {
-  //         setServerResponseMessage(response.data);
-  //         setHaveServerMessage(true);
-  //         setUser('');
-  //         setPassword('');
-  //         setToLoggedIn(false);
-  //       } else {
-  //         loginObj = response.data[0];
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       errorThrown(true);
-  //     })
-  //   } else if (willLogin && !saveToDatabase) {
-  //     loginObj = JSON.parse(localStorage.getItem('userSettings'));
-  //   }
-  //   if (loginObj !== undefined && loginObj !== null) {
-  //     setUser(loginObj.name);
-  //     setSession(loginObj.sessionLength);
-  //     setDirection(loginObj.timerStyle);
-  //     setBreaks(loginObj.breakLength);
-  //     setNumberOfSessions(loginObj.numberOfSessions);
-  //     addToTotalTimeEver(loginObj.totalTime);
-  //     setToLoggedIn(true);
-  //     setNewSettings(true);
-  //   }
-  //   setToLogin(false);
-  // }, [willLogin])
-
-  // useEffect(() => {
-  //   if (willLogTime && loggedIn && saveToDatabase) {
-  //     logTimeToDatabase(prepareData(user, password, totalTimeEver, undefined, sessionTotal, undefined, undefined))
-  //     .then((response) => {
-  //       if (typeof response.data === 'string') {
-  //         setServerResponseMessage(response.data);
-  //         addToTotalTimeEver(totalTimeEver + sessionTotal)
-  //         setHaveServerMessage(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       errorThrown(true);
-  //     })
-  //   } else if (willLogTime && !saveToDatabase) {
-  //     let newTime = totalTimeEver + sessionTotal;
-  //     setToLocalStorage(prepareData(user, undefined, newTime, breakTotal, sessionTotal, direction, pomodoros));
-  //   }
-  // }, [willLogTime])
-
-  // useEffect(() => {
-  //   if (willCreateLogin && saveToDatabase) {
-  //     createLogin(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
-  //     .then((response) => {
-  //       if (typeof response.data === 'string') {
-  //         setServerResponseMessage(response.data);
-  //         setHaveServerMessage(true);
-  //         setUser('');
-  //         setPassword('');
-  //         setToLoggedIn(false);
-  //       } else {
-  //         setToLoggedIn(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       errorThrown(true);
-  //     })
-  //   }
-  // }, [willCreateLogin])
-
-  // useEffect(() => {
-  //   if (willSaveSettings && saveToDatabase) {
-  //     saveSettings(prepareData(user, password, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros))
-  //     .then((response) => {
-  //       if (typeof response.data === 'string') {
-  //         setServerResponseMessage(response.data);
-  //         setHaveServerMessage(true);
-  //       }
-  //       if (willLogin) {
-  //         setToLoggedIn(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       errorThrown(true);
-  //     })
-  //   } else if (isSet && !saveToDatabase) {
-  //     setToLocalStorage(prepareData(user, undefined, totalTimeEver, breakTotal, sessionTotal, direction, pomodoros));
-  //   }
-  // }, [isSet])
 
   const renderServerMessage = () => {
     if (!haveServerMessage) {
@@ -208,11 +112,11 @@ const App = () => {
 }
 
 const initializeAppState = () => {
-  if (store.getState().date !== (new Date().getMonth())+1 + '/' + (new Date().getDate())) {
+  let state = store.getState();
+  if (state.date !== (new Date().getMonth())+1 + '/' + (new Date().getDate())) {
     store.dispatch(totalTimeTodayAction(0));
     store.dispatch(dateAction((new Date().getMonth())+1 + '/' + (new Date().getDate())));
   }
-  store.dispatch(isOnAction(false));
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const passwordReducer = (state = initialState.password, action) => {
+const passwordReducer = (state = null, action) => {
   if (action.type === 'passwordAction') {
     return action.payload;
   }

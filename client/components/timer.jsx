@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import sounds from './../../public/sounds.js';
-import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
+import { TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button } from './../view/styledComponents.jsx';
 
 const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTimeToday, addToTotalTimeToday, totalTimeEver, addToTotalTimeEver, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
   const [seconds, setSeconds] = useState('00');
@@ -17,6 +17,14 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   let interval;
   let chimes1 = new sounds.chimes1();
   let chimes2 = new sounds.chimes2();
+  let tickingSound1 = new sounds['clock' + clockTickSound]();
+  let tickingSound2;
+
+  if (clockTickSound === '6') {
+    tickingSound2 = new sounds.clock7();
+  } else {
+    tickingSound2 = tickingSound1;
+  }
 
   const setMinutesAndSeconds = (counter) => {
     let minutesCounted = Math.floor(counter / 60);
@@ -79,6 +87,13 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
           addToTotalTimeToday(totalTimeToday + 1);
           addToTotalTimeEver(totalTimeEver + 1);
         }
+        if (isTicking) {
+          if (counter % 2 !== 0) {
+            tickingSound1.play();
+          } else {
+            tickingSound2.play();
+          }
+        }
         setMinutesAndSeconds(counter);
       }, 1000)
       if(counter === sessionTotal + 1 && isSession) {
@@ -105,6 +120,15 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
           addToTotalTimeEver(totalTimeEver + 1);
         }
         setMinutesAndSeconds(counter);
+        if (isTicking) {
+          if (counter % 2 !== 0) {
+            console.log(1);
+            tickingSound1.play();
+          } else {
+            tickingSound2.play();
+            console.log(2);
+          }
+        }
       }, 1000)
       if(counter === -1 && isSession) {
         logTime(true);

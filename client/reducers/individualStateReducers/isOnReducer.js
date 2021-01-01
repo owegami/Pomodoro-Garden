@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const isOnReducer = (state = initialState.isOn, action) => {
+const isOnReducer = (state = false, action) => {
   if (action.type === 'isOnAction') {
     return action.payload;
   }

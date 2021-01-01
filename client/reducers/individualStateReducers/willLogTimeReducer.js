@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const willLogTimeReducer = (state = initialState.willLogTime, action) => {
+const willLogTimeReducer = (state = false, action) => {
   if (action.type === 'willLogTimeAction') {
     return action.payload;
   }

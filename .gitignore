@@ -47,3 +47,4 @@ notes
 client/reducers/experimentalChunkReducers
 client/reducers/individualStateReducers/--REDUCER_TEMPLATE.js
 client/components/containers/--CONTAINER_TEMPLATE.js
+stopGapForChanges

@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 
 import { setToLocalStorage } from './../controllers/setToLocalStorage.js';
 
+initialState.isOn = false;
+
 const store = createStore(
   rootReducer,
   initialState,

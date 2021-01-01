@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const willCreateLoginReducer = (state = initialState.willCreateLogin, action) => {
+const willCreateLoginReducer = (state = false, action) => {
   if (action.type === 'willCreateLoginAction') {
     return action.payload;
   }
