@@ -5,7 +5,7 @@ exports.prepareData = (name, password, totalTime, breakLength, sessionLength, ti
 
   name === undefined ? dataObj.name = undefined : dataObj.name = name;
   password === undefined ? dataObj.password = undefined : dataObj.password = password;
-  totalTime === undefined ? dataObj.totalTime = undefined : dataObj.totalTime = totalTime;
+  totalTimeToday === undefined ? dataObj.totalTimeToday = undefined : dataObj.totalTimeToday = totalTimeToday;
   breakLength === undefined ? dataObj.breakLength = undefined : dataObj.breakLength = breakLength;
   sessionLength === undefined ? dataObj.sessionLength = undefined : dataObj.sessionLength = sessionLength;
   timerStyle === undefined ? dataObj.timerStyle = undefined : dataObj.timerStyle = timerStyle;
@@ -30,7 +30,7 @@ exports.loginUser = (data) => {
 }
 
 exports.logTimeToDatabase = (data) => {
-  data.totalTime += data.sessionLength;
+  data.totalTimeToday += data.sessionLength;
   return axios.request({
     url: '/timer/timelog',
     method: 'PATCH',

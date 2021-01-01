@@ -5,7 +5,7 @@ import isOnAction from './../../actions/isOnAction.js';
 import isResetAction from './../../actions/isResetAction.js';
 import isSetAction from './../../actions/isSetAction.js';
 import willLogTimeAction from './../../actions/willLogTimeAction.js';
-import totalTimeAction from './../../actions/totalTimeAction.js';
+import totalTimeTodayAction from './../../actions/totalTimeTodayAction.js';
 import errorPresentAction from './../../actions/errorPresentAction.js';
 
 const mapStateToProps = (state) => {
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
     isOn: state.isOn,
     isReset: state.isReset,
     isSet: state.isSet,
-    totalTime: state.totalTime,
+    totalTimeToday: state.totalTimeToday,
     isTicking: state.isTicking,
     clockTickSound: state.clockTickSound,
     hasThreeMinWarning: state.hasThreeMinWarning,
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
     resetTimer: (toggle) => dispatch(isResetAction(toggle)),
     setNewSettings: (toggle) => dispatch(isSetAction(toggle)),
     logTime: (toggle) => dispatch(willLogTimeAction(toggle)),
-    addToTotalTime: (newTotal) => dispatch(totalTimeAction(newTotal)),
+    addToTotalTimeToday: (newTotal) => dispatch(totalTimeTodayAction(newTotal)),
     errorThrown: (toggle) => dispatch(errorPresentAction(toggle)),
   }
 }

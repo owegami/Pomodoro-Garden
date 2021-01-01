@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import sounds from './../../public/sounds.js';
 import {TimerBox, PauseMessageBox, PauseMessage, MessageSess, MessageBreak, Button} from './../view/styledComponents.jsx';
 
-const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTime, addToTotalTime, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
-
+const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, resetTimer, isSet, setNewSettings, breakTotal, pomodoros, totalTimeToday, addToTotalTimeToday, logTime, errorThrown, user, password, isTicking, clockTickSound, hasThreeMinWarning }) => {
   const [seconds, setSeconds] = useState('00');
-  const [minutes, setMinutes] = useState('25');
+  const [minutes, setMinutes] = useState((sessionTotal / 60).toString());
   const [counter, setCounter] = useState(sessionTotal);
   const [directionHolder, setDirHolder] = useState(direction);
   const [sessionHolder, setSessHolder] = useState(sessionTotal);
@@ -20,13 +19,10 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   let chimes2 = new sounds.chimes2();
 
   const setMinutesAndSeconds = (counter) => {
-
     let minutesCounted = Math.floor(counter / 60);
     let secondsCounted  = Math.floor(counter % 60);
-
     let min = minutesCounted.toString();
     let sec = secondsCounted < 10 ? '0' + secondsCounted.toString() : secondsCounted.toString();
-
     setMinutes(min);
     setSeconds(sec);
   }
@@ -79,7 +75,8 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       interval = setInterval(() => {
         setCounter(counter => counter + 1);
         if(isSession) {
-          addToTotalTime(totalTime => totalTime + 1);
+          console.log('added to total time!')
+          addToTotalTimeToday(totalTimeToday + 1);
         }
         setMinutesAndSeconds(counter);
       }, 1000)
@@ -102,7 +99,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       interval = setInterval(() => {
         setCounter(counter => counter - 1);
         if(isSession) {
-          addToTotalTime(totalTime => totalTime + 1);
+          addToTotalTimeToday(totalTimeToday + 1);
         }
         setMinutesAndSeconds(counter);
       }, 1000)
@@ -123,7 +120,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     } else if (counts < pomodoros) {
       setTimerOn(false);
     }
-  }, [seconds, minutes, counter, isOn, totalTime, isSession])
+  }, [seconds, minutes, counter, isOn, totalTimeToday, isSession])
 
   const renderButton = () => {
     if (isOn) {
@@ -164,7 +161,7 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
   const renderTime = () => {
     return (
       <div>
-        {minutes}:{seconds}:{counter}
+        {minutes}:{seconds}
       </div>
     )
   }

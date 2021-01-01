@@ -17,6 +17,8 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
             setThreeMinWarning(newSetting);
           }}>{hasThreeMinWarning ? 'On' : 'Off'}</SmallerButton>
         </label>
+      </SettingsQuestion>
+      <SettingsQuestion>
         <label>
           Currently selected:
           <DropDownMenus value={isTicking ? clockTickSound : 'off'} onChange={(event) => {

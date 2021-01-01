@@ -19,7 +19,7 @@ import saveToDatabaseReducer from './individualStateReducers/saveToDatabaseReduc
 import selectHighContrastReducer from './individualStateReducers/selectHighContrastReducer.js';
 import serverResponseMessageReducer from './individualStateReducers/serverResponseMessageReducer.js';
 import sessionTotalReducer from './individualStateReducers/sessionTotalReducer.js';
-import totalTimeReducer from './individualStateReducers/totalTimeReducer.js';
+import totalTimeTodayReducer from './individualStateReducers/totalTimeTodayReducer.js';
 import totalTimeEverReducer from './individualStateReducers/totalTimeEverReducer.js';
 import userReducer from './individualStateReducers/userReducer.js';
 import willCreateLoginReducer from './individualStateReducers/willCreateLoginReducer.js';
@@ -47,7 +47,7 @@ const rootReducer = combineReducers({
   selectHighContrast: selectHighContrastReducer,
   serverResponseMessage: serverResponseMessageReducer,
   sessionTotal: sessionTotalReducer,
-  totalTime: totalTimeReducer,
+  totalTimeToday: totalTimeTodayReducer,
   totalTimeEver: totalTimeEverReducer,
   user: userReducer,
   willCreateLogin: willCreateLoginReducer,
