@@ -74,8 +74,8 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     if ((isOn && directionHolder !== 'backward' && counts < pomodoros)) {
       interval = setInterval(() => {
         setCounter(counter => counter + 1);
-        if(isSession) {
-          console.log('added to total time!')
+        if(isSession && Number.isInteger(counter/60) && counter !== 0) {
+          console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
         }
         setMinutesAndSeconds(counter);
@@ -98,7 +98,8 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
     } else if (isOn && directionHolder === 'backward' && counts < pomodoros) {
       interval = setInterval(() => {
         setCounter(counter => counter - 1);
-        if(isSession) {
+        if(isSession && Number.isInteger(counter/60) && counter !== sessionTotal) {
+          console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
         }
         setMinutesAndSeconds(counter);

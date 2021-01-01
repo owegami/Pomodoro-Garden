@@ -8,6 +8,7 @@ let initialState = localStorage.getItem('userSettings') !== null ? JSON.parse(lo
   isSet: false,
   totalTimeEver: 0,
   totalTimeToday: 0,
+  date: (new Date().getMonth())+1 + '/' + (new Date().getDate()),
   isTicking: true,
   clockTickSound: '1',
   hasThreeMinWarning: true,

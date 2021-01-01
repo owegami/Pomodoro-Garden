@@ -3,13 +3,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import store from './../store/store.js';
+import totalTimeTodayAction from './../actions/totalTimeTodayAction.js';
 
 import { prepareData, loginUser, logTimeToDatabase, createLogin, saveSettings } from './../controllers/logtodb.js';
 import { setToLocalStorage } from './../controllers/setToLocalStorage.js';
 
 import TimerVisual from './timer.jsx';
 import Settings from './settings.jsx';
-
 import TimerVisualContainer from './containers/timerContainer.js';
 import VisualizerContainer from './containers/visualizerContainer.js';
 
@@ -19,7 +19,10 @@ const App = () => {
   //KEEP THIS ONE BECAUSE IT'S LOCAL
   const [showSettings, setToShowSettings] = useState(false);
 
-  console.log('initialState:', store.getState());
+  if (store.getState().date !== (new Date().getMonth())+1 + '/' + (new Date().getDate())) {
+    store.dispatch(totalTimeTodayAction(0));
+    store.dispatch(dateAction((new Date().getMonth())+1 + '/' + (new Date().getDate())));
+  }
 
   // useEffect(() => {
   //   let loginObj;
