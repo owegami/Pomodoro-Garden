@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const isSetReducer = (state = initialState.isSet, action) => {
+const isSetReducer = (state = false, action) => {
   if (action.type === 'isSetAction') {
     return action.payload;
   }

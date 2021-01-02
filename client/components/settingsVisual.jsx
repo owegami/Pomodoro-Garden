@@ -6,9 +6,9 @@ import {CurrentSettingsBox} from './../../view/styledComponents.jsx';
 const SettingsVisual = ({ settingsSectionToVisualize, settingsObj }) => {
 
   if (settingsSectionToVisualize === 'timer') {
-    let [ sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver ] = settingsObj;
+    let [ sessionTotal, direction, breakTotal, pomodoros, totalTimeToday, totalTimeEver ] = settingsObj;
     const renderTotalTime = () => {
-      return Math.floor(totalTime / 60);
+      return Math.floor(totalTimeToday / 60);
     }
 
     const renderTotalTimeEver = () => {

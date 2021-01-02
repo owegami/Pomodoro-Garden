@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const haveServerMessageReducer = (state = initialState.haveServerMessage, action) => {
+const haveServerMessageReducer = (state = false, action) => {
   if (action.type === 'haveServerMessageAction') {
     return action.payload;
   }

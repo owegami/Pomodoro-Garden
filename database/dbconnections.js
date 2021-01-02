@@ -13,7 +13,7 @@ exports.createUser = (userName, userObj) => {
         sessionLength: userObj.sessionLength === undefined ? 1500 : userObj.sessionLength,
         timerStyle: userObj.timerStyle === undefined ?  'backward' : userObj.sessionLength,
         numberOfSessions: userObj.numberOfSessions === undefined ? 4 : userObj.sessionLength,
-        totalTime: userObj.totalTime === undefined ? 0 : userObj.totalTime
+        totalTimeToday: userObj.totalTimeToday === undefined ? 0 : userObj.totalTimeToday
       };
       if (results === 0) {
         User.create(userData, (err, result) => {
@@ -69,7 +69,7 @@ exports.sendUserPrefs = (userObj) => {
 
 exports.sendUserTimes = (userName, userPassword, newTime) => {
   return new Promise ((resolve, reject) => {
-    User.updateOne({ name: userName, password: userPassword }, { totalTime: newTime})
+    User.updateOne({ name: userName, password: userPassword }, { totalTimeToday: newTime})
       .then((results) => {
         resolve('Time has been logged');
       })

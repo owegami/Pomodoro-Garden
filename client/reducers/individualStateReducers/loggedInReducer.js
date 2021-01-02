@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const loggedInReducer = (state = initialState.loggedIn, action) => {
+const loggedInReducer = (state = false, action) => {
   if (action.type === 'loggedInAction') {
     return action.payload;
   }

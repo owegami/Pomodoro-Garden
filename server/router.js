@@ -45,7 +45,7 @@ app.delete('/timer/user', (req, res) => {
 })
 
 app.patch('/timer/timelog', (req, res) => {
-  connections.sendUserTimes(req.body.name, req.body.password, req.body.totalTime)
+  connections.sendUserTimes(req.body.name, req.body.password, req.body.totalTimeToday)
     .then((result) => {
       res.send(result);
     })

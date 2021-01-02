@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import sounds from './../../../public/sounds.js';
-import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, Button, TextInputBox} from './../../view/styledComponents.jsx';
+import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
 
 const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
 
@@ -11,12 +11,14 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
       <SettingsQuestion>
         <label>
           Enable three minute warning for timer?
-          <Button onClick={(event) => {
+          <SmallerButton onClick={(event) => {
             event.preventDefault();
             let newSetting = !hasThreeMinWarning;
             setThreeMinWarning(newSetting);
-          }}>{hasThreeMinWarning ? 'On' : 'Off'}</Button>
+          }}>{hasThreeMinWarning ? 'On' : 'Off'}</SmallerButton>
         </label>
+      </SettingsQuestion>
+      <SettingsQuestion>
         <label>
           Currently selected:
           <DropDownMenus value={isTicking ? clockTickSound : 'off'} onChange={(event) => {

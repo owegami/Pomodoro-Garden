@@ -1,4 +1,4 @@
-let initialState = {
+let initialState = localStorage.getItem('userSettings') !== null ? JSON.parse(localStorage.getItem('userSettings')) : {
   sessionTotal: 1500,
   direction: 'backward',
   breakTotal: 300,
@@ -6,8 +6,9 @@ let initialState = {
   isOn: false,
   isReset: false,
   isSet: false,
-  totalTimeEver: 60,
-  totalTime: 20,
+  totalTimeEver: 0,
+  totalTimeToday: 0,
+  date: (new Date().getMonth())+1 + '/' + (new Date().getDate()),
   isTicking: true,
   clockTickSound: '1',
   hasThreeMinWarning: true,
@@ -17,7 +18,7 @@ let initialState = {
   selectHighContrast: '',
   errorPresent: false,
   haveServerMessage: false,
-  serverResponseMessage: undefined,
+  serverResponseMessage: null,
   willLogin: true,
   willCreateLogin: false,
   user: '',
@@ -25,7 +26,6 @@ let initialState = {
   loggedIn: false,
   saveToDatabase: false,
   willLogTime: false,
-  willSaveSettings: false,
 }
-
+console.log('local storage:', JSON.parse(localStorage.getItem('userSettings')), 'initialState:', initialState)
 export default initialState;

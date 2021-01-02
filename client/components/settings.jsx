@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import TimerSettingsContainer from './containers/timerSettingsContainer.js';
 import GraphicsSettingsContainer from './containers/graphicsSettingsContainer.js';
 import SoundSettingsContainer from './containers/soundSettingsContainer.js';
-import DataSavingSettings from './../components/settings/dataSettings.jsx';
+// import DataSavingSettingsContainer from './containers/dataSettingsContainer.js';
+import DataSavingSettings from './settings/dataSettings.jsx';
 
 import {Button, ComponentColumnContainer, ComponentRowContainer} from './../view/styledComponents.jsx';
 
-const Settings = ({ setSession, setDirection, setNewSettings, setBreaks, setNumberOfSessions, user, password, setToSaveSettings, sessionTotal, direction, breakTotal, pomodoros, totalTime, totalTimeEver, selectHighContrast, setSelectHighContrast, isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
+const Settings = () => {
   const [viewTimerSettings, setToViewTimerSettings] = useState(false);
   const [viewGraphicsSettings, setToViewGraphicsSettings] = useState(false);
   const [viewSoundSettings, setToViewSoundSettings] = useState(false);

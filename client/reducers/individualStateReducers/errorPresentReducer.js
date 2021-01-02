@@ -1,6 +1,6 @@
 import initialState from './../../store/initialState.js';
 
-const errorPresentReducer = (state = initialState.errorPresent, action) => {
+const errorPresentReducer = (state = false, action) => {
   if (action.type === 'errorPresentAction') {
     return action.payload;
   }
