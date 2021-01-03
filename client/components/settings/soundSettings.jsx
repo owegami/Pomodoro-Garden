@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import sounds from './../../../public/sounds.js';
 import { getArrayOfSounds } from './../../controllers/getArrayOfSounds.js';
-import {CurrentSettingsForm, SettingsQuestion, SettingsQuestionWithDoubleDropDowns, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
+import { CurrentSettingsForm, SettingsQuestion, SettingsQuestionWithDoubleDropDowns, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox } from './../../view/styledComponents.jsx';
 
 const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning, threeMinWarningSound, setThreeMinWarningSound, sessionSound, setSessionSound, breakSound, setBreakSound}) => {
   let sessionCatagoryStart = findStartforDropdown(sessionSound);
@@ -44,7 +44,8 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
               setBreakSound(event.target.value);
             }
           }}>
-            {renderProperDropdown(sessionOrBreak, sessionOrBreak === 'sessionSound' ? sessionSoundCatagory : breakSoundCatagory)}
+            {processSoundIntoDropDownOption(sessionOrBreak === 'sessionSound' ? sessionSound : breakSound, sessionOrBreak)}
+            {renderProperDropdown(sessionOrBreak, sessionOrBreak === 'sessionSound' ? sessionSoundCatagory : breakSoundCatagory, sessionOrBreak === 'sessionSound' ? sessionSound : breakSound, sessionOrBreak)}
             </DropDownMenus>
           </label>
         </SettingsQuestionWithDoubleDropDowns>
@@ -118,8 +119,8 @@ const processSoundIntoDropDownOption = (sound, sessionOrBreak) => {
     )
 }
 
-const renderProperDropdown = (sessionOrBreak, catagory) => {
-  let array = getArrayOfSounds(catagory);
+const renderProperDropdown = (sessionOrBreak, catagory, currentChoice) => {
+  let array = getArrayOfSounds(catagory, currentChoice);
   return array.map((sound) => {
     if (sessionOrBreak === 'sessionSound' && catagory === 'voices') {
       return processSoundIntoDropDownOption(sound + 'Start', sessionOrBreak);
