@@ -119,7 +119,7 @@ exports.aTone = function() {
   }
 }
 
-exports.bellAlert = function() {
+exports.bellsAlert = function() {
   this.sound = document.createElement('audio');
   this.sound.src = '/sounds/bellAlert.m4a';
   this.sound.setAttribute('preload', 'auto');

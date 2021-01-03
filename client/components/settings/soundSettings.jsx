@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { playClockTickingExample, playSampleSound } from './../../controllers/playSoundSamples.js';
+import sounds from './../../../public/sounds.js';
 import { getArrayOfSounds } from './../../controllers/getArrayOfSounds.js';
 import {CurrentSettingsForm, SettingsQuestion, SettingsQuestionWithDoubleDropDowns, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
 
@@ -14,7 +14,6 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
   const warnings = [ 'aTone', 'bellsAlert', 'britMaleThree', 'fionaThree', 'tinBell', 'warblingVireo'];
 
   const renderSoundChoiceDropdowns = (sessionOrBreak) => {
-    console.log(sessionSound, breakSound);
     return (
       <>
         <SettingsQuestionWithDoubleDropDowns>
@@ -144,6 +143,28 @@ const findStartforDropdown = (word) => {
       }
     }
   }
+}
+
+const playClockTickingExample = (choice) => {
+  let sound = new sounds[choice]();
+
+  if (choice !== 'clock6') {
+    sound.play();
+    setTimeout(() => {
+      sound.play();
+    }, 1000);
+  } else {
+    let sound2 = new sounds.clock7();
+    sound.play();
+    setTimeout(() => {
+      sound2.play();
+    }, 1000);
+  }
+}
+
+const playSampleSound = (choice) => {
+  let sound = new sounds[choice]();
+  sound.play();
 }
 
 export default SoundSettings;
