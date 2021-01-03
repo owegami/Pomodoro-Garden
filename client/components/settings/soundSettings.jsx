@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { playClockTickingExample, playSampleSound } from './../../controllers/playSoundSamples.js';
-import { renderProperDropdown, findStartforDropdown } from './../../controllers/manageDropDownMenus.js';
+import { getArrayOfSounds } from './../../controllers/getArrayOfSounds.js';
 import {CurrentSettingsForm, SettingsQuestion, SettingsQuestionWithDoubleDropDowns, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
 
 const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning, threeMinWarningSound, setThreeMinWarningSound, sessionSound, setSessionSound, breakSound, setBreakSound}) => {
@@ -109,6 +109,35 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
       </SettingsQuestion>
     </CurrentSettingsForm>
   )
+}
+
+const processSoundIntoDropDownOption = (sound, sessionOrBreak) => {
+  let stringVersion = sound.charAt(0).toUpperCase() + sound.slice(1);
+  stringVersion = stringVersion.split(/(?=[A-Z])/).join(' ');
+  return (
+    <DropDownOptions value={sound} name={sessionOrBreak} key={sessionOrBreak + sound}>{stringVersion}</DropDownOptions>
+    )
+}
+
+const renderProperDropdown = (sessionOrBreak, catagory) => {
+  let array = getArrayOfSounds(catagory);
+  return array.map((sound) => {
+    return processSoundIntoDropDownOption(sound, sessionOrBreak);
+  })
+}
+
+const findStartforDropdown = (word) => {
+  let catagories = ['bells', 'birds', 'misc', 'voices', 'voicesAtStart'];
+  for (let i = 0; i < catagories.length; i++) {
+    let array = getArrayOfSounds(catagories[i]);
+    if (array.includes(word)) {
+      if (catagories[i] === 'voicesAtStart') {
+        return 'voices';
+      } else {
+        return catagories[i];
+      }
+    }
+  }
 }
 
 export default SoundSettings;
