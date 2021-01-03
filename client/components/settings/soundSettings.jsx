@@ -122,7 +122,13 @@ const processSoundIntoDropDownOption = (sound, sessionOrBreak) => {
 const renderProperDropdown = (sessionOrBreak, catagory) => {
   let array = getArrayOfSounds(catagory);
   return array.map((sound) => {
-    return processSoundIntoDropDownOption(sound, sessionOrBreak);
+    if (sessionOrBreak === 'sessionSound' && catagory === 'voices') {
+      return processSoundIntoDropDownOption(sound + 'Start', sessionOrBreak);
+    } else if (sessionOrBreak === 'breakSound' && catagory === 'voices') {
+      return processSoundIntoDropDownOption(sound + 'Break', sessionOrBreak);
+    } else {
+      return processSoundIntoDropDownOption(sound, sessionOrBreak);
+    }
   })
 }
 
