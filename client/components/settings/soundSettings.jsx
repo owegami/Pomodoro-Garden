@@ -1,32 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import sounds from './../../../public/sounds.js';
-import {CurrentSettingsForm, SettingsQuestion, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
+import { playClockTickingExample, playSampleSound } from './../../controllers/playSoundSamples.js';
+import { renderProperDropdown, findStartforDropdown } from './../../controllers/manageDropDownMenus.js';
+import {CurrentSettingsForm, SettingsQuestion, SettingsQuestionWithDoubleDropDowns, DropDownMenus, ErrorMessageBox, DropDownOptions, SmallerButton, TextInputBox} from './../../view/styledComponents.jsx';
 
-const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning }) => {
+const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSound, hasThreeMinWarning, setThreeMinWarning, threeMinWarningSound, setThreeMinWarningSound, sessionSound, setSessionSound, breakSound, setBreakSound}) => {
+  let sessionCatagoryStart = findStartforDropdown(sessionSound);
+  let breakCatagoryStart = findStartforDropdown(breakSound);
+
+  const [sessionSoundCatagory, setSessionSoundCatagory] = useState(sessionCatagoryStart);
+  const [breakSoundCatagory, setBreakSoundCatagory] = useState(breakCatagoryStart);
+  const warnings = [ 'aTone', 'bellsAlert', 'britMaleThree', 'fionaThree', 'tinBell', 'warblingVireo'];
+
+  const renderSoundChoiceDropdowns = (sessionOrBreak) => {
+    console.log(sessionSound, breakSound);
+    return (
+      <>
+        <SettingsQuestionWithDoubleDropDowns>
+          <label>
+          {sessionOrBreak === 'sessionSound' ? 'Session' : 'Break'} starting sound catagory:
+          <DropDownMenus value={sessionOrBreak === 'sessionSound' ? sessionSoundCatagory : breakSoundCatagory} onChange={(event) => {
+              if (sessionOrBreak === 'sessionSound') {
+                setSessionSoundCatagory(event.target.value);
+              } else {
+                setBreakSoundCatagory(event.target.value);
+              }
+            }}>
+            <DropDownOptions value='bells' name='SoundCatagory'>Bells</DropDownOptions>
+            <DropDownOptions value='birds' name='SoundCatagory'>Birds</DropDownOptions>
+            <DropDownOptions value='misc' name='SoundCatagory'>Miscellaneous</DropDownOptions>
+            <DropDownOptions value='voices' name='SoundCatagory'>Voices</DropDownOptions>
+          </DropDownMenus>
+        </label>
+        </SettingsQuestionWithDoubleDropDowns>
+        <SettingsQuestionWithDoubleDropDowns>
+          <label>
+          Choose a sound:
+          <DropDownMenus value={sessionOrBreak === 'sessionSound' ? sessionSound : breakSound} onChange={(event) => {
+            playSampleSound(event.target.value);
+            if (sessionOrBreak === 'sessionSound') {
+              setSessionSound(event.target.value);
+            } else {
+              setBreakSound(event.target.value);
+            }
+          }}>
+            {renderProperDropdown(sessionOrBreak, sessionOrBreak === 'sessionSound' ? sessionSoundCatagory : breakSoundCatagory)}
+            </DropDownMenus>
+          </label>
+        </SettingsQuestionWithDoubleDropDowns>
+        <br/>
+      </>
+    )
+  }
 
   return (
     <CurrentSettingsForm>
+      {renderSoundChoiceDropdowns('sessionSound')}
+      {renderSoundChoiceDropdowns('breakSound')}
       <SettingsQuestion>
         <label>
-          Enable three minute warning for timer?
-          <SmallerButton onClick={(event) => {
-            event.preventDefault();
-            let newSetting = !hasThreeMinWarning;
-            setThreeMinWarning(newSetting);
-          }}>{hasThreeMinWarning ? 'On' : 'Off'}</SmallerButton>
+          Three Minute Warning Sound:
+          <DropDownMenus value={hasThreeMinWarning ? threeMinWarningSound : 'off'} onChange={(event) => {
+            if (event.target.value === 'off') {
+              setThreeMinWarning(false);
+            } else {
+              setThreeMinWarning(true);
+              playSampleSound(event.target.value);
+              setThreeMinWarningSound(event.target.value);
+            }
+          }}>
+            <DropDownOptions value='off' name='threeMinWarningSounds'>Off</DropDownOptions>
+            {
+              warnings.map((sound) => {
+                let copyOfSound = sound;
+                let stringVersion = copyOfSound.charAt(0).toUpperCase() + copyOfSound.slice(1);
+                stringVersion = stringVersion.split(/(?=[A-Z])/);
+                return (
+                  <DropDownOptions value={sound} name='threeMinWarningSounds' key={'threeMin' + sound}>{stringVersion}</DropDownOptions>
+                )
+              })
+            }
+          </DropDownMenus>
         </label>
       </SettingsQuestion>
+      <br/>
       <SettingsQuestion>
         <label>
-          Currently selected:
+          Clock Ticking Sound:
           <DropDownMenus value={isTicking ? clockTickSound : 'off'} onChange={(event) => {
             if (event.target.value === 'off') {
               setIsTicking(false);
             } else {
               setIsTicking(true);
-              playClockTickingExample(event.target.value);
+              playClockTickingExample('clock' + event.target.value);
               setClockTickSound(event.target.value);
             }
           }}>
@@ -42,48 +109,6 @@ const SoundSettings = ({ isTicking, setIsTicking, clockTickSound, setClockTickSo
       </SettingsQuestion>
     </CurrentSettingsForm>
   )
-}
-
-const playClockTickingExample = (num) => {
-  let clock1 = new sounds.clock1();
-  let clock2 = new sounds.clock2();
-  let clock3 = new sounds.clock3();
-  let clock4 = new sounds.clock4();
-  let clock5 = new sounds.clock5();
-  let clock6 = new sounds.clock6();
-  let clock7 = new sounds.clock7();
-
-  if (num === '1') {
-    clock1.play();
-    setTimeout(() => {
-      clock1.play();
-    }, 1000);
-  } else if (num === '2') {
-    clock2.play();
-    setTimeout(() => {
-      clock2.play();
-    }, 1000);
-  } else if (num === '3') {
-    clock3.play();
-    setTimeout(() => {
-      clock3.play();
-    }, 1000);
-  } else if (num === '4') {
-    clock4.play();
-    setTimeout(() => {
-      clock4.play();
-    }, 1000);
-  } else if (num === '5') {
-    clock5.play();
-    setTimeout(() => {
-      clock5.play();
-    }, 1000);
-  } else if (num === '6') {
-    clock6.play();
-    setTimeout(() => {
-      clock7.play();
-    }, 1000);
-  }
 }
 
 export default SoundSettings;

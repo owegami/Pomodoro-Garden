@@ -10,7 +10,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('Made it here to mapDispatchToProps:', dispatch);
   return {
     setSelectHighContrast: (value) => dispatch(selectHighContrastAction(value)),
   }

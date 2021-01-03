@@ -12,9 +12,9 @@ const GraphicsSettings = ({selectHighContrast, setSelectHighContrast}) => {
       }}>
 
       <SettingsQuestion>
-    Current preference: {selectHighContrast === '' ? 'Low contrast art' : 'High contrast art'} <br/>
-          Select which image you prefer: <br/>
         <label>
+          Current preference: {selectHighContrast === '' ? 'Low contrast art' : 'High contrast art'} <br/>
+          Select which image you prefer: <br/>
           <input type='radio' name='LowContrast' value='' checked={selectHighContrast === ''}  onChange={(event) => {
             setSelectHighContrast(event.target.value);
           }} />

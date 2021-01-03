@@ -83,7 +83,6 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       interval = setInterval(() => {
         setCounter(counter => counter + 1);
         if(isSession && Number.isInteger(counter/60) && counter !== 0) {
-          console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
           addToTotalTimeEver(totalTimeEver + 1);
         }
@@ -115,18 +114,15 @@ const TimerVisual = ({ sessionTotal, direction, isOn, setTimerOn, isReset, reset
       interval = setInterval(() => {
         setCounter(counter => counter - 1);
         if(isSession && Number.isInteger(counter/60) && counter !== sessionTotal) {
-          console.log('Changing time!', Number.isInteger(counter/60));
           addToTotalTimeToday(totalTimeToday + 1);
           addToTotalTimeEver(totalTimeEver + 1);
         }
         setMinutesAndSeconds(counter);
         if (isTicking) {
           if (counter % 2 !== 0) {
-            console.log(1);
             tickingSound1.play();
           } else {
             tickingSound2.play();
-            console.log(2);
           }
         }
       }, 1000)

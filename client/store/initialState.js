@@ -12,6 +12,9 @@ let initialState = localStorage.getItem('userSettings') !== null ? JSON.parse(lo
   isTicking: true,
   clockTickSound: '1',
   hasThreeMinWarning: true,
+  sessionSound: 'bellIn',
+  breakSound: 'bellOut',
+  threeMinWarningSound: 'bellAlert',
   plantChoice: 'Tomato',
   growthRate: 1,
   plantMaxImgNum: 5,
@@ -27,5 +30,4 @@ let initialState = localStorage.getItem('userSettings') !== null ? JSON.parse(lo
   saveToDatabase: false,
   willLogTime: false,
 }
-console.log('local storage:', JSON.parse(localStorage.getItem('userSettings')), 'initialState:', initialState)
 export default initialState;

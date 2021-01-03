@@ -1,32 +1,3 @@
-exports.chimes1 = function() {
-  this.sound = document.createElement('audio');
-  this.sound.src = '/sounds/30606__acclivity__jamesportwindchimes.mp3';
-  this.sound.setAttribute('preload', 'auto');
-  this.sound.setAttribute('controls', 'none');
-  this.sound.style.display = 'none';
-  document.body.appendChild(this.sound);
-  this.play = function() {
-    this.sound.play();
-  }
-  this.stop = function() {
-    this.sound.pause()
-  }
-}
-
-exports.chimes2 = function() {
-  this.sound = document.createElement('audio');
-  this.sound.src = '/sounds/424033__mandymatz__wind-chimes.mp3';
-  this.sound.setAttribute('preload', 'auto');
-  this.sound.setAttribute('controls', 'none');
-  this.sound.style.display = 'none';
-  document.body.appendChild(this.sound);
-  this.play = function() {
-    this.sound.play();
-  }
-  this.stop = function() {
-    this.sound.pause()
-  }
-}
 
 exports.clock1 = function() {
   this.sound = document.createElement('audio');
@@ -268,6 +239,36 @@ exports.cardinalBird = function() {
   }
 }
 
+exports.chimes1 = function() {
+  this.sound = document.createElement('audio');
+  this.sound.src = '/sounds/30606__acclivity__jamesportwindchimes.mp3';
+  this.sound.setAttribute('preload', 'auto');
+  this.sound.setAttribute('controls', 'none');
+  this.sound.style.display = 'none';
+  document.body.appendChild(this.sound);
+  this.play = function() {
+    this.sound.play();
+  }
+  this.stop = function() {
+    this.sound.pause()
+  }
+}
+
+exports.chimes2 = function() {
+  this.sound = document.createElement('audio');
+  this.sound.src = '/sounds/424033__mandymatz__wind-chimes.mp3';
+  this.sound.setAttribute('preload', 'auto');
+  this.sound.setAttribute('controls', 'none');
+  this.sound.style.display = 'none';
+  document.body.appendChild(this.sound);
+  this.play = function() {
+    this.sound.play();
+  }
+  this.stop = function() {
+    this.sound.pause()
+  }
+}
+
 exports.computerMagic = function() {
   this.sound = document.createElement('audio');
   this.sound.src = '/sounds/computerMagic.mp3';
@@ -403,7 +404,7 @@ exports.insistantBell = function() {
   }
 }
 
-exports.maginWand = function() {
+exports.magicWand = function() {
   this.sound = document.createElement('audio');
   this.sound.src = '/sounds/magicWand.mp3';
   this.sound.setAttribute('preload', 'auto');
@@ -523,20 +524,6 @@ exports.thinkingChimes = function() {
   }
 }
 
-exports.clock7 = function() {
-  this.sound = document.createElement('audio');
-  this.sound.src = '/sounds/clockTick7.m4a';
-  this.sound.setAttribute('preload', 'auto');
-  this.sound.setAttribute('controls', 'none');
-  this.sound.style.display = 'none';
-  document.body.appendChild(this.sound);
-  this.play = function() {
-    this.sound.play();
-  }
-  this.stop = function() {
-    this.sound.pause()
-  }
-}
 
 exports.tinBell = function() {
   this.sound = document.createElement('audio');

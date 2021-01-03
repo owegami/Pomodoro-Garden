@@ -164,6 +164,11 @@ export const SettingsQuestion = styled.div`
   margin: -10px 0px;
 `;
 
+export const SettingsQuestionWithDoubleDropDowns = styled.div`
+  margin: -10px 0px;
+  padding: 3px;
+`;
+
 export const DropDownMenus = styled.select`
   font-family: charybdis;
   font-size: .8em;
